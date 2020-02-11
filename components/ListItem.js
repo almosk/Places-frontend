@@ -12,6 +12,10 @@ const ListItem = (props) => {
             style = { styles.placeButton }
             onPress = { () => props.deletePlace(props.placeId) }
           />
+          <Button
+            title="Go to Place"
+            onPress={() => props.navigation.navigate('Place')}
+          />
         </View>
       </TouchableOpacity>
     );

@@ -4,6 +4,7 @@ import ListItem from '../components/ListItem';
 import { connect } from 'react-redux';
 import { addPlace, deletePlace } from '../actions/place';
 
+
 class App extends Component {
 
 state = {
@@ -41,6 +42,7 @@ placesOutput = () => {
           placeName={ info.item.name }
           placeId={ info.item.id }
           deletePlace={ this.deletePlace }
+          navigation={this.props.navigation}
         />
       )}
     />
@@ -52,12 +54,12 @@ render() {
     <View style={ styles.container }>
       <View style = { styles.inputContainer }>
         <TextInput
-          placeholder = "Seach Places"
+          placeholder = "Create place"
           style = { styles.placeInput }
           value = { this.state.placeName }
           onChangeText = { this.placeNameChangeHandler }
         ></TextInput>
-        <Button title = 'Add'
+        <Button title = 'Create'
           style = { styles.placeButton }
           onPress = { this.placeSubmitHandler }
         />
@@ -65,6 +67,7 @@ render() {
         <View style = { styles.listContainer }>
           { this.placesOutput() }
         </View>
+
       </View>
     );
   }
