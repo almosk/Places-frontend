@@ -1,15 +1,18 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 
-const Place = (props) => {
-    return (
-      <View style = { styles.place }>
-        <Text style = { styles.placeButton }>
-          { props.placeName }
-        </Text>
-      </View>
-    );
+const Place = ({ route, navigation }) => {
+  const { placeName } = route.params
+  return (
+    <View style = { styles.place }>
+      <Text style = { styles.placeButton }>
+        { placeName }
+      </Text>
+    </View>
+  );
 }
+
+
 
 const styles = StyleSheet.create({
   place: {

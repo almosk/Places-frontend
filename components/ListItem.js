@@ -14,7 +14,11 @@ const ListItem = (props) => {
           />
           <Button
             title="Go to Place"
-            onPress={() => props.navigation.navigate('Place')}
+            onPress={() => {
+              props.navigation.navigate('Place', {
+                placeName: props.placeName 
+              })
+            }}
           />
         </View>
       </TouchableOpacity>

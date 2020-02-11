@@ -25,7 +25,7 @@ const RNRedux = () => (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Places">
         <Stack.Screen name="Places" component={App} />
-        <Stack.Screen name="Place" component={Place}/>
+        <Stack.Screen name="Place" component={Place} />
       </Stack.Navigator>
     </NavigationContainer>
   </Provider>
