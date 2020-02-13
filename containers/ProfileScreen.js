@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { addPlace, deletePlace } from '../actions/place';
 
 
-class App extends Component {
+class ProfileScreen extends Component {
 
 state = {
   placeName: '',
@@ -113,4 +113,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileScreen)
