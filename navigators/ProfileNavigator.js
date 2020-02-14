@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TextInput, Button, FlatList, Text } from 'react-native';
-import PlaceSnippet from '../components/PlaceSnippet';
-import ProfilePlacesNavigator from '../navigators/ProfilePlacesNavigator';
+import ProfilePostsNavigator from '../navigators/ProfilePostsNavigator';
 import ProfileCollectionsNavigator from '../navigators/ProfileCollectionsNavigator';
 // Navigation
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -10,7 +9,7 @@ class ProfileNavigator extends Component {
 render() {
   return (
       <ProfileTab.Navigator>
-        <ProfileTab.Screen name="Places" component={ProfilePlacesNavigator} />
+        <ProfileTab.Screen name="Places" component={ProfilePostsNavigator} />
         <ProfileTab.Screen name="Collections" component={ProfileCollectionsNavigator} />
       </ProfileTab.Navigator>
     );

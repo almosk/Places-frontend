@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 
-const PlaceScreen = ({ route, navigation }) => {
+const PostScreen = ({ route, navigation }) => {
   const { placeName } = route.params
   return (
     <View style = { styles.place }>
@@ -29,4 +29,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default PlaceScreen;
+export default PostScreen;

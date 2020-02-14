@@ -11,7 +11,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ProfileNavigator from './navigators/ProfileNavigator';
 import NewsScreen from './containers/NewsScreen';
 import ExploreScreen from './containers/ExploreScreen';
-import PlaceScreen from './components/PlaceScreen'
 // Redux
 import { Provider } from 'react-redux';
 import configureStore from './store';

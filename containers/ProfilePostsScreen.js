@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TextInput, Button, FlatList } from 'react-native';
-import PlaceSnippet from '../components/PlaceSnippet';
+import PostSnippet from '../components/PostSnippet';
 // Redux
 import { connect } from 'react-redux';
 import { addPlace, deletePlace } from '../actions/place';
 
 
-class ProfilePlacesScreen extends Component {
+class ProfilePostsScreen extends Component {
 
 state = {
   placeName: '',
@@ -39,7 +39,7 @@ placesOutput = () => {
       data = { this.props.places }
       keyExtractor={(item, index) => index.toString()}
       renderItem = { info => (
-        <PlaceSnippet
+        <PostSnippet
           placeName={ info.item.name }
           placeId={ info.item.id }
           deletePlace={ this.deletePlace }
@@ -114,4 +114,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProfilePlacesScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(ProfilePostsScreen)

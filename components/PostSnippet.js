@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
 
-const PlaceSnippet = (props) => {
+const PostSnippet = (props) => {
     return (
       <TouchableOpacity>
         <View style = { styles.listItem }>
@@ -40,4 +40,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default PlaceSnippet;
+export default PostSnippet;
