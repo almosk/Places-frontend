@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
 
-const ListItem = (props) => {
+const PlaceSnippet = (props) => {
     return (
       <TouchableOpacity>
         <View style = { styles.listItem }>
@@ -16,7 +16,7 @@ const ListItem = (props) => {
             title="Go to Place"
             onPress={() => {
               props.navigation.navigate('Place', {
-                placeName: props.placeName 
+                placeName: props.placeName
               })
             }}
           />
@@ -40,4 +40,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ListItem;
+export default PlaceSnippet;

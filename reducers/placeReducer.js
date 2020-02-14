@@ -2,7 +2,14 @@ import { ADD_PLACE, DELETE_PLACE } from '../actions/types';
 
 const initialState = {
   placeName: '',
-  places: []
+  places: [
+    {id: 0,
+    name: 'ABC Roasters'},
+    {id: 1,
+    name: 'Salut Cafe'},
+    {id: 2,
+    name: 'Gorky Park'},
+  ]
 };
 
 const placeReducer = (state = initialState, action) => {

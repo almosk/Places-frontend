@@ -8,10 +8,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // Continers and Components
-import ProfileScreen from './containers/ProfileScreen';
+import ProfileNavigator from './navigators/ProfileNavigator';
 import NewsScreen from './containers/NewsScreen';
 import ExploreScreen from './containers/ExploreScreen';
-import Place from './components/Place'
+import PlaceScreen from './components/PlaceScreen'
 // Redux
 import { Provider } from 'react-redux';
 import configureStore from './store';
@@ -27,7 +27,7 @@ const RNRedux = () => (
       <Tab.Navigator>
         <Tab.Screen name="News" component={NewsScreen} />
         <Tab.Screen name="Explore" component={ExploreScreen} />
-        <Tab.Screen name="Profile" component={ProfileScreen} />
+        <Tab.Screen name="Profile" component={ProfileNavigator} />
       </Tab.Navigator>
     </NavigationContainer>
   </Provider>
@@ -35,10 +35,12 @@ const RNRedux = () => (
 
 AppRegistry.registerComponent(appName, () => RNRedux);
 
-// <Stack.Navigator initialRouteName="Places">
-//   <Stack.Screen name="Places" component={App} />
-//   <Stack.Screen name="Place"
-//     component={Place}
-//     options={({ route }) => ({ title: route.params.placeName })}
-//   />
-// </Stack.Navigator>
+// <NavigationContainer>
+//   <Stack.Navigator initialRouteName="Places">
+//     <Stack.Screen name="Places" component={App} />
+//     <Stack.Screen name="Place"
+//       component={Place}
+//       options={({ route }) => ({ title: route.params.placeName })}
+//     />
+//   </Stack.Navigator>
+// </NavigationContainer>

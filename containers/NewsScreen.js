@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import ListItem from '../components/ListItem';
+import PlaceSnippet from '../components/PlaceSnippet';
 import { connect } from 'react-redux';
 import { addPlace, deletePlace } from '../actions/place';
 
