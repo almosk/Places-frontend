@@ -3,46 +3,46 @@ import { StyleSheet, View, TextInput, Button, FlatList } from 'react-native';
 import PostSnippet from '../components/PostSnippet';
 // Redux
 import { connect } from 'react-redux';
-import { addPlace, deletePlace } from '../actions/place';
+import { addPost, deletePost } from '../actions/post';
 
 
 class ProfilePostsScreen extends Component {
 
 state = {
-  placeName: '',
-  places: []
+  postName: '',
+  posts: []
 }
 
-placeSubmitHandler = () => {
-  if(this.state.placeName.trim() === '') {
+postSubmitHandler = () => {
+  if(this.state.postName.trim() === '') {
     return;
   }
-  this.props.add(this.state.placeName);
+  this.props.add(this.state.postName);
   this.setState({
-    placeName: ''
+    postName: ''
   });
 }
 
-placeNameChangeHandler = (value) => {
+postNameChangeHandler = (value) => {
   this.setState({
-    placeName: value
+    postName: value
   });
 }
 
-deletePlace = (id) => {
+deletePost = (id) => {
   this.props.delete(id);
 }
 
-placesOutput = () => {
+postsOutput = () => {
    return (
     <FlatList style = { styles.listContainer }
-      data = { this.props.places }
+      data = { this.props.posts }
       keyExtractor={(item, index) => index.toString()}
       renderItem = { info => (
         <PostSnippet
-          placeName={ info.item.name }
-          placeId={ info.item.id }
-          deletePlace={ this.deletePlace }
+          postName={ info.item.name }
+          postId={ info.item.id }
+          deletePost={ this.deletePost }
           navigation={this.props.navigation}
         />
       )}
@@ -56,17 +56,17 @@ render() {
       <View style = { styles.inputContainer }>
         <TextInput
           placeholder = "Create place"
-          style = { styles.placeInput }
-          value = { this.state.placeName }
-          onChangeText = { this.placeNameChangeHandler }
+          style = { styles.postInput }
+          value = { this.state.postName }
+          onChangeText = { this.postNameChangeHandler }
         ></TextInput>
         <Button title = 'Create'
-          style = { styles.placeButton }
-          onPress = { this.placeSubmitHandler }
+          style = { styles.postButton }
+          onPress = { this.postSubmitHandler }
         />
         </View>
         <View style = { styles.listContainer }>
-          { this.placesOutput() }
+          { this.postsOutput() }
         </View>
 
       </View>
@@ -86,10 +86,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%'
   },
-  placeInput: {
+  postInput: {
     width: '70%'
   },
-  placeButton: {
+  postButton: {
     width: '30%'
   },
   listContainer: {
@@ -99,17 +99,17 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    places: state.places.places
+    posts: state.posts.posts
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     add: (name) => {
-      dispatch(addPlace(name))
+      dispatch(addPost(name))
     },
     delete: (id) => {
-      dispatch(deletePlace(id))
+      dispatch(deletePost(id))
     }
   }
 }

@@ -1,9 +1,9 @@
 import { createStore, combineReducers } from 'redux';
-import placeReducer from './reducers/placeReducer';
+import postReducer from './reducers/postReducer';
 import collectionReducer from './reducers/collectionReducer';
 
 const rootReducer = combineReducers({
-  places: placeReducer,
+  posts: postReducer,
   collections: collectionReducer
 });
 

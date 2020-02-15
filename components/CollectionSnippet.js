@@ -5,7 +5,7 @@ const CollectionSnippet = (props) => {
     return (
       <TouchableOpacity>
         <View style = { styles.listItem }>
-          <Text style = { styles.placeButton }>
+          <Text style = { styles.postButton }>
             { props.collectionName }
           </Text>
           <Button
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center'
   },
-  placeButton: {
+  postButton: {
     width: '30%'
   }
 });

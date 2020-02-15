@@ -3,14 +3,14 @@ import { StyleSheet, View, TextInput, Button, FlatList } from 'react-native';
 import CollectionSnippet from '../components/CollectionSnippet';
 // Redux
 import { connect } from 'react-redux';
-import { addPlace, deletePlace } from '../actions/place';
+import { addPost, deletePost } from '../actions/post';
 
 
 class ProfileCollectionsScreen extends Component {
 
 state = {
-  placeName: '',
-  places: []
+  postName: '',
+  posts: []
 }
 
 collectionsOutput = () => {
@@ -41,23 +41,6 @@ render() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    paddingTop: 30,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: '100%'
-  },
-  placeInput: {
-    width: '70%'
-  },
-  placeButton: {
-    width: '30%'
-  },
   listContainer: {
     width: '100%'
   }

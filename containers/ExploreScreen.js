@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { connect } from 'react-redux';
-import { addPlace, deletePlace } from '../actions/place';
+import { addPost, deletePost } from '../actions/post';
 
 
 class ExploreScreen extends Component {
@@ -16,17 +16,17 @@ render() {
 
 const mapStateToProps = state => {
   return {
-    places: state.places.places
+    posts: state.posts.posts
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     add: (name) => {
-      dispatch(addPlace(name))
+      dispatch(addPost(name))
     },
     delete: (id) => {
-      dispatch(deletePlace(id))
+      dispatch(deletePost(id))
     }
   }
 }

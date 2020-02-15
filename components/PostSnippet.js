@@ -5,18 +5,18 @@ const PostSnippet = (props) => {
     return (
       <TouchableOpacity>
         <View style = { styles.listItem }>
-          <Text style = { styles.placeButton }>
-            { props.placeName }
+          <Text style = { styles.postButton }>
+            { props.postName }
           </Text>
           <Button title = 'Delete'
-            style = { styles.placeButton }
-            onPress = { () => props.deletePlace(props.placeId) }
+            style = { styles.postButton }
+            onPress = { () => props.deletePost(props.postId) }
           />
           <Button
             title="Go to Place"
             onPress={() => {
               props.navigation.navigate('Place', {
-                placeName: props.placeName
+                postName: props.postName
               })
             }}
           />
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center'
   },
-  placeButton: {
+  postButton: {
     width: '30%'
   }
 });

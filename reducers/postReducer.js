@@ -1,8 +1,8 @@
-import { ADD_PLACE, DELETE_PLACE } from '../actions/types';
+import { ADD_POST, DELETE_POST } from '../actions/types';
 
 const initialState = {
   placeName: '',
-  places: [
+  posts: [
     {id: 0,
     name: 'ABC Roasters'},
     {id: 1,
@@ -12,26 +12,26 @@ const initialState = {
   ]
 };
 
-const placeReducer = (state = initialState, action) => {
+const postReducer = (state = initialState, action) => {
   switch(action.type) {
-    case ADD_PLACE:
+    case ADD_POST:
       console.log(state)
       return {
         ...state,
-        places: state.places.concat({
-          id: state.places.length,
+        posts: state.posts.concat({
+          id: state.posts.length,
           name: action.payload.placeName
         })
       }
-    case DELETE_PLACE:
+    case DELETE_POST:
       console.log(action.id);
       return {
         ...state,
-        places: state.places.filter(place => place.id != action.payload.id)
+        posts: state.posts.filter(post => post.id != action.payload.id)
       };
     default:
       return state;
   }
 }
 
-export default placeReducer;
+export default postReducer;

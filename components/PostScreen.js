@@ -2,11 +2,11 @@ import React from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 
 const PostScreen = ({ route, navigation }) => {
-  const { placeName } = route.params
+  const { postName } = route.params
   return (
-    <View style = { styles.place }>
-      <Text style = { styles.placeButton }>
-        { placeName }
+    <View style = { styles.post }>
+      <Text style = { styles.postButton }>
+        { postName }
       </Text>
     </View>
   );
@@ -15,7 +15,7 @@ const PostScreen = ({ route, navigation }) => {
 
 
 const styles = StyleSheet.create({
-  place: {
+  post: {
     width: '100%',
     padding: 10,
     marginBottom: 10,
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center'
   },
-  placeButton: {
+  postButton: {
     width: '30%'
   }
 });
