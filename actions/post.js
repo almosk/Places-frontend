@@ -1,10 +1,10 @@
 import { ADD_POST, DELETE_POST } from './types';
 
-export const addPost = placeName => {
+export const addPost = title => {
   return {
     type: ADD_POST,
     payload: {
-      placeName: placeName
+      title: title
     }
   }
 }

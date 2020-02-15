@@ -1,15 +1,14 @@
 import { ADD_POST, DELETE_POST } from '../actions/types';
 
 const initialState = {
-  placeName: '',
-  posts: [
-    {id: 0,
-    name: 'ABC Roasters'},
-    {id: 1,
-    name: 'Salut Cafe'},
-    {id: 2,
-    name: 'Gorky Park'},
-  ]
+  posts: {
+    byId: {
+      0: {id: 0, title: 'ABC Roasters'},
+      1: {id: 1, title: 'Salut Cafe'},
+      2: {id: 2, title: 'Gorky Park'},
+    },
+    allIds : [0, 1, 2]
+  }
 };
 
 const postReducer = (state = initialState, action) => {
@@ -20,7 +19,7 @@ const postReducer = (state = initialState, action) => {
         ...state,
         posts: state.posts.concat({
           id: state.posts.length,
-          name: action.payload.placeName
+          title: action.payload.title
         })
       }
     case DELETE_POST:

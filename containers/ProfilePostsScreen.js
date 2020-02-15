@@ -9,23 +9,23 @@ import { addPost, deletePost } from '../actions/post';
 class ProfilePostsScreen extends Component {
 
 state = {
-  postName: '',
+  inputText: '',
   posts: []
 }
 
 postSubmitHandler = () => {
-  if(this.state.postName.trim() === '') {
+  if(this.state.inputText.trim() === '') {
     return;
   }
-  this.props.add(this.state.postName);
+  this.props.add(this.state.inputText);
   this.setState({
-    postName: ''
+    inputText: ''
   });
 }
 
-postNameChangeHandler = (value) => {
+inputTextChangeHandler = (value) => {
   this.setState({
-    postName: value
+    inputText: value
   });
 }
 
@@ -40,7 +40,7 @@ postsOutput = () => {
       keyExtractor={(item, index) => index.toString()}
       renderItem = { info => (
         <PostSnippet
-          postName={ info.item.name }
+          inputText={ info.item.title }
           postId={ info.item.id }
           deletePost={ this.deletePost }
           navigation={this.props.navigation}
@@ -57,8 +57,8 @@ render() {
         <TextInput
           placeholder = "Create place"
           style = { styles.postInput }
-          value = { this.state.postName }
-          onChangeText = { this.postNameChangeHandler }
+          value = { this.state.inputText }
+          onChangeText = { this.inputTextChangeHandler }
         ></TextInput>
         <Button title = 'Create'
           style = { styles.postButton }
@@ -99,14 +99,14 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    posts: state.posts.posts
+    posts: Object.values(state.posts.posts.byId)
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    add: (name) => {
-      dispatch(addPost(name))
+    add: (title) => {
+      dispatch(addPost(title))
     },
     delete: (id) => {
       dispatch(deletePost(id))
