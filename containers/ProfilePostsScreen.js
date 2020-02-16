@@ -21,6 +21,7 @@ postSubmitHandler = () => {
   this.setState({
     inputText: ''
   });
+  console.log(this.props.posts);
 }
 
 inputTextChangeHandler = (value) => {
@@ -35,17 +36,28 @@ deletePost = (id) => {
 
 postsOutput = () => {
    return (
-    <FlatList style = { styles.listContainer }
-      data = { this.props.posts }
-      keyExtractor={(item, index) => index.toString()}
-      renderItem = { info => (
+    // <FlatList style = { styles.listContainer }
+    //   data = { this.props.posts }
+    //   keyExtractor={(item, index) => index.toString()}
+    //   renderItem = { info => (
+    //     <PostSnippet
+    //       inputText={ info.item.title }
+    //       postId={ info.item.id }
+    //       deletePost={ this.deletePost }
+    //       navigation={this.props.navigation}
+    //     />
+    //   )}
+    // />
+    <FlatList
+      data={this.props.posts}
+      renderItem={({ item }) =>
         <PostSnippet
-          inputText={ info.item.title }
-          postId={ info.item.id }
+          title={ item.title }
+          id={ item.id }
           deletePost={ this.deletePost }
           navigation={this.props.navigation}
-        />
-      )}
+        />}
+      keyExtractor={item => item.id}
     />
   )
 }

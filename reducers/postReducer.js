@@ -1,3 +1,4 @@
+import { combineReducers } from 'redux';
 import { ADD_POST, DELETE_POST } from '../actions/types';
 
 const initialState = {
@@ -9,19 +10,25 @@ const initialState = {
     },
     allIds : [0, 1, 2]
   }
-};
+}
 
 const postReducer = (state = initialState, action) => {
   switch(action.type) {
     case ADD_POST:
-      console.log(state)
+      const postId = Math.random()
+      const newPost = { 2: {id: 2, title: 'Gorky Park' }}
       return {
         ...state,
-        posts: state.posts.concat({
-          id: state.posts.length,
-          title: action.payload.title
-        })
+        posts: {
+          ...state.posts,
+          byId: {
+            ...state.posts.byId,
+            [postId]: newPost
+          }
+        }
       }
+
+
     case DELETE_POST:
       console.log(action.id);
       return {
