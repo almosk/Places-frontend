@@ -15,8 +15,8 @@ const initialState = {
 const postReducer = (state = initialState, action) => {
   switch(action.type) {
     case ADD_POST:
-      const postId = Math.random()
-      const newPost = { 2: {id: 2, title: 'Gorky Park' }}
+      const postId = Math.max.apply(null, Object.keys(state.posts.byId)) + 1
+      const newPost = {id: postId, title: action.payload.title }
       return {
         ...state,
         posts: {
@@ -27,14 +27,23 @@ const postReducer = (state = initialState, action) => {
           }
         }
       }
-
-
     case DELETE_POST:
-      console.log(action.id);
       return {
         ...state,
-        posts: state.posts.filter(post => post.id != action.payload.id)
-      };
+        posts: {
+          ...state.posts,
+          byId: Object.keys(state.posts.byId).reduce((result, key) => {
+            if (key !== action.payload.id) {
+              result[key] = state.posts.byId[key];
+            }
+              return result;
+          }, {})
+        }
+      }
+      // return {
+      //   ...state,
+      //   posts: state.posts.filter(post => post.id != action.payload.id)
+      // };
     default:
       return state;
   }
