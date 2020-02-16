@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TextInput, Button, FlatList } from 'react-native';
 import PostSnippet from '../components/PostSnippet';
+import PostsFlatList from '../components/PostsFlatList';
 // Redux
 import { connect } from 'react-redux';
 import { addPost, deletePost } from '../actions/post';
@@ -36,28 +37,9 @@ deletePost = (id) => {
 
 postsOutput = () => {
    return (
-    // <FlatList style = { styles.listContainer }
-    //   data = { this.props.posts }
-    //   keyExtractor={(item, index) => index.toString()}
-    //   renderItem = { info => (
-    //     <PostSnippet
-    //       inputText={ info.item.title }
-    //       postId={ info.item.id }
-    //       deletePost={ this.deletePost }
-    //       navigation={this.props.navigation}
-    //     />
-    //   )}
-    // />
-    <FlatList
+    <PostsFlatList
       data={this.props.posts}
-      renderItem={({ item }) =>
-        <PostSnippet
-          title={ item.title }
-          id={ item.id }
-          deletePost={ this.deletePost }
-          navigation={this.props.navigation}
-        />}
-      keyExtractor={item => item.id}
+      navigation={this.props.navigation}
     />
   )
 }

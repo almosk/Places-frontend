@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TextInput, Button, FlatList, Text } from 'react-native';
 // import PlaceSnippet from '../components/PlaceSnippet';
-import CollectionScreen from '../components/CollectionScreen';
+// import CollectionScreen from '../components/CollectionScreen';
 import ProfileCollectionsScreen from '../containers/ProfileCollectionsScreen';
+import CollectionScreen from '../containers/CollectionScreen';
 // Navigation
 import { createStackNavigator } from '@react-navigation/stack';
 

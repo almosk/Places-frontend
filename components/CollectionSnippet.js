@@ -12,7 +12,8 @@ const CollectionSnippet = (props) => {
             title="Go to Collection"
             onPress={() => {
               props.navigation.navigate('Collection', {
-                collectionName: props.collectionName
+                collectionName: props.collectionName,
+                collectionId: props.collectionId
               })
             }}
           />
