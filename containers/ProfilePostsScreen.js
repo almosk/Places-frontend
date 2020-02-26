@@ -14,27 +14,6 @@ state = {
   posts: []
 }
 
-postSubmitHandler = () => {
-  if(this.state.inputText.trim() === '') {
-    return;
-  }
-  this.props.add(this.state.inputText);
-  this.setState({
-    inputText: ''
-  });
-  console.log(this.props.posts);
-}
-
-inputTextChangeHandler = (value) => {
-  this.setState({
-    inputText: value
-  });
-}
-
-deletePost = (id) => {
-  this.props.delete(id);
-}
-
 postsOutput = () => {
    return (
     <PostsFlatList
@@ -47,24 +26,18 @@ postsOutput = () => {
 render() {
   return (
     <View style={ styles.container }>
-      <View style = { styles.inputContainer }>
-        <TextInput
-          placeholder = "Create place"
-          style = { styles.postInput }
-          value = { this.state.inputText }
-          onChangeText = { this.inputTextChangeHandler }
-        ></TextInput>
-        <Button title = 'Create'
-          style = { styles.postButton }
-          onPress = { this.postSubmitHandler }
-        />
-        </View>
-        <View style = { styles.listContainer }>
-          { this.postsOutput() }
-        </View>
-
+      <Button title = 'New Post'
+        color="#f194ff"
+        style = { styles.newPostButton }
+        onPress={() => {
+          this.props.navigation.navigate('New Post')
+        }}
+      />
+      <View style = { styles.listContainer }>
+        { this.postsOutput() }
       </View>
-    );
+    </View>
+  );
   }
 }
 
@@ -85,6 +58,9 @@ const styles = StyleSheet.create({
   },
   postButton: {
     width: '30%'
+  },
+  newPostButton:{
+    marginTop: '130px'
   },
   listContainer: {
     width: '100%'
