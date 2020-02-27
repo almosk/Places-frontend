@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TextInput, Button, FlatList, Picker } from 'react-native';
+import { Text, StyleSheet, View, TextInput, Button, FlatList } from 'react-native';
+import CollectionsFlatList from '../components/CollectionsFlatList';
 // Redux
 import { connect } from 'react-redux';
 import { addPost, deletePost } from '../actions/post';
@@ -9,24 +10,30 @@ class NewPostScreen extends Component {
 
 state = {
   inputText: '',
-  language:'Ruby'
+  collectionId: ''
 }
 
 postSubmitHandler = () => {
   if(this.state.inputText.trim() === '') {
     return;
   }
-  this.props.add(this.state.inputText);
+  this.props.add(this.state.inputText, this.state.collectionId);
   this.setState({
     inputText: ''
-  });
-  console.log(this.props.language);
+  })
 }
 
 inputTextChangeHandler = (value) => {
   this.setState({
     inputText: value
   });
+}
+
+setCollection = (collectionId) => {
+  this.setState({
+    collectionId: collectionId
+  })
+  this.postSubmitHandler()
 }
 
 render() {
@@ -44,15 +51,11 @@ render() {
           onPress = { this.postSubmitHandler }
         />
       </View>
-      <Picker
-        selectedValue={this.state.language}
-        style={{height: 50, width: 100}}
-        onValueChange={(itemValue, itemIndex) =>
-          this.setState({language: itemValue})
-        }>
-        <Picker.Item label="Java" value="java" />
-        <Picker.Item label="JavaScript" value="js" />
-      </Picker>
+      <CollectionsFlatList
+        data = { this.props.collections }
+        setCollection = { this.setCollection }
+      />
+
     </View>
   )}
 }
@@ -82,7 +85,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    // posts: Object.values(state.posts.posts.byId)
+    posts: Object.values(state.posts.posts.byId),
+    collections: Object.values(state.collections.collections.byId)
   }
 }
 

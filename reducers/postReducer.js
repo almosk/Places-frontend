@@ -1,3 +1,4 @@
+import { deleteIn } from 'lodash-redux-immutability';
 import { combineReducers } from 'redux';
 import { ADD_POST, DELETE_POST } from '../actions/types';
 
@@ -28,7 +29,13 @@ const postReducer = (state = initialState, action) => {
         }
       }
     case DELETE_POST:
+      // const newState = deleteIn(state, ['posts', 'byId', action.payload.id])
+      // console.log(state);
+      // console.log(newState);
+      delete state.posts.byId[action.payload.id]
       return {
+        // newState
+        // state
         ...state,
         posts: {
           ...state.posts,
@@ -40,10 +47,6 @@ const postReducer = (state = initialState, action) => {
           }, {})
         }
       }
-      // return {
-      //   ...state,
-      //   posts: state.posts.filter(post => post.id != action.payload.id)
-      // };
     default:
       return state;
   }

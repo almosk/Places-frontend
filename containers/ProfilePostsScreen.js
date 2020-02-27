@@ -19,6 +19,7 @@ postsOutput = () => {
     <PostsFlatList
       data={this.props.posts}
       navigation={this.props.navigation}
+      deletePost={ this.props.delete }
     />
   )
 }
