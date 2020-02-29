@@ -43,8 +43,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    posts: Object.values(state.posts.posts.byId),
-    collectionPosts: Object.values(state.collectionPosts.collectionPosts.byId)
+    posts: Object.values(state.posts.byId),
+    collectionPosts: Object.values(state.collectionPosts.byId)
   }
 }
 

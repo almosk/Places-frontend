@@ -89,9 +89,9 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    posts: Object.values(state.posts.posts.byId),
-    collections: Object.values(state.collections.collections.byId),
-    collectionPosts: state.collectionPosts.collectionPosts.byId
+    posts: Object.values(state.posts.byId),
+    collections: Object.values(state.collections.byId),
+    collectionPosts: state.collectionPosts.byId
   }
 }
 

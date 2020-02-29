@@ -16,7 +16,7 @@ render() {
 
 const mapStateToProps = state => {
   return {
-    posts: state.posts.posts
+    posts: state.posts
   }
 }
 

@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    posts: Object.values(state.posts.posts.byId)
+    posts: Object.values(state.posts.byId)
   }
 }
 
