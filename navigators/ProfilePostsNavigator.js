@@ -12,7 +12,10 @@ render() {
       <ProfilePostsStack.Navigator initialRouteName="Places">
         <ProfilePostsStack.Screen name="Places" component={ProfilePostsScreen} />
         <ProfilePostsStack.Screen name="Place" component={PostScreen}
-          options={({ route }) => ({ title: route.params.placeName })}
+          options={({ route }) => ({
+            title: route.params.placeName,
+            post: route.params.post
+          })}
         />
         <ProfilePostsStack.Screen name="New Post" component={NewPostScreen} />
       </ProfilePostsStack.Navigator>

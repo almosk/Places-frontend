@@ -1,4 +1,4 @@
-// import { ADD_PLACE, DELETE_PLACE } from '../actions/types';
+import { ADD_COLLECTION_POST } from '../actions/types';
 
 const initialState = {
   collectionPosts: {
@@ -12,7 +12,19 @@ const initialState = {
 
 const collectionPostReducer = (state = initialState, action) => {
   switch(action.type) {
-
+    case ADD_COLLECTION_POST:
+      const collectionPostId = Math.max.apply(null, Object.keys(state.collectionPosts.byId)) + 1
+      const newCollectionPost = {id: collectionPostId, collectionId: action.payload.collectionId, postId: action.payload.postId }
+      return {
+        ...state,
+        collectionPosts: {
+          ...state.collectionPosts,
+          byId: {
+            ...state.collectionPosts.byId,
+            [collectionPostId]: newCollectionPost
+          }
+        }
+      }
     default:
       return state;
   }

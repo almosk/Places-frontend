@@ -16,7 +16,8 @@ const PostSnippet = (props) => {
             title="Go to Place"
             onPress={() => {
               props.navigation.navigate('Place', {
-                postName: props.title
+                postName: props.title,
+                post: props.post
               })
             }}
           />

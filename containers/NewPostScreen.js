@@ -4,6 +4,7 @@ import CollectionsFlatList from '../components/CollectionsFlatList';
 // Redux
 import { connect } from 'react-redux';
 import { addPost, deletePost } from '../actions/post';
+import { addCollectionPost } from '../actions/collectionPost';
 
 
 class NewPostScreen extends Component {
@@ -17,7 +18,9 @@ postSubmitHandler = () => {
   if(this.state.inputText.trim() === '') {
     return;
   }
-  this.props.add(this.state.inputText, this.state.collectionId);
+  this.props.add(this.state.inputText, this.state.collectionId)
+  this.props.addCollectionPost(this.state.collectionId, 1)
+  console.log(this.state.collectionId, this.props.collectionPosts);
   this.setState({
     inputText: ''
   })
@@ -39,6 +42,7 @@ setCollection = (collectionId) => {
 render() {
   return (
     <View style={ styles.container }>
+      <Text>Post name:</Text>
       <View style = { styles.inputContainer }>
         <TextInput
           placeholder = "Create place"
@@ -51,11 +55,11 @@ render() {
           onPress = { this.postSubmitHandler }
         />
       </View>
+      <Text>Select collection:</Text>
       <CollectionsFlatList
         data = { this.props.collections }
         setCollection = { this.setCollection }
       />
-
     </View>
   )}
 }
@@ -86,7 +90,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     posts: Object.values(state.posts.posts.byId),
-    collections: Object.values(state.collections.collections.byId)
+    collections: Object.values(state.collections.collections.byId),
+    collectionPosts: state.collectionPosts.collectionPosts.byId
   }
 }
 
@@ -97,6 +102,9 @@ const mapDispatchToProps = dispatch => {
     },
     delete: (id) => {
       dispatch(deletePost(id))
+    },
+    addCollectionPost: (collectionId, postId) => {
+      dispatch(addCollectionPost(collectionId, postId))
     }
   }
 }

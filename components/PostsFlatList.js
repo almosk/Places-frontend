@@ -8,6 +8,7 @@ const PostsFlatList = (props) => {
       data={props.data}
       renderItem={({ item }) =>
         <PostSnippet
+          post={item}
           title={ item.title }
           id={ item.id }
           deletePost={ props.deletePost }
