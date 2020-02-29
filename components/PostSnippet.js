@@ -3,8 +3,15 @@ import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
 
 const PostSnippet = (props) => {
     return (
-      <TouchableOpacity>
-        <View style = { styles.listItem }>
+      <TouchableOpacity
+        onPress={() => {
+          props.navigation.navigate('Place', {
+            postName: props.title,
+            post: props.post
+          })
+        }}
+      >
+        <View style = { styles.postSnippet }>
           <Text style = { styles.postButton }>
             { props.title }
           </Text>
@@ -12,22 +19,13 @@ const PostSnippet = (props) => {
             style = { styles.postButton }
             onPress = { () => props.deletePost(props.id) }
           />
-          <Button
-            title="Go to Place"
-            onPress={() => {
-              props.navigation.navigate('Place', {
-                postName: props.title,
-                post: props.post
-              })
-            }}
-          />
         </View>
       </TouchableOpacity>
     );
 }
 
 const styles = StyleSheet.create({
-  listItem: {
+  postSnippet: {
     width: '100%',
     padding: 10,
     marginBottom: 10,

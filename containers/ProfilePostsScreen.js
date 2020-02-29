@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TextInput, Button, FlatList } from 'react-native';
+import { StyleSheet, View, TextInput, FlatList } from 'react-native';
 import PostSnippet from '../components/PostSnippet';
 import PostsFlatList from '../components/PostsFlatList';
+import { Container, Header, Content, Button, Text, Tab, Tabs, TabHeading } from 'native-base';
 // Redux
 import { connect } from 'react-redux';
 import { addPost, deletePost } from '../actions/post';
@@ -26,18 +27,24 @@ postsOutput = () => {
 
 render() {
   return (
-    <View style={ styles.container }>
-      <Button title = 'New Post'
-        color="#f194ff"
-        style = { styles.newPostButton }
-        onPress={() => {
-          this.props.navigation.navigate('New Post')
-        }}
-      />
-      <View style = { styles.listContainer }>
-        { this.postsOutput() }
+    <Container>
+      <View style={ styles.container }>
+
+
+        <Button
+          rounded
+          onPress={() => {
+            this.props.navigation.navigate('New Post')
+          }}
+        >
+          <Text>New Post</Text>
+        </Button>
+
+        <View style = { styles.listContainer }>
+          { this.postsOutput() }
+        </View>
       </View>
-    </View>
+    </Container>
   );
   }
 }
@@ -64,6 +71,7 @@ const styles = StyleSheet.create({
     marginTop: '130px'
   },
   listContainer: {
+    marginTop: 32,
     width: '100%'
   }
 });

@@ -3,20 +3,18 @@ import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
 
 const CollectionSnippet = (props) => {
     return (
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          props.navigation.navigate('Collection', {
+            collectionName: props.collectionName,
+            collectionId: props.collectionId
+          })
+        }}
+      >
         <View style = { styles.listItem }>
           <Text style = { styles.postButton }>
             { props.collectionName }
           </Text>
-          <Button
-            title="Go to Collection"
-            onPress={() => {
-              props.navigation.navigate('Collection', {
-                collectionName: props.collectionName,
-                collectionId: props.collectionId
-              })
-            }}
-          />
         </View>
       </TouchableOpacity>
     );
