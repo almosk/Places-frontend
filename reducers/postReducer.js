@@ -25,6 +25,7 @@ const postReducer = (state = initialState, action) => {
           }
       }
     case DELETE_POST:
+      // console.log(action.payload.id);
       // const newState = deleteIn(state, ['posts', 'byId', action.payload.id])
       // console.log(state);
       // console.log(newState);

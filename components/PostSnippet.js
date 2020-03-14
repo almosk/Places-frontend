@@ -17,7 +17,7 @@ const PostSnippet = (props) => {
           </Text>
           <Button title = 'Delete'
             style = { styles.postButton }
-            onPress = { () => props.deletePost(props.id) }
+            onPress = { () => props.deletePost(props.post.id) }
           />
         </View>
       </TouchableOpacity>

@@ -20,13 +20,27 @@ postsOutput = () => {
     <PostsFlatList
       data={this.props.posts}
       navigation={this.props.navigation}
-      deletePost={ this.props.delete }
+      deletePost={ this.deletePost }
     />
   )
 }
 
 componentDidMount(){
   this.getPostsFromBackend()
+}
+
+deletePost = (id) => {
+  this.props.deletePost(id)
+  fetch('http://localhost:3000/posts/' + id, {
+    method: 'DELETE',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    }
+  })
+  .catch((error) =>{
+    console.error(error);
+  })
 }
 
 getPostsFromBackend = () => {
@@ -106,7 +120,7 @@ const mapDispatchToProps = dispatch => {
     addPost: (title, id) => {
       dispatch(addPost(title, id))
     },
-    delete: (id) => {
+    deletePost: (id) => {
       dispatch(deletePost(id))
     }
   }
