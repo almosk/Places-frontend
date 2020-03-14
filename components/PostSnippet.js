@@ -6,14 +6,14 @@ const PostSnippet = (props) => {
       <TouchableOpacity
         onPress={() => {
           props.navigation.navigate('Place', {
-            postName: props.title,
+            postName: props.post.title,
             post: props.post
           })
         }}
       >
         <View style = { styles.postSnippet }>
           <Text style = { styles.postButton }>
-            { props.title }
+            { props.post.id }, { props.post.title }
           </Text>
           <Button title = 'Delete'
             style = { styles.postButton }

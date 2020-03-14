@@ -14,7 +14,8 @@ const initialState = {
 const postReducer = (state = initialState, action) => {
   switch(action.type) {
     case ADD_POST:
-      const postId = Math.max.apply(null, Object.keys(state.byId)) + 1
+      // const postId = Math.max.apply(null, Object.keys(state.byId)) + 1
+      const postId = action.payload.id
       const newPost = {id: postId, title: action.payload.title }
       return {
         ...state,

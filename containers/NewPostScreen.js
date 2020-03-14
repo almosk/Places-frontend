@@ -18,14 +18,15 @@ postSubmitHandler = () => {
   if(this.state.inputText.trim() === '') {
     return;
   }
-  this.props.add(this.state.inputText, this.state.collectionId)
   this.sendPostToBackend(this.state.inputText)
+  // console.log(this.state.inputText, this.state.responsePostId);
+  // this.props.addPost(this.state.inputText, this.state.responsePostId)
 
-  this.props.addCollectionPost(this.state.collectionId, 1)
-  console.log(this.state.collectionId, this.props.collectionPosts);
-  this.setState({
-    inputText: ''
-  })
+  // this.props.addCollectionPost(this.state.collectionId, 1)
+  // console.log(this.state.collectionId, this.props.collectionPosts);
+  // this.setState({
+  //   inputText: ''
+  // })
 }
 
 inputTextChangeHandler = (value) => {
@@ -56,12 +57,10 @@ sendPostToBackend = (title) => {
   })
   .then((response) => response.json())
   .then((responseJson) => {
+    this.props.addPost(this.state.inputText, responseJson.post.id)
     this.setState({
-      responsePostId: responseJson.post.id,
-    }, function(){
-      // console.log(responseJson)
-      // console.log(this.state.responsePostId);
-    });
+      inputText: '',
+    })
   })
   .catch((error) =>{
     console.error(error);
@@ -126,8 +125,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    add: (title) => {
-      dispatch(addPost(title))
+    addPost: (title, id) => {
+      dispatch(addPost(title, id))
     },
     delete: (id) => {
       dispatch(deletePost(id))

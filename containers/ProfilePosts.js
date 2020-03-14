@@ -38,7 +38,8 @@ getPostsFromBackend = () => {
         isLoading: false,
         dataSource: responseJson,
       }, function(){
-        this.state.dataSource.forEach(post => this.props.add(post.title, 0))
+        this.state.dataSource.forEach(post => this.props.addPost(post.title, post.id))
+        // this.state.dataSource.forEach(post => console.log(post.title, post.id))
       });
 
     })
@@ -102,8 +103,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    add: (title) => {
-      dispatch(addPost(title))
+    addPost: (title, id) => {
+      dispatch(addPost(title, id))
     },
     delete: (id) => {
       dispatch(deletePost(id))
