@@ -19,6 +19,8 @@ postSubmitHandler = () => {
     return;
   }
   this.props.add(this.state.inputText, this.state.collectionId)
+  this.sendPostToBackend(this.state.inputText)
+
   this.props.addCollectionPost(this.state.collectionId, 1)
   console.log(this.state.collectionId, this.props.collectionPosts);
   this.setState({
@@ -37,6 +39,33 @@ setCollection = (collectionId) => {
     collectionId: collectionId
   })
   this.postSubmitHandler()
+}
+
+sendPostToBackend = (title) => {
+  fetch('http://localhost:3000/posts', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      title: title,
+      place_id: 3,
+      user_id: 2
+    }),
+  })
+  .then((response) => response.json())
+  .then((responseJson) => {
+    this.setState({
+      responsePostId: responseJson.post.id,
+    }, function(){
+      // console.log(responseJson)
+      // console.log(this.state.responsePostId);
+    });
+  })
+  .catch((error) =>{
+    console.error(error);
+  })
 }
 
 render() {
@@ -91,7 +120,7 @@ const mapStateToProps = state => {
   return {
     posts: Object.values(state.posts.byId),
     collections: Object.values(state.collections.byId),
-    collectionPosts: state.collectionPosts.byId
+    collectionPosts: state.collectionPost.byId
   }
 }
 

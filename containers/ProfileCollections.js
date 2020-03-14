@@ -3,14 +3,36 @@ import { StyleSheet, View, TextInput, Button, FlatList } from 'react-native';
 import CollectionSnippet from '../components/CollectionSnippet';
 // Redux
 import { connect } from 'react-redux';
-import { addPost, deletePost } from '../actions/post';
+import { addCollection} from '../actions/collection';
 
 
-class ProfileCollectionsScreen extends Component {
+class ProfileCollections extends Component {
 
 state = {
   postName: '',
   posts: []
+}
+
+componentDidMount(){
+  this.getCollectionsFromBackend()
+}
+
+getCollectionsFromBackend = () => {
+  return fetch('http://localhost:3000/collections.json')
+    .then((response) => response.json())
+    .then((responseJson) => {
+
+      this.setState({
+        isLoading: false,
+        dataSource: responseJson,
+      }, function(){
+        this.state.dataSource.forEach(collection => this.props.addCollection(collection.title, 0))
+      });
+
+    })
+    .catch((error) =>{
+      console.error(error);
+    });
 }
 
 collectionsOutput = () => {
@@ -50,19 +72,16 @@ const mapStateToProps = state => {
   return {
     collections: Object.values(state.collections.byId),
     posts: Object.values(state.posts.byId),
-    collectionPosts: Object.values(state.collectionPosts.byId)
+    collectionPosts: Object.values(state.collectionPost.byId)
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    // add: (name) => {
-    //   dispatch(addPlace(name))
-    // },
-    // delete: (id) => {
-    //   dispatch(deletePlace(id))
-    // }
+    addCollection: (title) => {
+      dispatch(addCollection(title))
+    }
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProfileCollectionsScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileCollections)

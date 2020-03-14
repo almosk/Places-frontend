@@ -8,6 +8,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // Continers and Components
+import ProfileScreen from './components/ProfileScreen';
 import ProfileNavigator from './navigators/ProfileNavigator';
 import NewsScreen from './containers/NewsScreen';
 import ExploreScreen from './containers/ExploreScreen';

@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { addPost, deletePost } from '../actions/post';
 
 
-class ProfilePostsScreen extends Component {
+class ProfilePosts extends Component {
 
 state = {
   inputText: '',
@@ -25,12 +25,31 @@ postsOutput = () => {
   )
 }
 
+componentDidMount(){
+  this.getPostsFromBackend()
+}
+
+getPostsFromBackend = () => {
+  return fetch('http://localhost:3000/posts.json')
+    .then((response) => response.json())
+    .then((responseJson) => {
+
+      this.setState({
+        isLoading: false,
+        dataSource: responseJson,
+      }, function(){
+        this.state.dataSource.forEach(post => this.props.add(post.title, 0))
+      });
+
+    })
+    .catch((error) =>{
+      console.error(error);
+    })
+}
+
 render() {
   return (
-    <Container>
       <View style={ styles.container }>
-
-
         <Button
           rounded
           onPress={() => {
@@ -44,7 +63,6 @@ render() {
           { this.postsOutput() }
         </View>
       </View>
-    </Container>
   );
   }
 }
@@ -93,4 +111,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProfilePostsScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(ProfilePosts)

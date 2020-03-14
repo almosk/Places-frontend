@@ -4,9 +4,9 @@ import { ADD_POST, DELETE_POST } from '../actions/types';
 
 const initialState = {
     byId: {
-      0: {id: 0, title: 'ABC Roasters'},
-      1: {id: 1, title: 'Salut Cafe'},
-      2: {id: 2, title: 'Gorky Park'},
+      0: {id: 0, title: 'ReactNative Coffee'},
+      // 1: {id: 1, title: 'Salut Cafe'},
+      // 2: {id: 2, title: 'Gorky Park'},
     },
     allIds : [0, 1, 2]
 }
@@ -14,36 +14,30 @@ const initialState = {
 const postReducer = (state = initialState, action) => {
   switch(action.type) {
     case ADD_POST:
-      const postId = Math.max.apply(null, Object.keys(state.posts.byId)) + 1
+      const postId = Math.max.apply(null, Object.keys(state.byId)) + 1
       const newPost = {id: postId, title: action.payload.title }
       return {
         ...state,
-        posts: {
-          ...state.posts,
           byId: {
-            ...state.posts.byId,
+            ...state.byId,
             [postId]: newPost
           }
-        }
       }
     case DELETE_POST:
       // const newState = deleteIn(state, ['posts', 'byId', action.payload.id])
       // console.log(state);
       // console.log(newState);
-      delete state.posts.byId[action.payload.id]
+      delete state.byId[action.payload.id]
       return {
         // newState
         // state
         ...state,
-        posts: {
-          ...state.posts,
-          byId: Object.keys(state.posts.byId).reduce((result, key) => {
+          byId: Object.keys(state.byId).reduce((result, key) => {
             if (key !== action.payload.id) {
-              result[key] = state.posts.byId[key];
+              result[key] = state.byId[key];
             }
               return result;
           }, {})
-        }
       }
     default:
       return state;

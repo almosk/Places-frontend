@@ -6,7 +6,7 @@ import collectionPostReducer from './reducers/collectionPostReducer';
 const rootReducer = combineReducers({
   posts: postReducer,
   collections: collectionReducer,
-  collectionPosts: collectionPostReducer
+  collectionPost: collectionPostReducer
 });
 
 const configureStore = () => {

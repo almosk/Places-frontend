@@ -1,20 +1,33 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TextInput, Button, FlatList, Text } from 'react-native';
-import ProfilePostsNavigator from '../navigators/ProfilePostsNavigator';
-import ProfileCollectionsNavigator from '../navigators/ProfileCollectionsNavigator';
+import ProfileScreen from '../components/ProfileScreen'
+import PostScreen from '../containers/PostScreen'
+import CollectionScreen from '../containers/CollectionScreen'
+import NewPostScreen from '../containers/NewPostScreen'
+import SavePostScreen from '../containers/SavePostScreen'
 // Navigation
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 
 class ProfileNavigator extends Component {
 render() {
   return (
-      <ProfileTab.Navigator>
-        <ProfileTab.Screen name="Places" component={ProfilePostsNavigator} />
-        <ProfileTab.Screen name="Collections" component={ProfileCollectionsNavigator} />
-      </ProfileTab.Navigator>
+      <ProfileStack.Navigator initialRouteName="Profile">
+        <ProfileStack.Screen name="Profile" component={ProfileScreen} />
+        <ProfileStack.Screen name="Place" component={PostScreen}
+          options={({ route }) => ({
+            title: route.params.post.title,
+            post: route.params.post
+          })}
+        />
+        <ProfileStack.Screen name="Collection" component={CollectionScreen}
+          options={({ route }) => ({ title: route.params.collectionName })}
+        />
+        <ProfileStack.Screen name="New Post" component={NewPostScreen} />
+        <ProfileStack.Screen name="Save post" component={SavePostScreen} />
+      </ProfileStack.Navigator>
     );
   }
 }
-const ProfileTab = createBottomTabNavigator();
+const ProfileStack = createStackNavigator();
 
 export default ProfileNavigator
