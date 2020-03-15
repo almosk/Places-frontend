@@ -42,8 +42,7 @@ collectionsOutput = () => {
       keyExtractor={(item, index) => index.toString()}
       renderItem = { info => (
         <CollectionSnippet
-          collectionName={ info.item.title }
-          collectionId={ info.item.id }
+          collection={ info.item }
           navigation={this.props.navigation}
         />
       )}
@@ -64,7 +63,8 @@ render() {
 
 const styles = StyleSheet.create({
   listContainer: {
-    width: '100%'
+    width: '100%',
+    paddingTop: 8
   }
 });
 

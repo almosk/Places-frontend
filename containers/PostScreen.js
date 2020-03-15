@@ -25,12 +25,12 @@ render() {
   return (
     <View>
       <View style = { styles.post }>
-        <Text style = { styles.postButton }>
+        <Text style = { styles.postTitle }>
           { this.props.route.params.postName }
         </Text>
       </View>
-      <View style = { styles.collections }>
-        <Text>In collections:</Text>
+      <View style = { styles.container }>
+        <Text style = { styles.smallHeading }>In collections:</Text>
         { this.collectionsOutput()}
       </View>
       <View style = { styles.button }>
@@ -52,18 +52,30 @@ render() {
 const styles = StyleSheet.create({
   post: {
     width: '100%',
-    padding: 10,
-    marginBottom: 10,
-    backgroundColor: '#eee',
+    padding: 16,
+    marginBottom: 8,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: 'white'
   },
-  collections: {
-    marginTop: 30,
+  container: {
+    paddingTop: 16,
+    paddingBottom: 16,
+    backgroundColor: 'white'
   },
-  postButton: {
-    width: '30%'
+  smallHeading: {
+    paddingRight: 16,
+    paddingLeft: 16,
+    paddingBottom: 8,
+    fontWeight: "bold",
+    fontSize: 16,
+    color: "#808080"
+  },
+  postTitle: {
+    fontWeight: "bold",
+    fontSize: 20,
+    color: "#595959"
   },
   button: {
     width: '100%',

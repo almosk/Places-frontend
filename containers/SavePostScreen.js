@@ -32,7 +32,7 @@ setCollection = (collectionId) => {
 render() {
   return (
     <View style={ styles.container }>
-      <Text>Select collection:</Text>
+      <Text style={ styles.smallHeading }>Select collection:</Text>
       <CollectionsFlatList
         data = { this.props.collections }
         setCollection = { this.setCollection }
@@ -43,10 +43,20 @@ render() {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 30,
+    paddingTop: 16,
+    paddingBottom: 16,
+    backgroundColor: 'white',
     justifyContent: 'flex-start',
-    alignItems: 'center',
-  }
+    alignItems: 'flex-start',
+  },
+  smallHeading: {
+    paddingRight: 16,
+    paddingLeft: 16,
+    paddingBottom: 8,
+    fontWeight: "bold",
+    fontSize: 16,
+    color: "#808080"
+  },
 })
 
 const mapStateToProps = state => {

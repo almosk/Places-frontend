@@ -12,9 +12,17 @@ const PostSnippet = (props) => {
         }}
       >
         <View style = { styles.postSnippet }>
-          <Text style = { styles.postButton }>
-            { props.post.id }, { props.post.title }
-          </Text>
+          <View style = { styles.horizontaContainer }>
+            <View style = { styles.image }></View>
+            <View>
+              <Text style = { styles.postTitle }>
+                { props.post.title }
+              </Text>
+              <Text style = { styles.collectionTitle }>
+                Collection name
+              </Text>
+            </View>
+          </View>
           <Button title = 'Delete'
             style = { styles.postButton }
             onPress = { () => props.deletePost(props.post.id) }
@@ -27,15 +35,39 @@ const PostSnippet = (props) => {
 const styles = StyleSheet.create({
   postSnippet: {
     width: '100%',
+    height: 72,
     padding: 10,
-    marginBottom: 10,
-    backgroundColor: '#eee',
+    backgroundColor: 'white',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
+    borderBottomColor: '#F2F2F2',
+    borderBottomWidth: 1,
+  },
+  horizontaContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   postButton: {
     width: '30%'
+  },
+  postTitle: {
+    fontWeight: "bold",
+    fontSize: 16,
+    color: "#595959",
+    marginBottom: 2,
+  },
+  collectionTitle: {
+    fontWeight: "bold",
+    fontSize: 14,
+    color: "#808080"
+  },
+  image: {
+    width: 48,
+    height: 48,
+    borderRadius: 4,
+    backgroundColor: '#F3F3F3',
+    marginRight: 12
   }
 });
 

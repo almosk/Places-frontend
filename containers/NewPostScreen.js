@@ -58,6 +58,8 @@ sendPostToBackend = (title) => {
   .then((response) => response.json())
   .then((responseJson) => {
     this.props.addPost(this.state.inputText, responseJson.post.id)
+    this.props.addCollectionPost(this.state.collectionId, responseJson.post.id)
+    this.props.navigation.navigate('Profile')
     this.setState({
       inputText: '',
     })
@@ -69,36 +71,40 @@ sendPostToBackend = (title) => {
 
 render() {
   return (
-    <View style={ styles.container }>
-      <Text>Post name:</Text>
-      <View style = { styles.inputContainer }>
-        <TextInput
-          placeholder = "Create place"
-          style = { styles.postInput }
-          value = { this.state.inputText }
-          onChangeText = { this.inputTextChangeHandler }
-        ></TextInput>
-        <Button title = 'Create'
-          style = { styles.postButton }
-          onPress = { this.postSubmitHandler }
+    <View>
+      <View style={ styles.container }>
+        <View style = { styles.inputContainer }>
+          <TextInput
+            placeholder = "Post title..."
+            style = { styles.postInput }
+            value = { this.state.inputText }
+            onChangeText = { this.inputTextChangeHandler }
+          ></TextInput>
+        </View>
+      </View>
+      <View style={ styles.container }>
+        <Text style={ styles.smallHeading }>Save to</Text>
+        <CollectionsFlatList
+          data = { this.props.collections }
+          setCollection = { this.setCollection }
         />
       </View>
-      <Text>Select collection:</Text>
-      <CollectionsFlatList
-        data = { this.props.collections }
-        setCollection = { this.setCollection }
-      />
     </View>
   )}
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 30,
+    paddingTop: 16,
+    paddingBottom: 16,
     justifyContent: 'flex-start',
-    alignItems: 'center',
+    alignItems: 'flex-start',
+    backgroundColor: 'white',
+    marginBottom: 16
   },
   inputContainer: {
+    height: 56,
+    padding: 16,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -112,7 +118,15 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     width: '100%'
-  }
+  },
+  smallHeading: {
+    paddingRight: 16,
+    paddingLeft: 16,
+    paddingBottom: 8,
+    fontWeight: "bold",
+    fontSize: 16,
+    color: "#808080"
+  },
 });
 
 const mapStateToProps = state => {
@@ -136,5 +150,10 @@ const mapDispatchToProps = dispatch => {
     }
   }
 }
+
+// <Button title = 'Create'
+//   style = { styles.postButton }
+//   onPress = { this.postSubmitHandler }
+// />
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewPostScreen)

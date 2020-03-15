@@ -8,6 +8,7 @@ const CollectionsFlatList = (props) => {
       data={props.data}
       renderItem={({ item }) =>
         <CollectionSnippetSmall
+          collection={item}
           title={ item.title }
           id={ item.id }
           setCollection={ props.setCollection }

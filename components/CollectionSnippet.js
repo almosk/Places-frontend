@@ -6,15 +6,17 @@ const CollectionSnippet = (props) => {
       <TouchableOpacity
         onPress={() => {
           props.navigation.navigate('Collection', {
-            collectionName: props.collectionName,
-            collectionId: props.collectionId
+            collectionName: props.collection.title,
+            collectionId: props.collection.id
           })
         }}
       >
         <View style = { styles.listItem }>
-          <Text style = { styles.postButton }>
-            { props.collectionName }
-          </Text>
+          <View style = { styles.listItemBg }>
+            <Text style = { styles.collectionTitle }>
+              { props.collection.title }
+            </Text>
+          </View>
         </View>
       </TouchableOpacity>
     );
@@ -23,16 +25,34 @@ const CollectionSnippet = (props) => {
 const styles = StyleSheet.create({
   listItem: {
     width: '100%',
-    padding: 10,
-    marginBottom: 10,
-    backgroundColor: '#eee',
+    height: 72,
+    paddingTop: 4,
+    paddingBottom: 4,
+    paddingLeft: 16,
+    paddingRight: 16,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center'
   },
+  listItemBg: {
+    backgroundColor: '#F3F3F3',
+    width: '100%',
+    height: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 16,
+    borderRadius: 8
+  },
   postButton: {
     width: '30%'
-  }
+  },
+  collectionTitle: {
+    fontWeight: "bold",
+    fontSize: 18,
+    color: "#595959",
+    marginBottom: 2,
+  },
 });
 
 export default CollectionSnippet;

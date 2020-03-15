@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TextInput, FlatList } from 'react-native';
+import { StyleSheet, View, TextInput, FlatList, SafeAreaView, ScrollView } from 'react-native';
 import PostSnippet from '../components/PostSnippet';
 import PostsFlatList from '../components/PostsFlatList';
 import { Container, Header, Content, Button, Text, Tab, Tabs, TabHeading } from 'native-base';
@@ -64,35 +64,38 @@ getPostsFromBackend = () => {
 
 render() {
   return (
-      <View style={ styles.container }>
-        <Button
-          rounded
-          onPress={() => {
-            this.props.navigation.navigate('New Post')
-          }}
-        >
-          <Text>New Post</Text>
-        </Button>
-
+    <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.scrollView}>
+        <View style={ styles.buttonContainer }>
+          <Button
+            light
+            block
+            rounded
+            onPress={() => {
+              this.props.navigation.navigate('New Post')
+            }}
+          >
+            <Text>New Post</Text>
+          </Button>
+        </View>
         <View style = { styles.listContainer }>
           { this.postsOutput() }
         </View>
-      </View>
+      </ScrollView>
+    </SafeAreaView>
   );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 30,
+    width: '100%',
+    paddingTop: 16,
     justifyContent: 'flex-start',
     alignItems: 'center',
   },
-  inputContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: '100%'
+  scrollView: {
+    width: '100%',
   },
   postInput: {
     width: '70%'
@@ -104,8 +107,12 @@ const styles = StyleSheet.create({
     marginTop: '130px'
   },
   listContainer: {
-    marginTop: 32,
+    marginTop: 16,
     width: '100%'
+  },
+  buttonContainer: {
+    width: '100%',
+    padding: 16
   }
 });
 
