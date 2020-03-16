@@ -12,7 +12,7 @@ class ProfileNavigator extends Component {
 render() {
   return (
       <ProfileStack.Navigator initialRouteName="Profile">
-        <ProfileStack.Screen name="Profile" component={ProfileScreen} />
+        <ProfileStack.Screen name="Profile" component={ProfileScreen}/>
         <ProfileStack.Screen name="Place" component={PostScreen}
           options={({ route }) => ({
             title: route.params.post.title,

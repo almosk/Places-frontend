@@ -15,6 +15,8 @@ state = {
   posts: []
 }
 
+static navigationOptions = { header: null };
+
 postsOutput = () => {
    return (
     <PostsFlatList
