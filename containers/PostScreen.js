@@ -21,6 +21,11 @@ collectionsOutput = () => {
   )
 }
 
+deletePost = () => {
+  this.props.route.params.deletePost(this.props.route.params.post.id)
+  this.props.navigation.navigate('Profile')
+}
+
 render() {
   return (
     <View>
@@ -28,6 +33,14 @@ render() {
         <Text style = { styles.postTitle }>
           { this.props.route.params.postName }
         </Text>
+        <Button
+          rounded
+          small
+          light
+          onPress = { this.deletePost }
+        >
+          <Text style = { styles.smallButtonText }>Delete</Text>
+        </Button>
       </View>
       <View style = { styles.container }>
         <Text style = { styles.smallHeading }>In collections:</Text>
@@ -42,7 +55,7 @@ render() {
             })
           }}
         >
-          <Text>Save post to collection</Text>
+          <Text style = { styles.buttonText }>Save post to collection →</Text>
         </Button>
       </View>
     </View>
@@ -84,6 +97,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  buttonText: {
+    fontWeight: "bold",
+    fontSize: 16,
+    color: "#ffffff"
+  },
+  smallButtonText: {
+    fontWeight: "bold",
+    fontSize: 16,
+    color: "#808080"
   }
 })
 

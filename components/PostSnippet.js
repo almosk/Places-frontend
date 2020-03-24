@@ -7,7 +7,8 @@ const PostSnippet = (props) => {
         onPress={() => {
           props.navigation.navigate('Place', {
             postName: props.post.title,
-            post: props.post
+            post: props.post,
+            deletePost: props.deletePost
           })
         }}
       >
@@ -23,10 +24,6 @@ const PostSnippet = (props) => {
               </Text>
             </View>
           </View>
-          <Button title = 'Delete'
-            style = { styles.postButton }
-            onPress = { () => props.deletePost(props.post.id) }
-          />
         </View>
       </TouchableOpacity>
     );
