@@ -1,6 +1,7 @@
 import { deleteIn } from 'lodash-redux-immutability';
+import { merge } from 'lodash'
 import { combineReducers } from 'redux';
-import { ADD_POST, DELETE_POST } from '../actions/types';
+import { ADD_POST, DELETE_POST, UPDATE_POST } from '../actions/types';
 
 const initialState = {
     byId: {
@@ -24,6 +25,9 @@ const postReducer = (state = initialState, action) => {
             [postId]: newPost
           }
       }
+    case UPDATE_POST:
+      state['byId'][action.payload.id]['title'] = action.payload.title
+      return merge({}, state)
     case DELETE_POST:
       // console.log(action.payload.id);
       // const newState = deleteIn(state, ['posts', 'byId', action.payload.id])

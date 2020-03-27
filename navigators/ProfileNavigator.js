@@ -4,6 +4,7 @@ import ProfileScreen from '../components/ProfileScreen'
 import PostScreen from '../containers/PostScreen'
 import CollectionScreen from '../containers/CollectionScreen'
 import NewPostScreen from '../containers/NewPostScreen'
+import EditPostScreen from '../containers/EditPostScreen'
 import SavePostScreen from '../containers/SavePostScreen'
 // Navigation
 import { createStackNavigator } from '@react-navigation/stack';
@@ -23,6 +24,7 @@ render() {
           options={({ route }) => ({ title: route.params.collectionName })}
         />
         <ProfileStack.Screen name="New Post" component={NewPostScreen} />
+        <ProfileStack.Screen name="Edit Post" component={EditPostScreen} />
         <ProfileStack.Screen name="Save post" component={SavePostScreen} />
       </ProfileStack.Navigator>
     );

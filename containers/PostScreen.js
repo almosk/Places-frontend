@@ -33,14 +33,24 @@ render() {
         <Text style = { styles.postTitle }>
           { this.props.route.params.postName }
         </Text>
-        <Button
-          rounded
-          small
-          light
-          onPress = { this.deletePost }
-        >
-          <Text style = { styles.smallButtonText }>Delete</Text>
-        </Button>
+        <View style = { styles.horizontalContainer }>
+          <Button
+            rounded small light
+            onPress={() => {
+              this.props.navigation.navigate('Edit Post', {
+                post: this.props.route.params.post
+              })
+            }}
+          >
+            <Text style = { styles.smallButtonText }>Edit</Text>
+          </Button>
+          <Button
+            rounded small light
+            onPress = { this.deletePost }
+          >
+            <Text style = { styles.smallButtonText }>Del</Text>
+          </Button>
+      </View>
       </View>
       <View style = { styles.container }>
         <Text style = { styles.smallHeading }>In collections:</Text>
@@ -63,6 +73,10 @@ render() {
 }
 
 const styles = StyleSheet.create({
+  horizontalContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
   post: {
     width: '100%',
     padding: 16,
