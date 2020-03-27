@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TextInput, Button, FlatList, Text } from 'react-native';
-import ProfileScreen from '../components/ProfileScreen'
+import ProfileScreen from '../containers/ProfileScreen'
 import PostScreen from '../containers/PostScreen'
 import CollectionScreen from '../containers/CollectionScreen'
 import NewPostScreen from '../containers/NewPostScreen'

@@ -17,20 +17,6 @@ state = {
 
 static navigationOptions = { header: null };
 
-postsOutput = () => {
-   return (
-    <PostsFlatList
-      data={this.props.posts}
-      navigation={this.props.navigation}
-      deletePost={ this.deletePost }
-    />
-  )
-}
-
-componentDidMount(){
-  this.getPostsFromBackend()
-}
-
 deletePost = (id) => {
   this.props.deletePost(id)
   fetch('http://localhost:3000/posts/' + id, {
@@ -43,25 +29,6 @@ deletePost = (id) => {
   .catch((error) =>{
     console.error(error);
   })
-}
-
-getPostsFromBackend = () => {
-  return fetch('http://localhost:3000/posts.json')
-    .then((response) => response.json())
-    .then((responseJson) => {
-
-      this.setState({
-        isLoading: false,
-        dataSource: responseJson,
-      }, function(){
-        this.state.dataSource.forEach(post => this.props.addPost(post.title, post.id))
-        // this.state.dataSource.forEach(post => console.log(post.title, post.id))
-      });
-
-    })
-    .catch((error) =>{
-      console.error(error);
-    })
 }
 
 render() {
@@ -81,7 +48,11 @@ render() {
           </Button>
         </View>
         <View style = { styles.listContainer }>
-          { this.postsOutput() }
+          <PostsFlatList
+            data={this.props.posts}
+            navigation={this.props.navigation}
+            deletePost={ this.deletePost }
+          />
         </View>
       </ScrollView>
     </SafeAreaView>
