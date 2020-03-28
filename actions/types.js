@@ -6,3 +6,6 @@ export const ADD_COLLECTION = 'ADD_COLLECTION'
 export const DELETE_COLLECTION = 'DELETE_COLLECTION'
 
 export const ADD_COLLECTION_POST = 'ADD_COLLECTION_POST'
+
+export const ADD_USER = 'ADD_USER'
+export const LOG_IN_USER = 'LOG_IN_USER'
