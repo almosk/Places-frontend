@@ -7,7 +7,9 @@ const CollectionSnippetSmall = (props) => {
         onPress={() => props.setCollection(props.id)}
       >
         <View style = { styles.listItem }>
-          <View style = { styles.listItemBg }>
+          <View
+            style={(props.id == props.selectedCollectionId) ? styles.selectedListItemBg : styles.listItemBg}
+          >
             <Text style = { styles.collectionTitle }>
               { props.title }
             </Text>
@@ -31,6 +33,17 @@ const styles = StyleSheet.create({
   },
   listItemBg: {
     backgroundColor: '#F3F3F3',
+    width: '100%',
+    height: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 8,
+    paddingLeft: 16,
+    borderRadius: 8
+  },
+  selectedListItemBg: {
+    backgroundColor: '#DADADA',
     width: '100%',
     height: '100%',
     flexDirection: 'row',

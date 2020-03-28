@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, View, TextInput, Button, FlatList } from 'react-native';
+import { StyleSheet, View, TextInput, FlatList } from 'react-native';
+import { Container, Text, Tab, Tabs, TabHeading, Button } from 'native-base';
 import CollectionsFlatList from '../components/CollectionsFlatList';
 // Redux
 import { connect } from 'react-redux';
@@ -11,7 +12,20 @@ class EditPostScreen extends Component {
 
 state = {
   inputText: this.props.route.params.post.title,
-  collectionId: ''
+  collectionId: 'Empty'
+}
+
+componentDidMount = () => {
+  let collectionPostIds = []
+  let CollectionIdsBelongsToPost = Object.values(this.props.collectionPosts).filter(collectionPost => collectionPost.postId == this.props.route.params.post.id)
+  CollectionIdsBelongsToPost.forEach(collectionPost => collectionPostIds.push(collectionPost.collectionId))
+  let CollectionsBelongsToPost = this.props.collections.filter(collection => collectionPostIds.includes(collection.id))
+  console.log(CollectionsBelongsToPost);
+  if (CollectionsBelongsToPost !== 'undefined' && CollectionsBelongsToPost.length > 0) {
+    this.setState({
+      collectionId: CollectionsBelongsToPost[0].id
+    })
+  }
 }
 
 inputTextChangeHandler = (value) => {
@@ -24,7 +38,7 @@ setCollection = (collectionId) => {
   this.setState({
     collectionId: collectionId
   })
-  this.sendPostToBackend()
+  // this.sendPostToBackend(this.state.inputText)
 }
 
 sendPostToBackend = (title) => {
@@ -71,6 +85,11 @@ render() {
             value = { this.state.inputText }
             onChangeText = { this.inputTextChangeHandler }
           ></TextInput>
+          <Button rounded small
+            onPress={() => {this.sendPostToBackend(this.state.inputText)}}
+          >
+            <Text style={ styles.smallButtonText }>Save</Text>
+          </Button>
         </View>
       </View>
       <View style={ styles.container }>
@@ -78,6 +97,7 @@ render() {
         <CollectionsFlatList
           data = { this.props.collections }
           setCollection = { this.setCollection }
+          selectedCollectionId = { this.state.collectionId }
         />
       </View>
     </View>
@@ -118,6 +138,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#808080"
   },
+  smallButtonText: {
+    fontWeight: "bold",
+    fontSize: 16,
+    color: "#FFFFFF"
+  }
 });
 
 const mapStateToProps = state => {
