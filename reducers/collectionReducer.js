@@ -1,4 +1,6 @@
 import { ADD_COLLECTION, DELETE_COLLECTION } from '../actions/types';
+import { merge } from 'lodash'
+
 
 const initialState = {
   byId: {
@@ -11,15 +13,8 @@ const initialState = {
 const collectionReducer = (state = initialState, action) => {
   switch(action.type) {
     case ADD_COLLECTION:
-      const collectionId = Math.max.apply(null, Object.keys(state.byId)) + 1
-      const newCollection = {id: collectionId, title: action.payload.title }
-      return {
-        ...state,
-          byId: {
-            ...state.byId,
-            [collectionId]: newCollection
-          }
-      }
+      state['byId'][action.payload.id] = {id: action.payload.id, title: action.payload.title }
+      return merge({}, state)
     default:
       return state;
   }

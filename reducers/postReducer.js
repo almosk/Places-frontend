@@ -15,36 +15,17 @@ const initialState = {
 const postReducer = (state = initialState, action) => {
   switch(action.type) {
     case ADD_POST:
-      // const postId = Math.max.apply(null, Object.keys(state.byId)) + 1
-      const postId = action.payload.id
-      const newPost = {id: postId, title: action.payload.title }
-      return {
-        ...state,
-          byId: {
-            ...state.byId,
-            [postId]: newPost
-          }
-      }
+      state['byId'][action.payload.id] = {id: action.payload.id, title: action.payload.title }
+      return merge({}, state)
+
     case UPDATE_POST:
       state['byId'][action.payload.id]['title'] = action.payload.title
       return merge({}, state)
+
     case DELETE_POST:
-      // console.log(action.payload.id);
-      // const newState = deleteIn(state, ['posts', 'byId', action.payload.id])
-      // console.log(state);
-      // console.log(newState);
       delete state.byId[action.payload.id]
-      return {
-        // newState
-        // state
-        ...state,
-          byId: Object.keys(state.byId).reduce((result, key) => {
-            if (key !== action.payload.id) {
-              result[key] = state.byId[key];
-            }
-              return result;
-          }, {})
-      }
+      return merge({}, state)
+      
     default:
       return state;
   }

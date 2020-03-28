@@ -20,10 +20,10 @@ getPostsFromBackend = () => {
     .then((responseJson) => {
 
       this.setState({
-        isLoading: false,
-        dataSource: responseJson,
+        postsIsLoading: false,
+        postsDataSource: responseJson,
       }, function(){
-        this.state.dataSource.forEach(post => this.props.addPost(post.title, post.id))
+        this.state.postsDataSource.forEach(post => this.props.addPost(post.title, post.id))
         // this.state.dataSource.forEach(post => console.log(post.title, post.id))
       });
 
@@ -38,10 +38,11 @@ getCollectionsFromBackend = () => {
     .then((responseJson) => {
 
       this.setState({
-        isLoading: false,
-        dataSource: responseJson,
+        collectionsIsLoading: false,
+        collectionsDataSource: responseJson,
       }, function(){
-        this.state.dataSource.forEach(collection => this.props.addCollection(collection.title, 0))
+        // console.log(this.state.collectionsDataSource[0].id);
+        this.state.collectionsDataSource.forEach(collection => this.props.addCollection(collection.title, collection.id))
       });
 
     })
@@ -92,8 +93,8 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    addCollection: (title) => {
-      dispatch(addCollection(title))
+    addCollection: (title, id) => {
+      dispatch(addCollection(title, id))
     },
     addPost: (title, id) => {
       dispatch(addPost(title, id))

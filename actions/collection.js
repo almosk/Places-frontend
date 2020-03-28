@@ -1,10 +1,11 @@
 import { ADD_COLLECTION, DELETE_COLLECTION } from './types';
 
-export const addCollection = title => {
+export const addCollection = (title, id) => {
   return {
     type: ADD_COLLECTION,
     payload: {
-      title: title
+      title: title,
+      id: id
     }
   }
 }
