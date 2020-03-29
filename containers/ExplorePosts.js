@@ -32,7 +32,18 @@ deletePost = (id) => {
 }
 
 render() {
-  explorePosts = this.props.posts.filter(post => post.user_id !== this.props.users.loggedUser)
+  // Get Object of all collections of logged User
+  exploreCollections = this.props.collections.filter(collection => collection.user_id == this.props.users.loggedUser)
+  // Get Array of Ids of these collections
+  exploreCollectionsIds = exploreCollections.map(collection => collection.id)
+  // Get Object of CollectionPosts with these Ids
+  exploreCollectionPosts = this.props.collectionPosts.filter(collectionPost => exploreCollectionsIds.includes(collectionPost.collection_id))
+  // Get Array of PostIds of CollectionPosts (Ids of posts of collections of logged User)
+  exploreCollectionPostsPostIds = exploreCollectionPosts.map(collectionPost => collectionPost.post_id)
+  // Get Object of Posts these Ids are in array
+  explorePosts = this.props.posts.filter(post => !exploreCollectionPostsPostIds.includes(post.id))
+  explorePosts.filter(post => post.user_id !== this.props.users.loggedUser)
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
@@ -82,7 +93,9 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     posts: Object.values(state.posts.byId),
-    users: state.users
+    users: state.users,
+    collectionPosts: Object.values(state.collectionPost.byId),
+    collections: Object.values(state.collections.byId)
   }
 }
 

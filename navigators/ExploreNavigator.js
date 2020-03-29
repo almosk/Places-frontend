@@ -30,7 +30,6 @@ render() {
         <ExploreStack.Screen name="New Post" component={NewPostScreen} />
         <ExploreStack.Screen name="Edit Post" component={EditPostScreen} />
         <ExploreStack.Screen name="Save post" component={SavePostScreen} />
-        <ExploreStack.Screen name="Profile Info" component={ProfileInfoScreen} />
       </ExploreStack.Navigator>
     );
   }
