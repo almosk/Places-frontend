@@ -94,6 +94,7 @@ sendPostToBackend = (title) => {
 
 render() {
   let loggedUser = Object.values(this.props.users.byId).filter(user => user.id == this.props.users.loggedUser)[0]
+  profileCollections = this.props.collections.filter(collection => collection.user_id == this.props.users.loggedUser)
   return (
     <View>
       <View style={ styles.container }>
@@ -113,7 +114,7 @@ render() {
       <View style={ styles.container }>
         <Text style={ styles.smallHeading }>Save to</Text>
         <CollectionsFlatList
-          data = { this.props.collections }
+          data = { profileCollections }
           setCollection = { this.setCollection }
         />
       </View>

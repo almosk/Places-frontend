@@ -97,6 +97,8 @@ sendPostToBackend = (title) => {
 }
 
 render() {
+  profileCollections = this.props.collections.filter(collection => collection.user_id == this.props.users.loggedUser)
+
   return (
     <View>
       <View style={ styles.container }>
@@ -117,7 +119,7 @@ render() {
       <View style={ styles.container }>
         <Text style={ styles.smallHeading }>Save to</Text>
         <CollectionsFlatList
-          data = { this.props.collections }
+          data = { profileCollections }
           setCollection = { this.setCollection }
           selectedCollectionId = { this.state.collectionId }
         />
@@ -171,7 +173,8 @@ const mapStateToProps = state => {
   return {
     posts: Object.values(state.posts.byId),
     collections: Object.values(state.collections.byId),
-    collectionPosts: state.collectionPost.byId
+    collectionPosts: state.collectionPost.byId,
+    users: state.users
   }
 }
 

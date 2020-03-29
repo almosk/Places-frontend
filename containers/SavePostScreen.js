@@ -54,11 +54,13 @@ setCollection = (collectionId) => {
 }
 
 render() {
+  profileCollections = this.props.collections.filter(collection => collection.user_id == this.props.users.loggedUser)
+
   return (
     <View style={ styles.container }>
       <Text style={ styles.smallHeading }>Select collection:</Text>
       <CollectionsFlatList
-        data = { this.props.collections }
+        data = { profileCollections }
         setCollection = { this.setCollection }
       />
     </View>
@@ -85,7 +87,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    collections: Object.values(state.collections.byId)
+    collections: Object.values(state.collections.byId),
+    users: state.users
   }
 }
 
