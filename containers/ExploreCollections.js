@@ -1,0 +1,57 @@
+import React, { Component } from 'react';
+import { StyleSheet, View, TextInput, FlatList, SafeAreaView, ScrollView } from 'react-native';
+import { Container, Header, Content, Button, Text, Tab, Tabs, TabHeading } from 'native-base';
+import CollectionSnippet from '../components/CollectionSnippet';
+
+class ExploreCollections extends Component {
+state = {
+  postName: '',
+  posts: []
+}
+collectionsOutput = () => {
+   return (
+    <FlatList style = { styles.listContainer }
+      data = { this.props.collections }
+      keyExtractor={(item, index) => index.toString()}
+      renderItem = { info => (
+        <CollectionSnippet
+          collection={ info.item }
+          navigation={this.props.navigation}
+          users={this.props.users}
+        />
+      )}
+    />
+  )
+}
+render() {
+  return (
+    <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.scrollView}>
+        <View style = { styles.listContainer }>
+        { this.collectionsOutput() }
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );}
+}
+const styles = StyleSheet.create({
+  listContainer: {
+    width: '100%',
+    paddingTop: 8
+  },
+  container: {
+    width: '100%',
+    paddingTop: 16,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  buttonContainer: {
+    width: '100%',
+    padding: 16
+  },
+  scrollView: {
+    width: '100%',
+  },
+});
+
+export default ExploreCollections

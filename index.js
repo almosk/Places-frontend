@@ -11,7 +11,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ProfileScreen from './containers/ProfileScreen';
 import ProfileNavigator from './navigators/ProfileNavigator';
 import NewsScreen from './containers/NewsScreen';
-import ExploreScreen from './containers/ExploreScreen';
+import ExploreNavigator from './navigators/ExploreNavigator';
 // Redux
 import { Provider } from 'react-redux';
 import configureStore from './store';
@@ -24,8 +24,8 @@ const Tab = createBottomTabNavigator();
 const RNRedux = () => (
   <Provider store = { store }>
     <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="Explore" component={ExploreScreen} />
+      <Tab.Navigator initialRouteName="Profile">
+        <Tab.Screen name="Explore" component={ExploreNavigator} />
         <Tab.Screen name="Profile" component={ProfileNavigator} />
       </Tab.Navigator>
     </NavigationContainer>
