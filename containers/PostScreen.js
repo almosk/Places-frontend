@@ -10,9 +10,10 @@ class PostScreen extends Component {
 
 collectionsOutput = () => {
   let collectionPostIds = []
-  let CollectionIdsBelongsToPost = Object.values(this.props.collectionPosts).filter(collectionPost => collectionPost.postId == this.props.route.params.post.id)
-  CollectionIdsBelongsToPost.forEach(collectionPost => collectionPostIds.push(collectionPost.collectionId))
+  let CollectionIdsBelongsToPost = Object.values(this.props.collectionPosts).filter(collectionPost => collectionPost.post_id == this.props.route.params.post.id)
+  CollectionIdsBelongsToPost.forEach(collectionPost => collectionPostIds.push(collectionPost.collection_id))
   let CollectionsBelongsToPost = this.props.collections.filter(collection => collectionPostIds.includes(collection.id))
+  // console.log(this.props.collectionPosts);
   return (
     <CollectionsFlatList
       data={CollectionsBelongsToPost}

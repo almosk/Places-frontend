@@ -13,7 +13,7 @@ const initialState = {
 const postReducer = (state = initialState, action) => {
   switch(action.type) {
     case ADD_POST:
-      console.log(state);
+      // console.log(state);
       state['byId'][action.payload.id] = {id: action.payload.id, title: action.payload.title, user_id: action.payload.user_id }
       return merge({}, state)
 

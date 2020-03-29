@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { addPost } from '../actions/post';
 import { addCollection } from '../actions/collection';
 import { addUser } from '../actions/user';
+import { addCollectionPost } from '../actions/collectionPost';
 
 class ProfileScreen extends Component {
 
@@ -15,6 +16,7 @@ componentDidMount(){
   this.getPostsFromBackend()
   this.getCollectionsFromBackend()
   this.getUsersFromBackend()
+  this.getCollectionPostsFromBackend()
 }
 getPostsFromBackend = () => {
   return fetch('http://localhost:3000/posts.json')
@@ -24,7 +26,7 @@ getPostsFromBackend = () => {
         postsIsLoading: false,
         postsDataSource: responseJson,
       }, function(){
-        console.log('back', this.state.postsDataSource);
+        // console.log('back', this.state.postsDataSource);
         this.state.postsDataSource.forEach(post => this.props.addPost(post.title, post.id, post.user_id))
         // this.state.dataSource.forEach(post => console.log(post.title, post.id))
       });
@@ -68,7 +70,23 @@ getUsersFromBackend = () => {
       console.error(error);
     })
 }
+getCollectionPostsFromBackend = () => {
+  return fetch('http://localhost:3000/collection_posts.json')
+    .then((response) => response.json())
+    .then((responseJson) => {
+      this.setState({
+        collectionPostsIsLoading: false,
+        collectionPostsDataSource: responseJson,
+      }, function(){
+        this.state.collectionPostsDataSource.forEach(collectionPost => this.props.addCollectionPost(collectionPost.id, collectionPost.collection_id, collectionPost.post_id))
+        // this.state.dataSource.forEach(post => console.log(post.title, post.id))
+      });
 
+    })
+    .catch((error) =>{
+      console.error(error);
+    })
+}
 
 render() {
   return (
@@ -121,7 +139,10 @@ const mapDispatchToProps = dispatch => {
     },
     addUser: (title, id) => {
       dispatch(addUser(title, id))
-    }
+    },
+    addCollectionPost: (id, collecion_id, post_id) => {
+      dispatch(addCollectionPost(id, collecion_id, post_id))
+    },
   }
 }
 
