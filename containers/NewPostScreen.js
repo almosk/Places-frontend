@@ -42,6 +42,28 @@ setCollection = (collectionId) => {
   this.postSubmitHandler()
 }
 
+sendCollectionPostToBackend = (collection_id, post_id) => {
+  fetch('http://localhost:3000/collection_posts', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      collection_id: collection_id,
+      post_id: post_id
+    }),
+  })
+  .then((response) => response.json())
+  .then((responseJson) => {
+    console.log(responseJson);
+    this.props.addCollectionPost(responseJson.collection_post.id, collection_id, post_id)
+  })
+  .catch((error) =>{
+    console.error(error);
+  })
+}
+
 sendPostToBackend = (title) => {
   fetch('http://localhost:3000/posts', {
     method: 'POST',
@@ -58,7 +80,8 @@ sendPostToBackend = (title) => {
   .then((response) => response.json())
   .then((responseJson) => {
     this.props.addPost(this.state.inputText, responseJson.post.id, this.props.users.loggedUser)
-    this.props.addCollectionPost(this.state.collectionId, responseJson.post.id)
+    // this.props.addCollectionPost(this.state.collectionId, responseJson.post.id)
+    this.sendCollectionPostToBackend(this.state.collectionId, responseJson.post.id)
     this.props.navigation.navigate('Profile')
     this.setState({
       inputText: '',
@@ -158,8 +181,8 @@ const mapDispatchToProps = dispatch => {
     delete: (id) => {
       dispatch(deletePost(id))
     },
-    addCollectionPost: (collectionId, postId) => {
-      dispatch(addCollectionPost(collectionId, postId))
+    addCollectionPost: (id, collection_id, post_id) => {
+      dispatch(addCollectionPost(id, collection_id, post_id))
     }
   }
 }

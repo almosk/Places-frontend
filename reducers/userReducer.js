@@ -9,7 +9,7 @@ const initialState = {
       1: {id: 1, title: 'Sergey Ivanov'}
     },
     allIds : [0, 1],
-    loggedUser: 0
+    loggedUser: 4
 }
 
 const userReducer = (state = initialState, action) => {
