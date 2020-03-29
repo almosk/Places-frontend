@@ -4,7 +4,7 @@ import { merge } from 'lodash'
 
 const initialState = {
   byId: {
-    0: {id: 0, title: 'ReactsCollection'},
+    // 0: {id: 0, title: 'ReactsCollection'},
     // 1: {id: 1, title: 'Parks'}
   },
   allIds : [0, 1]

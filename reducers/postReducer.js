@@ -5,7 +5,7 @@ import { ADD_POST, DELETE_POST, UPDATE_POST } from '../actions/types';
 
 const initialState = {
     byId: {
-      0: {id: 0, title: 'ReactNative Coffee', user_id:'0'}
+      // 0: {id: 0, title: 'ReactNative Coffee', user_id:'0'}
     },
     allIds : [0]
 }
