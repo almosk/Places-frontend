@@ -32,13 +32,13 @@ deletePost = (id) => {
 }
 
 render() {
-  // console.log(this.props.posts);
+  explorePosts = this.props.posts.filter(post => post.user_id !== this.props.users.loggedUser)
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
         <View style = { styles.listContainer }>
           <PostsFlatList
-            data={this.props.posts}
+            data={explorePosts}
             navigation={this.props.navigation}
             deletePost={ this.deletePost }
             users={this.props.users}

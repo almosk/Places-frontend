@@ -9,9 +9,10 @@ state = {
   posts: []
 }
 collectionsOutput = () => {
-   return (
+  exploreCollections = this.props.collections.filter(collection => collection.user_id !== this.props.users.loggedUser)
+  return (
     <FlatList style = { styles.listContainer }
-      data = { this.props.collections }
+      data = { exploreCollections }
       keyExtractor={(item, index) => index.toString()}
       renderItem = { info => (
         <CollectionSnippet

@@ -32,7 +32,17 @@ deletePost = (id) => {
 }
 
 render() {
-  // console.log(this.props.posts);
+  // Get Object of all collections of logged User
+  profileCollections = this.props.collections.filter(collection => collection.user_id == this.props.users.loggedUser)
+  // Get Array of Ids of these collections
+  profileCollectionsIds = profileCollections.map(collection => collection.id)
+  // Get Object of CollectionPosts with these Ids
+  profileCollectionPosts = this.props.collectionPosts.filter(collectionPost => profileCollectionsIds.includes(collectionPost.collection_id))
+  // Get Array of PostIds of CollectionPosts (Ids of posts of collections of logged User)
+  profileCollectionPostsPostIds = profileCollectionPosts.map(collectionPost => collectionPost.post_id)
+  // Get Object of Posts these Ids are in array
+  profilePosts = this.props.posts.filter(post => profileCollectionPostsPostIds.includes(post.id))
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
@@ -50,7 +60,7 @@ render() {
         </View>
         <View style = { styles.listContainer }>
           <PostsFlatList
-            data={this.props.posts}
+            data={profilePosts}
             navigation={this.props.navigation}
             deletePost={ this.deletePost }
             users={this.props.users}
@@ -94,7 +104,9 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     posts: Object.values(state.posts.byId),
-    users: state.users
+    users: state.users,
+    collectionPosts: Object.values(state.collectionPost.byId),
+    collections: Object.values(state.collections.byId)
   }
 }
 
