@@ -16,6 +16,7 @@ collectionsOutput = () => {
         <CollectionSnippet
           collection={ info.item }
           navigation={this.props.navigation}
+          users={this.props.users}
         />
       )}
     />

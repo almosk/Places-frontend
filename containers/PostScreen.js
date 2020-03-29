@@ -26,6 +26,19 @@ deletePost = () => {
   this.props.navigation.navigate('Profile')
 }
 
+user_id = () => {
+  if (this.props.route.params.post.user_id !== null && this.props.route.params.post.user_id !== ''  && this.props.route.params.post.user_id!==undefined) {
+    return (
+      <View style = { styles.container }>
+        <Text style = { styles.smallHeading }>User:</Text>
+        <Text style = { styles.smallHeading }>{this.props.users.byId[this.props.route.params.post.user_id].title}</Text>
+      </View>
+    )
+  } else {
+    return
+  }
+}
+
 render() {
   return (
     <View>
@@ -50,12 +63,16 @@ render() {
           >
             <Text style = { styles.smallButtonText }>Del</Text>
           </Button>
+        </View>
       </View>
-      </View>
+
+      { this.user_id() }
+
       <View style = { styles.container }>
         <Text style = { styles.smallHeading }>In collections:</Text>
         { this.collectionsOutput()}
       </View>
+
       <View style = { styles.button }>
         <Button
           rounded
@@ -127,7 +144,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     collections: Object.values(state.collections.byId),
-    collectionPosts: Object.values(state.collectionPost.byId)
+    collectionPosts: Object.values(state.collectionPost.byId),
+    users:state.users
   }
 }
 

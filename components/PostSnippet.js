@@ -2,31 +2,42 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
 
 const PostSnippet = (props) => {
-    return (
-      <TouchableOpacity
-        onPress={() => {
-          props.navigation.navigate('Place', {
-            postName: props.post.title,
-            post: props.post,
-            deletePost: props.deletePost
-          })
-        }}
-      >
-        <View style = { styles.postSnippet }>
-          <View style = { styles.horizontaContainer }>
-            <View style = { styles.image }></View>
-            <View>
-              <Text style = { styles.postTitle }>
-                { props.post.title }
-              </Text>
-              <Text style = { styles.collectionTitle }>
-                Collection name
-              </Text>
-            </View>
-          </View>
+
+user_id = () => {
+  if (props.users.byId[props.post.user_id] !== null && props.users.byId[props.post.user_id] !== '' && typeof props.users.byId[props.post.user_id] !== "undefined") {
+    return(
+      <Text style = { styles.collectionTitle }>
+        { props.users.byId[props.post.user_id].title }
+      </Text>
+    )
+  }
+}
+
+return (
+  <TouchableOpacity
+    onPress={() => {
+      props.navigation.navigate('Place', {
+        postName: props.post.title,
+        post: props.post,
+        deletePost: props.deletePost
+      })
+    }}
+  >
+    <View style = { styles.postSnippet }>
+      <View style = { styles.horizontaContainer }>
+        <View style = { styles.image }></View>
+        <View>
+          <Text style = { styles.postTitle }>
+            { props.post.title }
+          </Text>
+          <Text style = { styles.collectionTitle }>
+            { this.user_id() }
+          </Text>
         </View>
-      </TouchableOpacity>
-    );
+      </View>
+    </View>
+  </TouchableOpacity>
+);
 }
 
 const styles = StyleSheet.create({

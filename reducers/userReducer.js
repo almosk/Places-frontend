@@ -6,10 +6,9 @@ import { ADD_USER, DELETE_USER, LOG_IN_USER } from '../actions/types';
 const initialState = {
     byId: {
       0: {id: 0, title: 'Alexander Moskovskiy'},
-      1: {id: 1, title: 'Sergey Ivanov'},
-      // 2: {id: 2, title: 'Gorky Park'},
+      1: {id: 1, title: 'Sergey Ivanov'}
     },
-    allIds : [0, 1, 2],
+    allIds : [0, 1],
     loggedUser: 0
 }
 

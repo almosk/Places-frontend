@@ -32,6 +32,7 @@ deletePost = (id) => {
 }
 
 render() {
+  // console.log(this.props.posts);
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
@@ -52,6 +53,7 @@ render() {
             data={this.props.posts}
             navigation={this.props.navigation}
             deletePost={ this.deletePost }
+            users={this.props.users}
           />
         </View>
       </ScrollView>
@@ -91,7 +93,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    posts: Object.values(state.posts.byId)
+    posts: Object.values(state.posts.byId),
+    users: state.users
   }
 }
 

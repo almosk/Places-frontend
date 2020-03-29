@@ -8,7 +8,7 @@ import { logInUser } from '../actions/user';
 class ProfileInfoScreen extends Component {
 
 usersOutput = () => {
-  let users = Object.values(this.props.users.byId)
+  let users = Object.values(this.props.users.byId).filter(user => user.id != this.props.users.loggedUser)
   return(
     <FlatList style = { styles.listContainer }
       data={users}

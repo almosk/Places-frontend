@@ -13,7 +13,7 @@ const initialState = {
 const collectionReducer = (state = initialState, action) => {
   switch(action.type) {
     case ADD_COLLECTION:
-      state['byId'][action.payload.id] = {id: action.payload.id, title: action.payload.title }
+      state['byId'][action.payload.id] = {id: action.payload.id, title: action.payload.title, user_id: action.payload.user_id }
       return merge({}, state)
     default:
       return state;

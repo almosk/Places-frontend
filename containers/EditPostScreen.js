@@ -20,7 +20,7 @@ componentDidMount = () => {
   let CollectionIdsBelongsToPost = Object.values(this.props.collectionPosts).filter(collectionPost => collectionPost.postId == this.props.route.params.post.id)
   CollectionIdsBelongsToPost.forEach(collectionPost => collectionPostIds.push(collectionPost.collectionId))
   let CollectionsBelongsToPost = this.props.collections.filter(collection => collectionPostIds.includes(collection.id))
-  console.log(CollectionsBelongsToPost);
+  // console.log(CollectionsBelongsToPost);
   if (CollectionsBelongsToPost !== 'undefined' && CollectionsBelongsToPost.length > 0) {
     this.setState({
       collectionId: CollectionsBelongsToPost[0].id

@@ -7,23 +7,25 @@ import { Container, Text, Tab, Tabs, TabHeading } from 'native-base';
 import { connect } from 'react-redux';
 import { addPost } from '../actions/post';
 import { addCollection } from '../actions/collection';
+import { addUser } from '../actions/user';
 
 class ProfileScreen extends Component {
 
 componentDidMount(){
   this.getPostsFromBackend()
   this.getCollectionsFromBackend()
+  this.getUsersFromBackend()
 }
 getPostsFromBackend = () => {
   return fetch('http://localhost:3000/posts.json')
     .then((response) => response.json())
     .then((responseJson) => {
-
       this.setState({
         postsIsLoading: false,
         postsDataSource: responseJson,
       }, function(){
-        this.state.postsDataSource.forEach(post => this.props.addPost(post.title, post.id))
+        console.log('back', this.state.postsDataSource);
+        this.state.postsDataSource.forEach(post => this.props.addPost(post.title, post.id, post.user_id))
         // this.state.dataSource.forEach(post => console.log(post.title, post.id))
       });
 
@@ -36,19 +38,35 @@ getCollectionsFromBackend = () => {
   return fetch('http://localhost:3000/collections.json')
     .then((response) => response.json())
     .then((responseJson) => {
-
       this.setState({
         collectionsIsLoading: false,
         collectionsDataSource: responseJson,
       }, function(){
         // console.log(this.state.collectionsDataSource[0].id);
-        this.state.collectionsDataSource.forEach(collection => this.props.addCollection(collection.title, collection.id))
+        this.state.collectionsDataSource.forEach(collection => this.props.addCollection(collection.title, collection.id, collection.user_id))
       });
 
     })
     .catch((error) =>{
       console.error(error);
     });
+}
+getUsersFromBackend = () => {
+  return fetch('http://localhost:3000/users.json')
+    .then((response) => response.json())
+    .then((responseJson) => {
+      this.setState({
+        usersIsLoading: false,
+        usersDataSource: responseJson,
+      }, function(){
+        this.state.usersDataSource.forEach(user => this.props.addUser(user.name, user.id))
+        // this.state.dataSource.forEach(post => console.log(post.title, post.id))
+      });
+
+    })
+    .catch((error) =>{
+      console.error(error);
+    })
 }
 
 
@@ -69,6 +87,7 @@ render() {
                 navigation={this.props.navigation}
                 collections={this.props.collections}
                 collectionPosts={this.props.collectionPosts}
+                users={this.props.users}
               />
             </Tab>
           </Tabs>
@@ -88,16 +107,20 @@ const mapStateToProps = state => {
   return {
     collections: Object.values(state.collections.byId),
     posts: Object.values(state.posts.byId),
-    collectionPosts: Object.values(state.collectionPost.byId)
+    collectionPosts: Object.values(state.collectionPost.byId),
+    users: state.users
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
-    addCollection: (title, id) => {
-      dispatch(addCollection(title, id))
+    addCollection: (title, id, user_id) => {
+      dispatch(addCollection(title, id, user_id))
     },
-    addPost: (title, id) => {
-      dispatch(addPost(title, id))
+    addPost: (title, id, user_id) => {
+      dispatch(addPost(title, id, user_id))
+    },
+    addUser: (title, id) => {
+      dispatch(addUser(title, id))
     }
   }
 }

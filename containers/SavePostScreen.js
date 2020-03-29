@@ -14,7 +14,7 @@ state = {
 }
 
 postSubmitHandler = () => {
-  console.log(this.state.collectionId, this.props.route.params.post.id);
+  // console.log(this.state.collectionId, this.props.route.params.post.id);
   this.props.addCollectionPost(this.state.collectionId, this.props.route.params.post.id)
   this.props.navigation.navigate('Place', {
     post: this.props.route.params.post

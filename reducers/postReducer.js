@@ -5,17 +5,16 @@ import { ADD_POST, DELETE_POST, UPDATE_POST } from '../actions/types';
 
 const initialState = {
     byId: {
-      0: {id: 0, title: 'ReactNative Coffee'},
-      // 1: {id: 1, title: 'Salut Cafe'},
-      // 2: {id: 2, title: 'Gorky Park'},
+      0: {id: 0, title: 'ReactNative Coffee', user_id:'0'}
     },
-    allIds : [0, 1, 2]
+    allIds : [0]
 }
 
 const postReducer = (state = initialState, action) => {
   switch(action.type) {
     case ADD_POST:
-      state['byId'][action.payload.id] = {id: action.payload.id, title: action.payload.title }
+      console.log(state);
+      state['byId'][action.payload.id] = {id: action.payload.id, title: action.payload.title, user_id: action.payload.user_id }
       return merge({}, state)
 
     case UPDATE_POST:
@@ -25,7 +24,7 @@ const postReducer = (state = initialState, action) => {
     case DELETE_POST:
       delete state.byId[action.payload.id]
       return merge({}, state)
-      
+
     default:
       return state;
   }

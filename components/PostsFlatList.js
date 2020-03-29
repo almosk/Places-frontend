@@ -11,6 +11,7 @@ const PostsFlatList = (props) => {
           post={item}
           deletePost={ props.deletePost }
           navigation={props.navigation}
+          users={props.users}
         />}
       keyExtractor={item => item.id}
     />

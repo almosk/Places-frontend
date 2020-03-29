@@ -52,12 +52,12 @@ sendPostToBackend = (title) => {
     body: JSON.stringify({
       title: title,
       place_id: 3,
-      user_id: 2
+      user_id: this.props.users.loggedUser
     }),
   })
   .then((response) => response.json())
   .then((responseJson) => {
-    this.props.addPost(this.state.inputText, responseJson.post.id)
+    this.props.addPost(this.state.inputText, responseJson.post.id, this.props.users.loggedUser)
     this.props.addCollectionPost(this.state.collectionId, responseJson.post.id)
     this.props.navigation.navigate('Profile')
     this.setState({
@@ -70,6 +70,7 @@ sendPostToBackend = (title) => {
 }
 
 render() {
+  let loggedUser = Object.values(this.props.users.byId).filter(user => user.id == this.props.users.loggedUser)[0]
   return (
     <View>
       <View style={ styles.container }>
@@ -81,6 +82,10 @@ render() {
             onChangeText = { this.inputTextChangeHandler }
           ></TextInput>
         </View>
+      </View>
+      <View style={ styles.container }>
+        <Text style={ styles.smallHeading }>Post creator:</Text>
+        <Text style={ styles.text }>{ loggedUser.title }</Text>
       </View>
       <View style={ styles.container }>
         <Text style={ styles.smallHeading }>Save to</Text>
@@ -127,20 +132,28 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#808080"
   },
+  text: {
+    paddingRight: 16,
+    paddingLeft: 16,
+    fontWeight: "bold",
+    fontSize: 20,
+    color: "#595959"
+  },
 });
 
 const mapStateToProps = state => {
   return {
     posts: Object.values(state.posts.byId),
     collections: Object.values(state.collections.byId),
-    collectionPosts: state.collectionPost.byId
+    collectionPosts: state.collectionPost.byId,
+    users: state.users
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    addPost: (title, id) => {
-      dispatch(addPost(title, id))
+    addPost: (title, id, user_id) => {
+      dispatch(addPost(title, id, user_id))
     },
     delete: (id) => {
       dispatch(deletePost(id))
