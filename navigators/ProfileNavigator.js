@@ -4,6 +4,7 @@ import { Container, Header, Content, Button, Text, Tab, Tabs, TabHeading } from 
 import ProfileScreen from '../containers/ProfileScreen'
 import PostScreen from '../containers/PostScreen'
 import CollectionScreen from '../containers/CollectionScreen'
+import NewCollectionScreen from '../containers/NewCollectionScreen'
 import NewPostScreen from '../containers/NewPostScreen'
 import EditPostScreen from '../containers/EditPostScreen'
 import SavePostScreen from '../containers/SavePostScreen'
@@ -39,6 +40,7 @@ render() {
         <ProfileStack.Screen name="Collection" component={CollectionScreen}
           options={({ route }) => ({ title: route.params.collectionName })}
         />
+        <ProfileStack.Screen name="New Collection" component={NewCollectionScreen} />
         <ProfileStack.Screen name="New Post" component={NewPostScreen} />
         <ProfileStack.Screen name="Edit Post" component={EditPostScreen} />
         <ProfileStack.Screen name="Save post" component={SavePostScreen} />

@@ -41,6 +41,28 @@ setCollection = (collectionId) => {
   // this.sendPostToBackend(this.state.inputText)
 }
 
+sendCollectionPostToBackend = (collection_id, post_id) => {
+  fetch('http://localhost:3000/collection_posts', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      collection_id: collection_id,
+      post_id: post_id
+    }),
+  })
+  .then((response) => response.json())
+  .then((responseJson) => {
+    console.log(responseJson);
+    this.props.addCollectionPost(responseJson.collection_post.id, collection_id, post_id)
+  })
+  .catch((error) =>{
+    console.error(error);
+  })
+}
+
 sendPostToBackend = (title) => {
   if(this.state.inputText.trim() === '') {
     return;
@@ -63,7 +85,7 @@ sendPostToBackend = (title) => {
   .then((response) => response.json())
   .then((responseJson) => {
     this.props.updatePost(this.state.inputText, id)
-    this.props.addCollectionPost(this.state.collectionId, id)
+    this.sendCollectionPostToBackend(this.state.collectionId, id)
     this.props.navigation.navigate('Profile')
     this.setState({
       inputText: '',
@@ -158,8 +180,8 @@ const mapDispatchToProps = dispatch => {
     updatePost: (title, id) => {
       dispatch(updatePost(title, id))
     },
-    addCollectionPost: (collectionId, postId) => {
-      dispatch(addCollectionPost(collectionId, postId))
+    addCollectionPost: (id, collection_id, post_id) => {
+      dispatch(addCollectionPost(id, collection_id, post_id))
     }
   }
 }

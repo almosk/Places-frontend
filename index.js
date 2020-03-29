@@ -25,7 +25,6 @@ const RNRedux = () => (
   <Provider store = { store }>
     <NavigationContainer>
       <Tab.Navigator>
-        <Tab.Screen name="News" component={NewsScreen} />
         <Tab.Screen name="Explore" component={ExploreScreen} />
         <Tab.Screen name="Profile" component={ProfileNavigator} />
       </Tab.Navigator>
@@ -34,6 +33,8 @@ const RNRedux = () => (
 )
 
 AppRegistry.registerComponent(appName, () => RNRedux);
+
+// <Tab.Screen name="News" component={NewsScreen} />
 
 // <NavigationContainer>
 //   <Stack.Navigator initialRouteName="Places">
