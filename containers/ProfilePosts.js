@@ -31,6 +31,20 @@ deletePost = (id) => {
   })
 }
 
+postsOutput = (data) => {
+  return (
+    <FlatList style = { styles.listContainer }
+      data={data}
+      renderItem={({ item }) =>
+        <PostSnippet
+          post_id={item.id}
+          navigation={this.props.navigation}
+        />}
+      keyExtractor={item => item.id}
+    />
+  );
+}
+
 render() {
   // Get Object of all collections of logged User
   profileCollections = this.props.collections.filter(collection => collection.user_id == this.props.users.loggedUser)
@@ -58,14 +72,7 @@ render() {
             <Text>New Post</Text>
           </Button>
         </View>
-        <View style = { styles.listContainer }>
-          <PostsFlatList
-            data={profilePosts}
-            navigation={this.props.navigation}
-            deletePost={ this.deletePost }
-            users={this.props.users}
-          />
-        </View>
+        { this.postsOutput(profilePosts) }
       </ScrollView>
     </SafeAreaView>
   );
@@ -112,12 +119,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addPost: (title, id) => {
-      dispatch(addPost(title, id))
-    },
-    deletePost: (id) => {
-      dispatch(deletePost(id))
-    }
+
   }
 }
 

@@ -4,16 +4,19 @@ import CollectionsFlatList from '../components/CollectionsFlatList';
 import { Container, Header, Content, Button, Text, Tab, Tabs, TabHeading } from 'native-base';
 // Redux
 import { connect } from 'react-redux';
+import { deletePost } from '../actions/post';
 
 class PostScreen extends Component {
-  state = {}
+
+// Props:
+// this.props.route.params.post_id
+// this.props.navigation
 
 collectionsOutput = () => {
   let collectionPostIds = []
-  let CollectionIdsBelongsToPost = Object.values(this.props.collectionPosts).filter(collectionPost => collectionPost.post_id == this.props.route.params.post.id)
+  let CollectionIdsBelongsToPost = Object.values(this.props.collectionPosts).filter(collectionPost => collectionPost.post_id == this.props.route.params.post_id)
   CollectionIdsBelongsToPost.forEach(collectionPost => collectionPostIds.push(collectionPost.collection_id))
   let CollectionsBelongsToPost = this.props.collections.filter(collection => collectionPostIds.includes(collection.id))
-  // console.log(this.props.collectionPosts);
   return (
     <CollectionsFlatList
       data={CollectionsBelongsToPost}
@@ -23,16 +26,16 @@ collectionsOutput = () => {
 }
 
 deletePost = () => {
-  this.props.route.params.deletePost(this.props.route.params.post.id)
+  this.props.deletePost(this.props.route.params.post_id)
   this.props.navigation.navigate('Profile')
 }
 
 user_id = () => {
-  if (this.props.route.params.post.user_id !== null && this.props.route.params.post.user_id !== ''  && this.props.route.params.post.user_id!==undefined) {
+  if (this.props.route.params.user_id !== null && this.props.route.params.user_id !== ''  && this.props.route.params.user_id!==undefined) {
     return (
       <View style = { styles.container }>
         <Text style = { styles.smallHeading }>User:</Text>
-        <Text style = { styles.smallHeading }>{this.props.users.byId[this.props.route.params.post.user_id].title}</Text>
+        <Text style = { styles.smallHeading }>{this.props.users.byId[this.props.route.params.user_id].title}</Text>
       </View>
     )
   } else {
@@ -45,14 +48,14 @@ render() {
     <View>
       <View style = { styles.post }>
         <Text style = { styles.postTitle }>
-          { this.props.route.params.postName }
+          { this.props.post.title }
         </Text>
         <View style = { styles.horizontalContainer }>
           <Button
             rounded small light
             onPress={() => {
               this.props.navigation.navigate('Edit Post', {
-                post: this.props.route.params.post
+                post: this.props.post
               })
             }}
           >
@@ -79,7 +82,7 @@ render() {
           rounded
           onPress={() => {
             this.props.navigation.navigate('Save post', {
-              post: this.props.route.params.post
+              post: this.props.post
             })
           }}
         >
@@ -142,16 +145,20 @@ const styles = StyleSheet.create({
   }
 })
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
+    post: state.posts.byId[ownProps.route.params.post_id],
     collections: Object.values(state.collections.byId),
     collectionPosts: Object.values(state.collectionPost.byId),
-    users:state.users
+    users: state.users
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
+    deletePost: (id) => {
+      dispatch(deletePost(id))
+    }
   }
 }
 
