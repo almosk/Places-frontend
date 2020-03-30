@@ -4,6 +4,7 @@ import { Container, Header, Content, Button, Text, Tab, Tabs, TabHeading } from 
 import ExploreScreen from '../containers/ExploreScreen'
 import PostScreen from '../containers/PostScreen'
 import CollectionScreen from '../containers/CollectionScreen'
+import UserScreen from '../containers/UserScreen'
 import NewCollectionScreen from '../containers/NewCollectionScreen'
 import NewPostScreen from '../containers/NewPostScreen'
 import EditPostScreen from '../containers/EditPostScreen'
@@ -26,9 +27,9 @@ render() {
         <ExploreStack.Screen name="Collection" component={CollectionScreen}
           options={({ route }) => ({ title: route.params.collectionName })}
         />
-        <ExploreStack.Screen name="New Collection" component={NewCollectionScreen} />
-        <ExploreStack.Screen name="New Post" component={NewPostScreen} />
-        <ExploreStack.Screen name="Edit Post" component={EditPostScreen} />
+        <ExploreStack.Screen name="User" component={UserScreen}
+          options={({ route }) => ({ title: route.params.collectionName })}
+        />
         <ExploreStack.Screen name="Save post" component={SavePostScreen} />
       </ExploreStack.Navigator>
     );

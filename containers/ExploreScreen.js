@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, TextInput, FlatList } from 'react-native';
 import ExplorePosts from '../containers/ExplorePosts';
 import ExploreCollections from '../containers/ExploreCollections';
+import ExploreUsers from '../containers/ExploreUsers';
 import { Container, Text, Tab, Tabs, TabHeading } from 'native-base';
 // Redux
 import { connect } from 'react-redux';
@@ -26,6 +27,14 @@ render() {
             </Tab>
             <Tab heading={ <TabHeading><Text>Collections</Text></TabHeading>}>
               <ExploreCollections
+                navigation={this.props.navigation}
+                collections={this.props.collections}
+                collectionPosts={this.props.collectionPosts}
+                users={this.props.users}
+              />
+            </Tab>
+            <Tab heading={ <TabHeading><Text>Users</Text></TabHeading>}>
+              <ExploreUsers
                 navigation={this.props.navigation}
                 collections={this.props.collections}
                 collectionPosts={this.props.collectionPosts}

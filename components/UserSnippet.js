@@ -22,10 +22,9 @@ return (
   <TouchableOpacity
     style = { styles.postSnippet }
     onPress={() => {
-      // props.navigation.navigate('Place', {
-      //   post: props.post,
-      //   deletePost: props.deletePost
-      // })
+      props.navigation.navigate('User', {
+        user: props.user
+      })
     }}
   >
     <View style = { styles.horizontaContainer }>
