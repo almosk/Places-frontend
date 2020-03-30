@@ -16,9 +16,8 @@ collectionsOutput = () => {
       keyExtractor={(item, index) => index.toString()}
       renderItem = { info => (
         <CollectionSnippet
-          collection={ info.item }
+          collection_id={ info.item.id }
           navigation={this.props.navigation}
-          users={this.props.users}
         />
       )}
     />

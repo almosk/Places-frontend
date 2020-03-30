@@ -33,12 +33,13 @@ render() {
         />
         <ProfileStack.Screen name="Place" component={PostScreen}
           options={({ route }) => ({
-            title: route.params.post_title,
-            post_id: route.params.post_id
+            title: route.params.post_title
           })}
         />
         <ProfileStack.Screen name="Collection" component={CollectionScreen}
-          options={({ route }) => ({ title: route.params.collectionName })}
+          options={({ route }) => ({
+            title: route.params.collection_title
+          })}
         />
         <ProfileStack.Screen name="New Collection" component={NewCollectionScreen} />
         <ProfileStack.Screen name="New Post" component={NewPostScreen} />

@@ -7,7 +7,8 @@ import { connect } from 'react-redux';
 const PostSnippet = (props) => {
 
 // Props:
-// post_id
+// props.post_id
+// props.navigation
 
 user_id = () => {
   if (props.postUser !== null && props.postUser !== '' && typeof props.postUser !== "undefined") {
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state, ownProps) => {
   return {
     post: state.posts.byId[ownProps.post_id],
-    postUser: state.users.byId[ownProps.post_id]
+    postUser: state.users.byId[state.posts.byId[ownProps.post_id].user_id]
   }
 }
 

@@ -1,13 +1,20 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
+// Redux
+import { connect } from 'react-redux';
+
 
 const CollectionSnippet = (props) => {
+// Props:
+// props.collection_id
+// props.navigation
 
 user_id = () => {
-  if (props.users.byId[props.collection.user_id] !== null && props.users.byId[props.collection.user_id] !== '' && typeof props.users.byId[props.collection.user_id] !== "undefined") {
+  console.log(props.collectionUser);
+  if (props.collectionUser !== null && props.collectionUser !== '' && typeof props.collectionUser !== "undefined") {
     return(
       <Text style = { styles.userTitle }>
-        { props.users.byId[props.collection.user_id].title }
+        { props.collectionUser.title }
       </Text>
     )
   }
@@ -17,7 +24,7 @@ return (
   <TouchableOpacity
     onPress={() => {
       props.navigation.navigate('Collection', {
-        collectionName: props.collection.title,
+        collection_title: props.collection.title,
         collectionId: props.collection.id
       })
     }}
@@ -73,4 +80,18 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CollectionSnippet;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    collection: state.collections.byId[ownProps.collection_id],
+    collectionUser: state.users.byId[state.collections.byId[ownProps.collection_id].user_id]
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CollectionSnippet)
+
+// export default CollectionSnippet;
