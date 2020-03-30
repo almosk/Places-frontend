@@ -31,15 +31,13 @@ deletePost = () => {
 }
 
 user_id = () => {
-  if (this.props.route.params.user_id !== null && this.props.route.params.user_id !== ''  && this.props.route.params.user_id!==undefined) {
+  if (this.props.route.params.postUser !== null && this.props.route.params.postUser !== ''  && this.props.route.params.postUser!==undefined) {
     return (
       <View style = { styles.container }>
         <Text style = { styles.smallHeading }>User:</Text>
-        <Text style = { styles.smallHeading }>{this.props.users.byId[this.props.route.params.user_id].title}</Text>
+        <Text style = { styles.smallHeading }>{this.props.route.params.postUser.title}</Text>
       </View>
     )
-  } else {
-    return
   }
 }
 
@@ -148,9 +146,9 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state, ownProps) => {
   return {
     post: state.posts.byId[ownProps.route.params.post_id],
+    postUser: state.users.byId[ownProps.route.params.post_id],
     collections: Object.values(state.collections.byId),
     collectionPosts: Object.values(state.collectionPost.byId),
-    users: state.users
   }
 }
 
@@ -163,5 +161,3 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostScreen)
-
-// export default PostScreen;

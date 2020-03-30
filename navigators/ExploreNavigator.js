@@ -20,8 +20,8 @@ render() {
         <ExploreStack.Screen name="Explore" component={ExploreScreen}/>
         <ExploreStack.Screen name="Place" component={PostScreen}
           options={({ route }) => ({
-            title: route.params.post.title,
-            post: route.params.post
+            title: route.params.post_title,
+            post_id: route.params.post_id
           })}
         />
         <ExploreStack.Screen name="Collection" component={CollectionScreen}
