@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state, ownProps) => {
   return {
     post: state.posts.byId[ownProps.route.params.post_id],
-    postUser: state.users.byId[ownProps.route.params.post_id],
+    postUser: state.users.byId[state.posts.byId[ownProps.route.params.post_id].user_id],
     collections: Object.values(state.collections.byId),
     collectionPosts: Object.values(state.collectionPost.byId),
   }

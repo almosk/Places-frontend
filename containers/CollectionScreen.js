@@ -7,20 +7,25 @@ import { connect } from 'react-redux';
 
 class CollectionScreen extends Component {
 
-state = {
-}
+// Props:
+// this.props.route.params.collection_id
+// this.props.navigation
 
 postsOutput = () => {
   let collectionPostIds = []
-  let PostIdsBelongsToCollection = Object.values(this.props.collectionPosts).filter(collectionPost => collectionPost.collection_id == this.props.route.params.collectionId)
+  let PostIdsBelongsToCollection = Object.values(this.props.collectionPosts).filter(collectionPost => collectionPost.collection_id == this.props.route.params.collection_id)
   PostIdsBelongsToCollection.forEach(collectionPost => collectionPostIds.push(collectionPost.post_id))
   let PostsBelongsToCollection = this.props.posts.filter(post => collectionPostIds.includes(post.id))
 
   return (
-    <PostsFlatList
+    <FlatList style = { styles.listContainer }
       data={PostsBelongsToCollection}
-      navigation={this.props.navigation}
-      users={this.props.users}
+      renderItem={({ item }) =>
+        <PostSnippet
+          post_id={item.id}
+          navigation={this.props.navigation}
+        />}
+      keyExtractor={item => item.id}
     />
   )
 }
@@ -39,14 +44,22 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     justifyContent: 'flex-start',
     alignItems: 'center',
-  }
+  },
+  listContainer: {
+    marginTop: 16,
+    width: '100%'
+  },
 });
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
     posts: Object.values(state.posts.byId),
+    // collectionPosts: Object.values(state.collectionPost.byId),
+    // users: state.users
+    collection: state.collections.byId[ownProps.route.params.collection_id],
+    // collectionUser: state.users.byId[state.collections.byId[ownProps.route.params.collection_id].user_id],
+    // collections: Object.values(state.collections.byId),
     collectionPosts: Object.values(state.collectionPost.byId),
-    users: state.users
   }
 }
 
