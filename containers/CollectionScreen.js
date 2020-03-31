@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TextInput, Button, FlatList } from 'react-native';
 import PostSnippet from '../components/PostSnippet';
-import PostsFlatList from '../components/PostsFlatList';
 // Redux
 import { connect } from 'react-redux';
 

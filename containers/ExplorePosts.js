@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TextInput, FlatList, SafeAreaView, ScrollView } from 'react-native';
 import PostSnippet from '../components/PostSnippet';
-import PostsFlatList from '../components/PostsFlatList';
 import { Container, Header, Content, Button, Text, Tab, Tabs, TabHeading } from 'native-base';
 // Redux
 import { connect } from 'react-redux';
@@ -48,11 +47,14 @@ render() {
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
         <View style = { styles.listContainer }>
-          <PostsFlatList
+          <FlatList style = { styles.listContainer }
             data={explorePosts}
-            navigation={this.props.navigation}
-            deletePost={ this.deletePost }
-            users={this.props.users}
+            renderItem={({ item }) =>
+              <PostSnippet
+                post_id={item.id}
+                navigation={this.props.navigation}
+              />}
+            keyExtractor={item => item.id}
           />
         </View>
       </ScrollView>

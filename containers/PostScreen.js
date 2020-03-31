@@ -26,34 +26,47 @@ collectionsOutput = () => {
 }
 
 deletePost = () => {
+  // fetch('http://localhost:3000/posts/' + this.props.route.params.post_id, {
+  //   method: 'DELETE',
+  //   headers: {
+  //     Accept: 'application/json',
+  //     'Content-Type': 'application/json',
+  //   }
+  // })
+  // .catch((error) =>{
+  //   console.error(error);
+  // })
   this.props.deletePost(this.props.route.params.post_id)
   this.props.navigation.navigate('Profile')
 }
 
 user_id = () => {
-  if (this.props.route.params.postUser !== null && this.props.route.params.postUser !== ''  && this.props.route.params.postUser!==undefined) {
+  let post = this.props.posts[this.props.route.params.post_id]
+  let postUser = this.props.users[post.user_id]
+  if (postUser !== null && postUser !== ''  && typeof postUser!=="undefined") {
     return (
       <View style = { styles.container }>
         <Text style = { styles.smallHeading }>User:</Text>
-        <Text style = { styles.smallHeading }>{this.props.route.params.postUser.title}</Text>
+        <Text style = { styles.smallHeading }>{postUser.title}</Text>
       </View>
     )
   }
 }
 
 render() {
+  let post = this.props.posts[this.props.route.params.post_id]
   return (
     <View>
       <View style = { styles.post }>
         <Text style = { styles.postTitle }>
-          { this.props.post.title }
+          { post.title }
         </Text>
         <View style = { styles.horizontalContainer }>
           <Button
             rounded small light
             onPress={() => {
               this.props.navigation.navigate('Edit Post', {
-                post: this.props.post
+                post: post
               })
             }}
           >
@@ -80,7 +93,7 @@ render() {
           rounded
           onPress={() => {
             this.props.navigation.navigate('Save post', {
-              post: this.props.post
+              post: post
             })
           }}
         >
@@ -88,8 +101,8 @@ render() {
         </Button>
       </View>
     </View>
-  )}
-}
+  )
+}}
 
 const styles = StyleSheet.create({
   horizontalContainer: {
@@ -145,8 +158,10 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    post: state.posts.byId[ownProps.route.params.post_id],
-    postUser: state.users.byId[state.posts.byId[ownProps.route.params.post_id].user_id],
+    // post: state.posts.byId[ownProps.route.params.post_id],
+    // postUser: state.users.byId[state.posts.byId[ownProps.route.params.post_id].user_id],
+    posts: state.posts.byId,
+    users: Object.values(state.users.byId),
     collections: Object.values(state.collections.byId),
     collectionPosts: Object.values(state.collectionPost.byId),
   }

@@ -1,23 +1,27 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+// Redux
+import { connect } from 'react-redux';
 
 const CollectionSnippetSmall = (props) => {
-    return (
-      <TouchableOpacity
-        onPress={() => props.setCollection(props.id)}
+  // Props:
+  // props.collection_id
+
+return (
+  <TouchableOpacity
+    onPress={() => props.setCollection(props.collection_id)}
+  >
+    <View style = { styles.listItem }>
+      <View
+        style={(props.collection_id == props.selectedCollectionId) ? styles.selectedListItemBg : styles.listItemBg}
       >
-        <View style = { styles.listItem }>
-          <View
-            style={(props.id == props.selectedCollectionId) ? styles.selectedListItemBg : styles.listItemBg}
-          >
-            <Text style = { styles.collectionTitle }>
-              { props.title }
-            </Text>
-          </View>
-        </View>
-      </TouchableOpacity>
-    );
-}
+        <Text style = { styles.collectionTitle }>
+          { props.collection.title }
+        </Text>
+      </View>
+    </View>
+  </TouchableOpacity>
+)}
 
 const styles = StyleSheet.create({
   listItem: {
@@ -61,4 +65,18 @@ const styles = StyleSheet.create({
     },
 });
 
-export default CollectionSnippetSmall;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    collection: state.collections.byId[ownProps.collection_id],
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CollectionSnippetSmall)
+
+
+// export default CollectionSnippetSmall;

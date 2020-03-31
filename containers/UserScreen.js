@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, FlatList } from 'react-native';
 import CollectionsFlatList from '../components/CollectionsFlatList';
-import PostsFlatList from '../components/PostsFlatList';
+import PostSnippet from '../components/PostSnippet';
 import { Container, Header, Content, Button, Text, Tab, Tabs, TabHeading } from 'native-base';
 // Redux
 import { connect } from 'react-redux';
@@ -49,10 +49,14 @@ userPosts = () => {
 
   return (
     <View>
-      <PostsFlatList
+      <FlatList style = { styles.listContainer }
         data={userPostsObject}
-        navigation={this.props.navigation}
-        users={this.props.users}
+        renderItem={({ item }) =>
+          <PostSnippet
+            post_id={item.id}
+            navigation={this.props.navigation}
+          />}
+        keyExtractor={item => item.id}
       />
     </View>
   )

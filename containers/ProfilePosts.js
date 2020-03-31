@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TextInput, FlatList, SafeAreaView, ScrollView } from 'react-native';
 import PostSnippet from '../components/PostSnippet';
-import PostsFlatList from '../components/PostsFlatList';
 import { Container, Header, Content, Button, Text, Tab, Tabs, TabHeading } from 'native-base';
 // Redux
 import { connect } from 'react-redux';
