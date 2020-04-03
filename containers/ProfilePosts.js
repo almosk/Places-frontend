@@ -14,7 +14,27 @@ state = {
   posts: []
 }
 
-static navigationOptions = { header: null };
+componentDidMount(){
+  this.getPostsIndex()
+}
+getPostsIndex = () => {
+  return fetch('http://localhost:3000/v1/posts.json')
+    .then((response) => response.json())
+    .then((responseJson) => {
+      this.setState({
+        postsIsLoading: false,
+        postsDataSource: responseJson,
+      }, function(){
+        // console.log('back', this.state.postsDataSource);
+        this.state.postsDataSource.forEach(post => this.props.addPost(post.title, post.id, post.user_id, post.user_title, post.url))
+        // this.state.postsDataSource.forEach(post => console.log(post))
+      });
+
+    })
+    .catch((error) =>{
+      console.error(error);
+    })
+}
 
 deletePost = (id) => {
   this.props.deletePost(id)
@@ -36,7 +56,9 @@ postsOutput = (data) => {
       data={data}
       renderItem={({ item }) =>
         <PostSnippet
-          post_id={item.id}
+          id={item.id}
+          url={item.url}
+          post={item}
           navigation={this.props.navigation}
         />}
       keyExtractor={item => item.id}
@@ -45,17 +67,6 @@ postsOutput = (data) => {
 }
 
 render() {
-  // Get Object of all collections of logged User
-  profileCollections = this.props.collections.filter(collection => collection.user_id == this.props.users.loggedUser)
-  // Get Array of Ids of these collections
-  profileCollectionsIds = profileCollections.map(collection => collection.id)
-  // Get Object of CollectionPosts with these Ids
-  profileCollectionPosts = this.props.collectionPosts.filter(collectionPost => profileCollectionsIds.includes(collectionPost.collection_id))
-  // Get Array of PostIds of CollectionPosts (Ids of posts of collections of logged User)
-  profileCollectionPostsPostIds = profileCollectionPosts.map(collectionPost => collectionPost.post_id)
-  // Get Object of Posts these Ids are in array
-  profilePosts = this.props.posts.filter(post => profileCollectionPostsPostIds.includes(post.id))
-
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
@@ -71,7 +82,7 @@ render() {
             <Text>New Post</Text>
           </Button>
         </View>
-        { this.postsOutput(profilePosts) }
+        { this.postsOutput(this.props.posts) }
       </ScrollView>
     </SafeAreaView>
   );
@@ -110,15 +121,17 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     posts: Object.values(state.posts.byId),
-    users: state.users,
-    collectionPosts: Object.values(state.collectionPost.byId),
-    collections: Object.values(state.collections.byId)
+    // users: state.users,
+    // collectionPosts: Object.values(state.collectionPost.byId),
+    // collections: Object.values(state.collections.byId)
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-
+    addPost: (title, id, user_id, user_title, url) => {
+      dispatch(addPost(title, id, user_id, user_title, url))
+    }
   }
 }
 

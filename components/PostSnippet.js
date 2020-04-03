@@ -1,31 +1,17 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
-// Redux
-import { connect } from 'react-redux';
-
 
 const PostSnippet = (props) => {
 
 // Props:
-// props.post_id
+// props.post
 // props.navigation
-
-user_id = () => {
-  if (props.postUser !== null && props.postUser !== '' && typeof props.postUser !== "undefined") {
-    return(
-      <Text style = { styles.collectionTitle }>
-        { props.postUser.title }
-      </Text>
-    )
-  }
-}
 
 return (
   <TouchableOpacity
     onPress={() => {
       props.navigation.navigate('Place', {
-        post_id: props.post_id,
-        post_title: props.post.title
+        id: props.post.id,
       })
     }}
   >
@@ -37,7 +23,7 @@ return (
             { props.post.title }
           </Text>
           <Text style = { styles.collectionTitle }>
-            { this.user_id() }
+            { props.post.user_title }
           </Text>
         </View>
       </View>
@@ -84,16 +70,4 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    post: state.posts.byId[ownProps.post_id],
-    postUser: state.users.byId[state.posts.byId[ownProps.post_id].user_id]
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(PostSnippet)
+export default PostSnippet

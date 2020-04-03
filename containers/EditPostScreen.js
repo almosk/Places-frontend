@@ -55,7 +55,7 @@ sendCollectionPostToBackend = (collection_id, post_id) => {
   })
   .then((response) => response.json())
   .then((responseJson) => {
-    console.log(responseJson);
+    // console.log(responseJson);
     this.props.addCollectionPost(responseJson.collection_post.id, collection_id, post_id)
   })
   .catch((error) =>{

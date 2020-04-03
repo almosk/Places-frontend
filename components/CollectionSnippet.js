@@ -10,7 +10,7 @@ const CollectionSnippet = (props) => {
 // props.navigation
 
 user_id = () => {
-  console.log(props.collectionUser);
+  // console.log(props.collectionUser);
   if (props.collectionUser !== null && props.collectionUser !== '' && typeof props.collectionUser !== "undefined") {
     return(
       <Text style = { styles.userTitle }>

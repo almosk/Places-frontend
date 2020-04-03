@@ -11,82 +11,82 @@ import { addUser } from '../actions/user';
 import { addCollectionPost } from '../actions/collectionPost';
 
 class ProfileScreen extends Component {
-
-componentDidMount(){
-  this.getPostsFromBackend()
-  this.getCollectionsFromBackend()
-  this.getUsersFromBackend()
-  this.getCollectionPostsFromBackend()
-}
-getPostsFromBackend = () => {
-  return fetch('http://localhost:3000/posts.json')
-    .then((response) => response.json())
-    .then((responseJson) => {
-      this.setState({
-        postsIsLoading: false,
-        postsDataSource: responseJson,
-      }, function(){
-        // console.log('back', this.state.postsDataSource);
-        this.state.postsDataSource.forEach(post => this.props.addPost(post.title, post.id, post.user_id))
-        // this.state.dataSource.forEach(post => console.log(post.title, post.id))
-      });
-
-    })
-    .catch((error) =>{
-      console.error(error);
-    })
-}
-getCollectionsFromBackend = () => {
-  return fetch('http://localhost:3000/collections.json')
-    .then((response) => response.json())
-    .then((responseJson) => {
-      this.setState({
-        collectionsIsLoading: false,
-        collectionsDataSource: responseJson,
-      }, function(){
-        // console.log(this.state.collectionsDataSource[0].id);
-        this.state.collectionsDataSource.forEach(collection => this.props.addCollection(collection.title, collection.id, collection.user_id))
-      });
-
-    })
-    .catch((error) =>{
-      console.error(error);
-    });
-}
-getUsersFromBackend = () => {
-  return fetch('http://localhost:3000/users.json')
-    .then((response) => response.json())
-    .then((responseJson) => {
-      this.setState({
-        usersIsLoading: false,
-        usersDataSource: responseJson,
-      }, function(){
-        this.state.usersDataSource.forEach(user => this.props.addUser(user.title, user.id))
-        // this.state.dataSource.forEach(post => console.log(post.title, post.id))
-      });
-
-    })
-    .catch((error) =>{
-      console.error(error);
-    })
-}
-getCollectionPostsFromBackend = () => {
-  return fetch('http://localhost:3000/collection_posts.json')
-    .then((response) => response.json())
-    .then((responseJson) => {
-      this.setState({
-        collectionPostsIsLoading: false,
-        collectionPostsDataSource: responseJson,
-      }, function(){
-        this.state.collectionPostsDataSource.forEach(collectionPost => this.props.addCollectionPost(collectionPost.id, collectionPost.collection_id, collectionPost.post_id))
-        // this.state.dataSource.forEach(post => console.log(post.title, post.id))
-      });
-
-    })
-    .catch((error) =>{
-      console.error(error);
-    })
-}
+//
+// componentDidMount(){
+//   this.getPostsFromBackend()
+//   this.getCollectionsFromBackend()
+//   this.getUsersFromBackend()
+//   this.getCollectionPostsFromBackend()
+// }
+// getPostsFromBackend = () => {
+//   return fetch('http://localhost:3000/v1/posts.json')
+//     .then((response) => response.json())
+//     .then((responseJson) => {
+//       this.setState({
+//         postsIsLoading: false,
+//         postsDataSource: responseJson,
+//       }, function(){
+//         // console.log('back', this.state.postsDataSource);
+//         this.state.postsDataSource.forEach(post => this.props.addPost(post.title, post.id, post.user_id, post.user_title))
+//         // this.state.postsDataSource.forEach(post => console.log(post))
+//       });
+//
+//     })
+//     .catch((error) =>{
+//       console.error(error);
+//     })
+// }
+// getCollectionsFromBackend = () => {
+//   return fetch('http://localhost:3000/collections.json')
+//     .then((response) => response.json())
+//     .then((responseJson) => {
+//       this.setState({
+//         collectionsIsLoading: false,
+//         collectionsDataSource: responseJson,
+//       }, function(){
+//         // console.log(this.state.collectionsDataSource[0].id);
+//         this.state.collectionsDataSource.forEach(collection => this.props.addCollection(collection.title, collection.id, collection.user_id))
+//       });
+//
+//     })
+//     .catch((error) =>{
+//       console.error(error);
+//     });
+// }
+// getUsersFromBackend = () => {
+//   return fetch('http://localhost:3000/users.json')
+//     .then((response) => response.json())
+//     .then((responseJson) => {
+//       this.setState({
+//         usersIsLoading: false,
+//         usersDataSource: responseJson,
+//       }, function(){
+//         this.state.usersDataSource.forEach(user => this.props.addUser(user.title, user.id))
+//         // this.state.dataSource.forEach(post => console.log(post.title, post.id))
+//       });
+//
+//     })
+//     .catch((error) =>{
+//       console.error(error);
+//     })
+// }
+// getCollectionPostsFromBackend = () => {
+//   return fetch('http://localhost:3000/collection_posts.json')
+//     .then((response) => response.json())
+//     .then((responseJson) => {
+//       this.setState({
+//         collectionPostsIsLoading: false,
+//         collectionPostsDataSource: responseJson,
+//       }, function(){
+//         this.state.collectionPostsDataSource.forEach(collectionPost => this.props.addCollectionPost(collectionPost.id, collectionPost.collection_id, collectionPost.post_id))
+//         // this.state.dataSource.forEach(post => console.log(post.title, post.id))
+//       });
+//
+//     })
+//     .catch((error) =>{
+//       console.error(error);
+//     })
+// }
 
 render() {
   return (
@@ -97,7 +97,6 @@ render() {
             <Tab heading={ <TabHeading><Text>Posts</Text></TabHeading>}>
               <ProfilePosts
                 navigation={this.props.navigation}
-                posts={this.props.posts}
               />
             </Tab>
             <Tab heading={ <TabHeading><Text>Collections</Text></TabHeading>}>
@@ -131,18 +130,18 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    addCollection: (title, id, user_id) => {
-      dispatch(addCollection(title, id, user_id))
-    },
-    addPost: (title, id, user_id) => {
-      dispatch(addPost(title, id, user_id))
-    },
-    addUser: (title, id) => {
-      dispatch(addUser(title, id))
-    },
-    addCollectionPost: (id, collecion_id, post_id) => {
-      dispatch(addCollectionPost(id, collecion_id, post_id))
-    },
+    // addCollection: (title, id, user_id) => {
+    //   dispatch(addCollection(title, id, user_id))
+    // },
+    // addPost: (title, id, user_id) => {
+    //   dispatch(addPost(title, id, user_id))
+    // },
+    // addUser: (title, id) => {
+    //   dispatch(addUser(title, id))
+    // },
+    // addCollectionPost: (id, collecion_id, post_id) => {
+    //   dispatch(addCollectionPost(id, collecion_id, post_id))
+    // },
   }
 }
 

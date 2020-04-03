@@ -5,21 +5,41 @@ import { Container, Header, Content, Button, Text, Tab, Tabs, TabHeading } from 
 // Redux
 import { connect } from 'react-redux';
 import { deletePost } from '../actions/post';
+import { updatePost } from '../actions/post';
 
 class PostScreen extends Component {
 
 // Props:
-// this.props.route.params.post_id
+// this.props.route.params.id
 // this.props.navigation
 
-collectionsOutput = () => {
-  let collectionPostIds = []
-  let CollectionIdsBelongsToPost = Object.values(this.props.collectionPosts).filter(collectionPost => collectionPost.post_id == this.props.route.params.post_id)
-  CollectionIdsBelongsToPost.forEach(collectionPost => collectionPostIds.push(collectionPost.collection_id))
-  let CollectionsBelongsToPost = this.props.collections.filter(collection => collectionPostIds.includes(collection.id))
+componentDidMount(){
+  this.getPostShow()
+}
+getPostShow = () => {
+  return fetch(this.props.post.url)
+    .then((response) => response.json())
+    .then((responseJson) => {
+      this.setState({
+        postIsLoading: false,
+        postDataSource: responseJson,
+      }, function(){
+        let post = this.state.postDataSource
+        // console.log(post);
+        this.props.updatePost(post.title, post.id, post.user_id, post.user_title, post.url, post.description, post.collections)
+      });
+
+    })
+    .catch((error) =>{
+      console.error(error);
+    })
+}
+
+collectionsOutput = (data) => {
+  // console.log(data);
   return (
     <CollectionsFlatList
-      data={CollectionsBelongsToPost}
+      data={data}
       navigation={this.props.navigation}
     />
   )
@@ -40,52 +60,43 @@ deletePost = () => {
   this.props.navigation.navigate('Profile')
 }
 
-user_id = () => {
-  let post = this.props.posts[this.props.route.params.post_id]
-  let postUser = this.props.users[post.user_id]
-  if (postUser !== null && postUser !== ''  && typeof postUser!=="undefined") {
-    return (
-      <View style = { styles.container }>
-        <Text style = { styles.smallHeading }>User:</Text>
-        <Text style = { styles.smallHeading }>{postUser.title}</Text>
-      </View>
-    )
-  }
-}
-
 render() {
-  let post = this.props.posts[this.props.route.params.post_id]
+  let post = this.props.post
   return (
     <View>
-      <View style = { styles.post }>
-        <Text style = { styles.postTitle }>
-          { post.title }
-        </Text>
-        <View style = { styles.horizontalContainer }>
+      <View style = { styles.container }>
+        <View style = { styles.post }>
+          <Text style = { styles.postTitle }>{ post.title }</Text>
+          <View style = { styles.horizontalContainer }>
           <Button
-            rounded small light
-            onPress={() => {
-              this.props.navigation.navigate('Edit Post', {
-                post: post
-              })
-            }}
+          rounded small light
+          onPress={() => {
+            this.props.navigation.navigate('Edit Post', {
+              post: post
+            })
+          }}
           >
-            <Text style = { styles.smallButtonText }>Edit</Text>
+          <Text style = { styles.smallButtonText }>Edit</Text>
           </Button>
           <Button
-            rounded small light
-            onPress = { this.deletePost }
+          rounded small light
+          onPress = { this.deletePost }
           >
-            <Text style = { styles.smallButtonText }>Del</Text>
+          <Text style = { styles.smallButtonText }>Del</Text>
           </Button>
+          </View>
         </View>
+        <Text style = { styles.smallHeading }>{post.description}</Text>
       </View>
 
-      { this.user_id() }
+      <View style = { styles.container }>
+        <Text style = { styles.smallHeading }>User:</Text>
+        <Text style = { styles.smallHeading }>{post.user_title}</Text>
+      </View>
 
       <View style = { styles.container }>
         <Text style = { styles.smallHeading }>In collections:</Text>
-        { this.collectionsOutput()}
+        { this.collectionsOutput(this.props.post.collections)}
       </View>
 
       <View style = { styles.button }>
@@ -121,7 +132,8 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: 16,
     paddingBottom: 16,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    marginBottom: 8
   },
   smallHeading: {
     paddingRight: 16,
@@ -159,12 +171,12 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    // post: state.posts.byId[ownProps.route.params.post_id],
-    postUser: state.users.byId[state.posts.byId[ownProps.route.params.post_id].user_id],
-    posts: state.posts.byId,
-    users: Object.values(state.users.byId),
-    collections: Object.values(state.collections.byId),
-    collectionPosts: Object.values(state.collectionPost.byId),
+    post: state.posts.byId[ownProps.route.params.id],
+    // postUser: state.users.byId[state.posts.byId[ownProps.route.params.post_id].user_id],
+    // posts: state.posts.byId,
+    // users: Object.values(state.users.byId),
+    // collections: Object.values(state.collections.byId),
+    // collectionPosts: Object.values(state.collectionPost.byId),
   }
 }
 
@@ -172,6 +184,9 @@ const mapDispatchToProps = dispatch => {
   return {
     deletePost: (id) => {
       dispatch(deletePost(id))
+    },
+    updatePost: (title, id, user_id, user_title, url, description, collections) => {
+      dispatch(updatePost(title, id, user_id, user_title, url, description, collections))
     }
   }
 }
