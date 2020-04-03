@@ -61,7 +61,7 @@ getUsersFromBackend = () => {
         usersIsLoading: false,
         usersDataSource: responseJson,
       }, function(){
-        this.state.usersDataSource.forEach(user => this.props.addUser(user.name, user.id))
+        this.state.usersDataSource.forEach(user => this.props.addUser(user.title, user.id))
         // this.state.dataSource.forEach(post => console.log(post.title, post.id))
       });
 
