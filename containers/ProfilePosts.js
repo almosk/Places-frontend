@@ -17,6 +17,7 @@ state = {
 componentDidMount(){
   this.getPostsIndex()
 }
+
 getPostsIndex = () => {
   return fetch('http://localhost:3000/v1/posts.json')
     .then((response) => response.json())
@@ -34,20 +35,6 @@ getPostsIndex = () => {
     .catch((error) =>{
       console.error(error);
     })
-}
-
-deletePost = (id) => {
-  this.props.deletePost(id)
-  fetch('http://localhost:3000/posts/' + id, {
-    method: 'DELETE',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    }
-  })
-  .catch((error) =>{
-    console.error(error);
-  })
 }
 
 postsOutput = (data) => {

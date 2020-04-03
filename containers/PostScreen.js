@@ -4,8 +4,7 @@ import CollectionsFlatList from '../components/CollectionsFlatList';
 import { Container, Header, Content, Button, Text, Tab, Tabs, TabHeading } from 'native-base';
 // Redux
 import { connect } from 'react-redux';
-import { deletePost } from '../actions/post';
-import { updatePost } from '../actions/post';
+import { deletePost, updatePost } from '../actions/post';
 
 class PostScreen extends Component {
 
