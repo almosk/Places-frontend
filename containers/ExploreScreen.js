@@ -5,11 +5,11 @@ import ExploreCollections from '../containers/ExploreCollections';
 import ExploreUsers from '../containers/ExploreUsers';
 import { Container, Text, Tab, Tabs, TabHeading } from 'native-base';
 // Redux
-import { connect } from 'react-redux';
-import { addPost } from '../actions/post';
-import { addCollection } from '../actions/collection';
-import { addUser } from '../actions/user';
-import { addCollectionPost } from '../actions/collectionPost';
+// import { connect } from 'react-redux';
+// import { addPost } from '../actions/post';
+// import { addCollection } from '../actions/collection';
+// import { addUser } from '../actions/user';
+// import { addCollectionPost } from '../actions/collectionPost';
 
 class ExploreScreen extends Component {
 
@@ -54,29 +54,30 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   }
 })
-const mapStateToProps = state => {
-  return {
-    collections: Object.values(state.collections.byId),
-    posts: Object.values(state.posts.byId),
-    collectionPosts: Object.values(state.collectionPost.byId),
-    users: state.users
-  }
-}
-const mapDispatchToProps = dispatch => {
-  return {
-    addCollection: (title, id, user_id) => {
-      dispatch(addCollection(title, id, user_id))
-    },
-    addPost: (title, id, user_id) => {
-      dispatch(addPost(title, id, user_id))
-    },
-    addUser: (title, id) => {
-      dispatch(addUser(title, id))
-    },
-    addCollectionPost: (id, collecion_id, post_id) => {
-      dispatch(addCollectionPost(id, collecion_id, post_id))
-    },
-  }
-}
+// const mapStateToProps = state => {
+//   return {
+//     collections: Object.values(state.collections.byId),
+//     posts: Object.values(state.posts.byId),
+//     collectionPosts: Object.values(state.collectionPost.byId),
+//     users: state.users
+//   }
+// }
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     addCollection: (title, id, user_id) => {
+//       dispatch(addCollection(title, id, user_id))
+//     },
+//     addPost: (title, id, user_id) => {
+//       dispatch(addPost(title, id, user_id))
+//     },
+//     addUser: (title, id) => {
+//       dispatch(addUser(title, id))
+//     },
+//     addCollectionPost: (id, collecion_id, post_id) => {
+//       dispatch(addCollectionPost(id, collecion_id, post_id))
+//     },
+//   }
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ExploreScreen)
+export default ExploreScreen
+// export default connect(mapStateToProps, mapDispatchToProps)(ExploreScreen)
