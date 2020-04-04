@@ -14,7 +14,8 @@ class LoginForm extends Component {
   }
   emailChanged(value) {
     const email = _.lowerCase(value.trim());
-    this.props.emailChanged(email);
+    // this.props.emailChanged(email);
+    this.props.emailChanged(value);
   }
   passwordChanged(value) {
     // console.log('Value:', value);

@@ -17,7 +17,7 @@ export const loginUser = ({ email, password }) => {
     dispatch({
       type: 'LOAD_SPINNER'
     });
-    fetch('http://localhost:3000/token', {
+    fetch('http://localhost:3000/users/sign_in', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
