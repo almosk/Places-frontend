@@ -24,7 +24,7 @@ getCollectionShow = () => {
         collectionDataSource: responseJson,
       }, function(){
         let collection = this.state.collectionDataSource
-        console.log(collection);
+        // console.log(collection);
         this.props.updateCollection(collection.title, collection.id, collection.user_id, collection.user_title, collection.url, collection.posts)
       });
 
