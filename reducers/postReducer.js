@@ -13,23 +13,12 @@ const initialState = {
 const postReducer = (state = initialState, action) => {
   switch(action.type) {
     case ADD_POST:
-      // console.log(state);
-      state['byId'][action.payload.id] = {
-        id: action.payload.id,
-        title: action.payload.title,
-        user_id: action.payload.user_id,
-        user_title: action.payload.user_title,
-        url: action.payload.url
-      }
+      state['byId'][action.payload.post.id]={}
+      merge(state['byId'][action.payload.post.id], action.payload.post)
       return merge({}, state)
 
     case UPDATE_POST:
-      // юзать merge
-      state['byId'][action.payload.id]['title'] = action.payload.title
-      state['byId'][action.payload.id]['user_id'] = action.payload.user_id
-      state['byId'][action.payload.id]['user_title'] = action.payload.user_title
-      state['byId'][action.payload.id]['description'] = action.payload.description
-      state['byId'][action.payload.id]['collections'] = action.payload.collections
+      merge(state['byId'][action.payload.post.id], action.payload.post)
       return merge({}, state)
 
     case DELETE_POST:

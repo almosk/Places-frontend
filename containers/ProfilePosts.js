@@ -26,9 +26,9 @@ getPostsIndex = () => {
         postsIsLoading: false,
         postsDataSource: responseJson,
       }, function(){
-        console.log('back', this.state.postsDataSource);
+        // console.log('back', this.state.postsDataSource);
         setTimeout(() => {
-          this.state.postsDataSource.forEach(post => this.props.addPost(post.title, post.id, post.user_id, post.user_title, post.url))
+          this.state.postsDataSource.forEach(post => this.props.addPost(post))
         }, 250);
         // this.state.postsDataSource.forEach(post => console.log(post))
       });
@@ -118,8 +118,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addPost: (title, id, user_id, user_title, url) => {
-      dispatch(addPost(title, id, user_id, user_title, url))
+    addPost: (post) => {
+      dispatch(addPost(post))
     }
   }
 }

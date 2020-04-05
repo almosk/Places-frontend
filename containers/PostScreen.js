@@ -12,9 +12,9 @@ class PostScreen extends Component {
 // this.props.route.params.id
 // this.props.navigation
 
-componentDidMount(){
-  this.getPostShow()
-}
+// componentDidMount(){
+//   this.getPostShow()
+// }
 getPostShow = () => {
   return fetch(this.props.post.url)
     .then((response) => response.json())
@@ -26,7 +26,9 @@ getPostShow = () => {
         let post = this.state.postDataSource
         // console.log(post);
         // передавать весь пост сразу
-        this.props.updatePost(post.title, post.id, post.user_id, post.user_title, post.url, post.description, post.collections)
+        setTimeout(() => {
+          this.props.updatePost(post)
+        }, 250);
       });
 
     })
@@ -62,6 +64,9 @@ deletePost = () => {
 
 render() {
   let post = this.props.post
+  if (this.props.post.description == null) {
+    this.getPostShow()
+  }
   return (
     <View>
       <View style = { styles.container }>
@@ -185,8 +190,8 @@ const mapDispatchToProps = dispatch => {
     deletePost: (id) => {
       dispatch(deletePost(id))
     },
-    updatePost: (title, id, user_id, user_title, url, description, collections) => {
-      dispatch(updatePost(title, id, user_id, user_title, url, description, collections))
+    updatePost: (post) => {
+      dispatch(updatePost(post))
     }
   }
 }
