@@ -23,9 +23,7 @@ getCollectionShow = () => {
         collectionIsLoading: false,
         collectionDataSource: responseJson,
       }, function(){
-        let collection = this.state.collectionDataSource
-        // console.log(collection);
-        this.props.updateCollection(collection.title, collection.id, collection.user_id, collection.user_title, collection.url, collection.posts)
+        this.props.updateCollection(this.state.collectionDataSource)
       });
 
     })
@@ -90,8 +88,8 @@ const mapDispatchToProps = dispatch => {
     deleteCollection: (id) => {
       dispatch(deleteCollection(id))
     },
-    updateCollection: (title, id, user_id, user_title, url, posts) => {
-      dispatch(updateCollection(title, id, user_id, user_title, url, posts))
+    updateCollection: (collection) => {
+      dispatch(updateCollection(collection))
     }
   }
 }

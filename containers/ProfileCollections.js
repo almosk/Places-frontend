@@ -23,7 +23,7 @@ getCollectionsIndex = () => {
         collectionsIsLoading: false,
         collectionsDataSource: responseJson,
       }, function(){
-        this.state.collectionsDataSource.forEach(collection => this.props.addCollection(collection.title, collection.id, collection.user_id, collection.user_title, collection.url))
+        this.state.collectionsDataSource.forEach(collection => this.props.addCollection(collection))
       });
 
     })
@@ -101,8 +101,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addCollection: (title, id, user_id, user_title, url) => {
-      dispatch(addCollection(title, id, user_id, user_title, url))
+    addCollection: (collection) => {
+      dispatch(addCollection(collection))
     }
   }
 }

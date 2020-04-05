@@ -1,28 +1,19 @@
 import { ADD_COLLECTION, UPDATE_COLLECTION, DELETE_COLLECTION } from './types';
 
-export const addCollection = (title, id, user_id, user_title, url) => {
+export const addCollection = (collection) => {
   return {
     type: ADD_COLLECTION,
     payload: {
-      title: title,
-      id: id,
-      user_id: user_id,
-      user_title: user_title,
-      url: url
+      collection: collection
     }
   }
 }
 
-export const updateCollection = (title, id, user_id, user_title, url, posts) => {
+export const updateCollection = (collection) => {
   return {
     type: UPDATE_COLLECTION,
     payload: {
-      title: title,
-      id: id,
-      user_id: user_id,
-      user_title: user_title,
-      url: url,
-      posts: posts
+      collection: collection
     }
   }
 }
