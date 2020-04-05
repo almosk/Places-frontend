@@ -25,6 +25,7 @@ getPostShow = () => {
       }, function(){
         let post = this.state.postDataSource
         // console.log(post);
+        // передавать весь пост сразу
         this.props.updatePost(post.title, post.id, post.user_id, post.user_title, post.url, post.description, post.collections)
       });
 

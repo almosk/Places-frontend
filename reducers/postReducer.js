@@ -24,6 +24,7 @@ const postReducer = (state = initialState, action) => {
       return merge({}, state)
 
     case UPDATE_POST:
+      // юзать merge
       state['byId'][action.payload.id]['title'] = action.payload.title
       state['byId'][action.payload.id]['user_id'] = action.payload.user_id
       state['byId'][action.payload.id]['user_title'] = action.payload.user_title
