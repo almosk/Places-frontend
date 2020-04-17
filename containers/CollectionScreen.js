@@ -12,9 +12,10 @@ class CollectionScreen extends Component {
 // this.props.route.params.collection_id
 // this.props.navigation
 
-componentDidMount(){
-  this.getCollectionShow()
-}
+// componentDidMount(){
+//   this.getCollectionShow()
+// }
+
 getCollectionShow = () => {
   return fetch(this.props.collection.url)
     .then((response) => response.json())
@@ -51,9 +52,13 @@ postsOutput = (data) => {
 }
 
 render() {
+  let collection = this.props.collection
+  if (collection.posts == null) {
+    this.getCollectionShow()
+  }
   return (
     <View style = { styles.listContainer }>
-      { this.postsOutput(this.props.collection.posts) }
+      { this.postsOutput(collection.posts) }
     </View>
     )
   }

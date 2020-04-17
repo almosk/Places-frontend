@@ -19,8 +19,16 @@ componentDidMount(){
 }
 
 getPostsIndex = () => {
-  return fetch('http://localhost:3000/v1/posts.json')
-    .then((response) => response.json())
+  // const myHeaders = new Headers({
+  //   'access-token': this.props.login['map']['access-token'],
+  //   'client': this.props.login['map']['client'],
+  //   'uid': this.props.login['map']['uid']
+  // });
+  return fetch('http://localhost:3000/v1/posts.json', {
+    headers: {
+      // 'access-token': this.props.login['headers']['map']['access-token']
+    },
+  }).then((response) => response.json())
     .then((responseJson) => {
       this.setState({
         postsIsLoading: false,
@@ -56,6 +64,7 @@ postsOutput = (data) => {
 }
 
 render() {
+  console.log(this.props.login);
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
@@ -110,6 +119,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     posts: Object.values(state.posts.byId),
+    // login: state.login
     // users: state.users,
     // collectionPosts: Object.values(state.collectionPost.byId),
     // collections: Object.values(state.collections.byId)

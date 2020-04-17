@@ -3,53 +3,19 @@ import { StyleSheet, View, TextInput, FlatList } from 'react-native';
 import ProfilePosts from '../containers/ProfilePosts';
 import ProfileCollections from '../containers/ProfileCollections';
 import { Container, Text, Tab, Tabs, TabHeading } from 'native-base';
+//Map
+import MapboxGL from "@react-native-mapbox-gl/maps";
+MapboxGL.setAccessToken("pk.eyJ1IjoiYWxtb3NrIiwiYSI6ImNrOHhhdWw3MzBodGkzbG8wMzZhYm4waHcifQ.xy56Az5bM0S2EzXR_gdYjw");
 
 class ProfileScreen extends Component {
-//
-// componentDidMount(){
-//   this.getPostsFromBackend()
-//   this.getCollectionsFromBackend()
-//   this.getUsersFromBackend()
-//   this.getCollectionPostsFromBackend()
-// }
-// getCollectionsFromBackend = () => {
-//   return fetch('http://localhost:3000/collections.json')
-//     .then((response) => response.json())
-//     .then((responseJson) => {
-//       this.setState({
-//         collectionsIsLoading: false,
-//         collectionsDataSource: responseJson,
-//       }, function(){
-//         // console.log(this.state.collectionsDataSource[0].id);
-//         this.state.collectionsDataSource.forEach(collection => this.props.addCollection(collection.title, collection.id, collection.user_id))
-//       });
-//
-//     })
-//     .catch((error) =>{
-//       console.error(error);
-//     });
-// }
-// getUsersFromBackend = () => {
-//   return fetch('http://localhost:3000/users.json')
-//     .then((response) => response.json())
-//     .then((responseJson) => {
-//       this.setState({
-//         usersIsLoading: false,
-//         usersDataSource: responseJson,
-//       }, function(){
-//         this.state.usersDataSource.forEach(user => this.props.addUser(user.title, user.id))
-//         // this.state.dataSource.forEach(post => console.log(post.title, post.id))
-//       });
-//
-//     })
-//     .catch((error) =>{
-//       console.error(error);
-//     })
-// }
 
 render() {
   return (
     <Container>
+      <View style={styles.mapContainer}>
+        <MapboxGL.MapView style={styles.map} />
+      </View>
+
       <View style={ styles.container }>
         <View>
           <Tabs>
@@ -74,6 +40,14 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'flex-start',
     alignItems: 'center',
+  },
+  mapContainer: {
+    height: 250,
+    width: '100%',
+    backgroundColor: "tomato"
+  },
+  map: {
+    flex: 1
   }
 })
 

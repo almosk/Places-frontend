@@ -64,7 +64,7 @@ deletePost = () => {
 
 render() {
   let post = this.props.post
-  if (this.props.post.description == null) {
+  if (post.collections == null) {
     this.getPostShow()
   }
   return (

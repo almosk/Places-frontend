@@ -17,17 +17,16 @@ export const loginUser = ({ email, password }) => {
     dispatch({
       type: 'LOAD_SPINNER'
     });
-    fetch('http://localhost:3000/users/sign_in', {
+    fetch('http://localhost:3000/auth', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          user: {
-            email,
-            password,
-          }
+          email,
+          password,
+          password_confirmation: password
         })
       }).then((response) => {
         console.log(response);
@@ -38,13 +37,19 @@ export const loginUser = ({ email, password }) => {
           });
         } else {
           console.log('SUCCESS!!');
-          response.json().then(data => {
-            console.log(data);
-            dispatch({
-              type: 'LOGIN_USER_SUCCESS',
-              payload: data
-            });
-          });
+
+          console.log(response.headers);
+          dispatch({
+            type: 'LOGIN_USER_SUCCESS',
+            payload: response.headers
+          })
+          // response.json().then(headers => {
+          //   console.log(headers);
+          //   dispatch({
+          //     type: 'LOGIN_USER_SUCCESS',
+          //     payload: headers
+          //   });
+          // });
         }
       });
   };
