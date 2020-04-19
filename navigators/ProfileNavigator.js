@@ -9,13 +9,18 @@ import NewPostScreen from '../containers/NewPostScreen'
 import EditPostScreen from '../containers/EditPostScreen'
 import SavePostScreen from '../containers/SavePostScreen'
 import ProfileInfoScreen from '../containers/ProfileInfoScreen'
+import MapBlock from '../components/MapBlock'
 // Navigation
 import { createStackNavigator } from '@react-navigation/stack';
 
 class ProfileNavigator extends Component {
 render() {
   return (
-      <ProfileStack.Navigator initialRouteName="Profile">
+      <ProfileStack.Navigator
+        initialRouteName="Profile"
+        // mode='modal'
+        // headerMode='none'
+      >
         <ProfileStack.Screen name="Profile" component={ProfileScreen}
           options={{
             headerRight: () => (
@@ -28,12 +33,26 @@ render() {
               >
                 <Text>Info</Text>
               </Button>
-            )
-          }}
+            ),
+            // headerShown: false,
+             // header: ({ scene, previous, navigation }) => {
+             //   const { options } = scene.descriptor;
+             //   const title =
+             //     options.headerTitle !== undefined
+             //       ? options.headerTitle
+             //       : options.title !== undefined
+             //       ? options.title
+             //       : scene.route.name;
+             //
+             //   return (
+             //     <MapBlock/>
+             //   )}
+            }}
         />
         <ProfileStack.Screen name="Place" component={PostScreen}
           options={({ route }) => ({
-            title: route.params.post_title
+            title: route.params.post_title,
+            headerMode: 'none'
           })}
         />
         <ProfileStack.Screen name="Collection" component={CollectionScreen}
@@ -53,3 +72,5 @@ render() {
 const ProfileStack = createStackNavigator();
 
 export default ProfileNavigator
+
+// headerTitle: props => <Map/>

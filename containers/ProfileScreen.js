@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, TextInput, FlatList } from 'react-native';
 import ProfilePosts from '../containers/ProfilePosts';
 import ProfileCollections from '../containers/ProfileCollections';
+import ProfileNavigator from '../navigators/ProfileNavigator';
 import { Container, Text, Tab, Tabs, TabHeading } from 'native-base';
 import BottomSheet from 'reanimated-bottom-sheet'
 //Map
@@ -41,12 +42,14 @@ renderHeader = () => {
 }
 render() {
   return (
-    <Container>
+    <Container style={ styles.container }>
+      <View style={styles.topBar}></View>
       <View style={styles.mapContainer}>
         <MapboxGL.MapView style={styles.map} />
       </View>
       <BottomSheet
-        snapPoints = {[450, 100]}
+        snapPoints = {[450, 630, 200]}
+        enabledBottomInitialAnimation = { true }
         renderContent = {this.renderContent}
         renderHeader = {this.renderHeader}
         />
@@ -81,6 +84,19 @@ const styles = StyleSheet.create({
     width: 64,
     backgroundColor: "#cccccc",
     borderRadius: 4
+  },
+  topBar: {
+    position: 'absolute',
+    top: 0,
+    flex: 1,
+    alignSelf: 'stretch',
+    right: 0,
+    left: 0,
+    margin: 16,
+    marginTop: 48,
+    width: 343,
+    height: 32,
+    backgroundColor: "#cccccc",
   }
 })
 

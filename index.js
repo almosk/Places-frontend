@@ -28,8 +28,7 @@ const Tab = createBottomTabNavigator();
 const RNRedux = () => (
   <Provider store = { createStore(rootReducer, applyMiddleware(thunk)) }>
     <NavigationContainer>
-      <Tab.Navigator initialRouteName="LoginForm">
-        <Tab.Screen name="LoginForm" component={LoginForm} />
+      <Tab.Navigator initialRouteName="Profile">
         <Tab.Screen name="Explore" component={ExploreNavigator} />
         <Tab.Screen name="Profile" component={ProfileNavigator} />
       </Tab.Navigator>
