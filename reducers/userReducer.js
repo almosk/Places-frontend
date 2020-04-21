@@ -15,7 +15,8 @@ const initialState = {
 const userReducer = (state = initialState, action) => {
   switch(action.type) {
     case ADD_USER:
-      state.byId[action.payload.id] = {id: action.payload.id, title: action.payload.title }
+      state['byId'][action.payload.user.id]={}
+      merge(state['byId'][action.payload.user.id], action.payload.user)
       return merge({}, state)
 
     case DELETE_USER:

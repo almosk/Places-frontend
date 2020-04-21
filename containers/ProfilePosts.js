@@ -24,7 +24,7 @@ getPostsIndex = () => {
   //   'client': this.props.login['map']['client'],
   //   'uid': this.props.login['map']['uid']
   // });
-  return fetch('http://localhost:3000/v1/posts.json', {
+  return fetch('http://localhost:3000/v1/posts/profile_posts.json', {
     headers: {
       // 'access-token': this.props.login['headers']['map']['access-token']
     },

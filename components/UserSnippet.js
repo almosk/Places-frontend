@@ -2,6 +2,8 @@ import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Container, Header, Content, Button, Text, Tab, Tabs, TabHeading } from 'native-base';
 
+//Props:
+// user
 const UserSnippet = (props) => {
 
 logInButton = () => {
@@ -33,9 +35,14 @@ return (
         <Text style = { styles.postTitle }>
           { props.user.title }
         </Text>
+        <View style = { styles.horizontaContainer }>
+          <Text style = { styles.collectionTitle }>Collections: { props.user.collections_quantity }</Text>
+          <Text style = { styles.collectionTitle }> • </Text>
+          <Text style = { styles.collectionTitle }>Posts: { props.user.posts_quantity }</Text>
+        </View>
       </View>
     </View>
-    {logInButton()}
+
   </TouchableOpacity>
 );
 }

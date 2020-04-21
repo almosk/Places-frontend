@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TextInput, FlatList, SafeAreaView, ScrollView } from 'react-native';
-import PostSnippet from '../components/PostSnippet';
+import PostExploreSnippet from '../components/PostExploreSnippet';
 import { Container, Header, Content, Button, Text, Tab, Tabs, TabHeading } from 'native-base';
 // Redux
 import { connect } from 'react-redux';
@@ -14,49 +14,61 @@ state = {
   posts: []
 }
 
-static navigationOptions = { header: null };
+componentDidMount(){
+  this.getPostsIndex()
+}
 
-deletePost = (id) => {
-  this.props.deletePost(id)
-  fetch('http://localhost:3000/posts/' + id, {
-    method: 'DELETE',
+getPostsIndex = () => {
+  // const myHeaders = new Headers({
+  //   'access-token': this.props.login['map']['access-token'],
+  //   'client': this.props.login['map']['client'],
+  //   'uid': this.props.login['map']['uid']
+  // });
+  return fetch('http://localhost:3000/v1/posts/explore_posts.json', {
     headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    }
-  })
-  .catch((error) =>{
-    console.error(error);
-  })
+      // 'access-token': this.props.login['headers']['map']['access-token']
+    },
+  }).then((response) => response.json())
+    .then((responseJson) => {
+      this.setState({
+        postsIsLoading: false,
+        postsDataSource: responseJson,
+      }, function(){
+        // console.log('back', this.state.postsDataSource);
+        setTimeout(() => {
+          this.state.postsDataSource.forEach(post => this.props.addPost(post))
+        }, 250);
+        // this.state.postsDataSource.forEach(post => console.log(post))
+      });
+
+    })
+    .catch((error) =>{
+      console.error(error);
+    })
+}
+
+postsOutput = (data) => {
+  return (
+    <FlatList style = { styles.listContainer }
+      data={data}
+      renderItem={({ item }) =>
+        <PostExploreSnippet
+          id={item.id}
+          url={item.url}
+          post={item}
+          navigation={this.props.navigation}
+        />}
+      keyExtractor={item => item.id}
+    />
+  );
 }
 
 render() {
-  // Get Object of all collections of logged User
-  exploreCollections = this.props.collections.filter(collection => collection.user_id == this.props.users.loggedUser)
-  // Get Array of Ids of these collections
-  exploreCollectionsIds = exploreCollections.map(collection => collection.id)
-  // Get Object of CollectionPosts with these Ids
-  exploreCollectionPosts = this.props.collectionPosts.filter(collectionPost => exploreCollectionsIds.includes(collectionPost.collection_id))
-  // Get Array of PostIds of CollectionPosts (Ids of posts of collections of logged User)
-  exploreCollectionPostsPostIds = exploreCollectionPosts.map(collectionPost => collectionPost.post_id)
-  // Get Object of Posts these Ids are in array
-  explorePosts = this.props.posts.filter(post => !exploreCollectionPostsPostIds.includes(post.id))
-  explorePosts.filter(post => post.user_id !== this.props.users.loggedUser)
-
+  // console.log(this.props.login);
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
-        <View style = { styles.listContainer }>
-          <FlatList style = { styles.listContainer }
-            data={explorePosts}
-            renderItem={({ item }) =>
-              <PostSnippet
-                post_id={item.id}
-                navigation={this.props.navigation}
-              />}
-            keyExtractor={item => item.id}
-          />
-        </View>
+        { this.postsOutput(this.props.posts) }
       </ScrollView>
     </SafeAreaView>
   );
@@ -95,19 +107,17 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     posts: Object.values(state.posts.byId),
-    users: state.users,
-    collectionPosts: Object.values(state.collectionPost.byId),
-    collections: Object.values(state.collections.byId)
+    // login: state.login
+    // users: state.users,
+    // collectionPosts: Object.values(state.collectionPost.byId),
+    // collections: Object.values(state.collections.byId)
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    addPost: (title, id) => {
-      dispatch(addPost(title, id))
-    },
-    deletePost: (id) => {
-      dispatch(deletePost(id))
+    addPost: (post) => {
+      dispatch(addPost(post))
     }
   }
 }

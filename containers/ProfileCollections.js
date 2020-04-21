@@ -16,7 +16,7 @@ componentDidMount(){
   this.getCollectionsIndex()
 }
 getCollectionsIndex = () => {
-  return fetch('http://localhost:3000/v1/collections.json')
+  return fetch('http://localhost:3000/v1/collections/profile_collections.json')
     .then((response) => response.json())
     .then((responseJson) => {
       this.setState({

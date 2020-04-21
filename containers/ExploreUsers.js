@@ -1,57 +1,110 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TextInput, FlatList, SafeAreaView, ScrollView } from 'react-native';
-import { Container, Header, Content, Button, Text, Tab, Tabs, TabHeading } from 'native-base';
 import UserSnippet from '../components/UserSnippet';
+import { Container, Header, Content, Button, Text, Tab, Tabs, TabHeading } from 'native-base';
+// Redux
+import { connect } from 'react-redux';
+import { addUser } from '../actions/user';
+
 
 class ExploreUsers extends Component {
+
 state = {
-  postName: '',
+  inputText: '',
   posts: []
 }
-usersOutput = () => {
-  exploreUsers = Object.values(this.props.users.byId).filter(user => user.id !== this.props.users.loggedUser)
+
+componentDidMount(){
+  this.getUsersIndex()
+}
+
+getUsersIndex = () => {
+  return fetch('http://localhost:3000/v1/users.json', {
+  }).then((response) => response.json())
+    .then((responseJson) => {
+      this.setState({
+        usersIsLoading: false,
+        usersDataSource: responseJson,
+      }, function(){
+        // console.log('back', this.state.postsDataSource);
+        setTimeout(() => {
+          this.state.usersDataSource.forEach(user => this.props.addUser(user))
+        }, 250);
+        // this.state.postsDataSource.forEach(post => console.log(post))
+      });
+
+    })
+    .catch((error) =>{
+      console.error(error);
+    })
+}
+
+usersOutput = (data) => {
   return (
     <FlatList style = { styles.listContainer }
-      data = { exploreUsers }
-      keyExtractor={(item, index) => index.toString()}
-      renderItem = { info => (
+      data={data}
+      renderItem={({ item }) =>
         <UserSnippet
-          user={ info.item }
+          user={item}
           navigation={this.props.navigation}
-        />
-      )}
+        />}
+      keyExtractor={item => item.id}
     />
-  )
+  );
 }
+
 render() {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
-        <View style = { styles.listContainer }>
-        { this.usersOutput() }
-        </View>
+        { this.usersOutput(this.props.users) }
       </ScrollView>
     </SafeAreaView>
-  );}
+  );
+  }
 }
+
 const styles = StyleSheet.create({
-  listContainer: {
-    width: '100%',
-    paddingTop: 8
-  },
   container: {
     width: '100%',
     paddingTop: 16,
     justifyContent: 'flex-start',
     alignItems: 'center',
   },
-  buttonContainer: {
-    width: '100%',
-    padding: 16
-  },
   scrollView: {
     width: '100%',
   },
+  postInput: {
+    width: '70%'
+  },
+  postButton: {
+    width: '30%'
+  },
+  newPostButton:{
+    marginTop: '130px'
+  },
+  listContainer: {
+    marginTop: 16,
+    width: '100%'
+  },
+  buttonContainer: {
+    width: '100%',
+    padding: 16
+  }
 });
 
-export default ExploreUsers
+const mapStateToProps = state => {
+  return {
+    users: Object.values(state.users.byId),
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addUser: (user) => {
+      dispatch(addUser(user))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ExploreUsers)

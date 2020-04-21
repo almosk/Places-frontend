@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
+import UserSnippetSmall from '../components/UserSnippetSmall';
 // Redux
 import { connect } from 'react-redux';
 
@@ -9,16 +10,6 @@ const CollectionSnippet = (props) => {
 // props.collection_id
 // props.navigation
 
-user_id = () => {
-  // console.log(props.collectionUser);
-  if (props.collectionUser !== null && props.collectionUser !== '' && typeof props.collectionUser !== "undefined") {
-    return(
-      <Text style = { styles.userTitle }>
-        { props.collectionUser.title }
-      </Text>
-    )
-  }
-}
 
 return (
   <TouchableOpacity
@@ -31,10 +22,15 @@ return (
   >
     <View style = { styles.listItem }>
       <View style = { styles.listItemBg }>
-        <Text style = { styles.collectionTitle }>
-          { props.collection.title }
-        </Text>
-        { this.user_id() }
+        <View style = { styles.topContainer }>
+          <View style = { styles.topContainerBg }>
+            <Text style = { styles.postsQuantity }>{ props.collection.posts_quantity } posts</Text>
+          </View>
+        </View>
+        <View style = { styles.bottomContainer }>
+          <Text style = { styles.collectionTitle }>{ props.collection.title }</Text>
+          <UserSnippetSmall user_title={props.collection.user_title} />
+        </View>
       </View>
     </View>
   </TouchableOpacity>
@@ -44,7 +40,7 @@ return (
 const styles = StyleSheet.create({
   listItem: {
     width: '100%',
-    height: 72,
+    height: 160,
     paddingTop: 4,
     paddingBottom: 4,
     paddingLeft: 16,
@@ -58,27 +54,41 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'flex-start',
     padding: 16,
     borderRadius: 8
+  },
+  topContainer: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'flex-end'
+  },
+  bottomContainer: {
+    width: '100%',
+    flexDirection: 'column',
+    alignItems: 'flex-start'
+  },
+  topContainerBg: {
+    backgroundColor: '#ffffff',
+    padding: 8,
+    borderRadius: 20
   },
   postButton: {
     width: '30%'
   },
   collectionTitle: {
     fontWeight: "bold",
-    fontSize: 18,
+    fontSize: 20,
     color: "#595959",
-    marginBottom: 2,
+    marginBottom: 4,
   },
-  userTitle: {
+  postsQuantity: {
     fontWeight: "bold",
-    fontSize: 16,
-    color: "#808080",
-    marginBottom: 2,
+    fontSize: 14,
+    color: "#595959",
   },
-});
+})
 
 const mapStateToProps = (state, ownProps) => {
   return {
