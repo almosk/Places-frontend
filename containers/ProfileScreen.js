@@ -1,38 +1,44 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TextInput, FlatList } from 'react-native';
+import { StyleSheet, View, TextInput, FlatList, TouchableOpacity } from 'react-native';
 import ProfilePosts from '../containers/ProfilePosts';
 import ProfileCollections from '../containers/ProfileCollections';
 import ProfileNavigator from '../navigators/ProfileNavigator';
+import ProfileBottomSheet from '../containers/ProfileBottomSheet'
+import TopBar from '../components/TopBar'
 import { Container, Text, Tab, Tabs, TabHeading } from 'native-base';
 import BottomSheet from 'reanimated-bottom-sheet'
-import ProfileBottomSheet from '../containers/ProfileBottomSheet'
-
+import { useNavigation, useRoute } from '@react-navigation/native';
 //Map
 import MapboxGL from "@react-native-mapbox-gl/maps";
+
 MapboxGL.setAccessToken("pk.eyJ1IjoiYWxtb3NrIiwiYSI6ImNrOHhhdWw3MzBodGkzbG8wMzZhYm4waHcifQ.xy56Az5bM0S2EzXR_gdYjw");
 
-class ProfileScreen extends Component {
+const ProfileScreen = () => {
+  const navigation = useNavigation()
 
-renderContent = () => {
-  return (
-    <View style={ styles.container }>
-      <ProfileNavigator/>
-    </View>
-  )
-}
-
-renderHeader = () => {
-  return (
-    <View style={styles.header}>
-      <View style={styles.headerHandler}>
+  renderContent = () => {
+    return (
+      <View style={ styles.container }>
+        <ProfileNavigator
+          getStackRoute = { this.getStackRoute }
+        />
       </View>
-    </View>
-  )
-}
-render() {
+    )
+  }
+  renderHeader = () => {
+    return (
+      <View style={styles.header}>
+        <View style={styles.headerHandler}>
+        </View>
+      </View>
+    )
+  }
   return (
     <Container style={ styles.container }>
-      <View style={styles.topBar}></View>
+      <TopBar
+        navigation={ navigation }
+        // route = { route }
+      />
       <View style={styles.mapContainer}>
         <MapboxGL.MapView style={styles.map} />
       </View>
@@ -44,7 +50,7 @@ render() {
         />
     </Container>
   )
-}}
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -77,42 +83,7 @@ const styles = StyleSheet.create({
     width: 64,
     backgroundColor: "#cccccc",
     borderRadius: 4
-  },
-  topBar: {
-    position: 'absolute',
-    top: 0,
-    flex: 1,
-    alignSelf: 'stretch',
-    right: 0,
-    left: 0,
-    margin: 16,
-    marginTop: 48,
-    width: 343,
-    height: 32,
-    backgroundColor: "#cccccc",
   }
 })
 
 export default ProfileScreen
-//
-// <View style={styles.mapContainer}>
-//   <MapboxGL.MapView style={styles.map} />
-// </View>
-//
-// <View style={ styles.container }>
-//   <View>
-//     <Tabs>
-//       <Tab heading={ <TabHeading><Text>Posts</Text></TabHeading>}>
-//         <ProfilePosts
-//           navigation={this.props.navigation}
-//           />
-//       </Tab>
-//       <Tab heading={ <TabHeading><Text>Collections</Text></TabHeading>}>
-//         <ProfileCollections
-//           navigation={this.props.navigation}
-//           />
-//       </Tab>
-//     </Tabs>
-//   </View>
-// </View>
-//

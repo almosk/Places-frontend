@@ -14,6 +14,8 @@ import MapBlock from '../components/MapBlock'
 import { createStackNavigator } from '@react-navigation/stack';
 
 class ProfileNavigator extends Component {
+
+// onNavigationStateChange={() => props.getStackRoute()}
 render() {
   return (
     <View style={styles.container}>
@@ -35,20 +37,7 @@ render() {
                 <Text>Info</Text>
               </Button>
             ),
-            // headerShown: false,
-             // header: ({ scene, previous, navigation }) => {
-             //   const { options } = scene.descriptor;
-             //   const title =
-             //     options.headerTitle !== undefined
-             //       ? options.headerTitle
-             //       : options.title !== undefined
-             //       ? options.title
-             //       : scene.route.name;
-             //
-             //   return (
-             //     <MapBlock/>
-             //   )}
-            }}
+          }}
         />
         <ProfileStack.Screen name="Place" component={PostScreen}
           options={({ route }) => ({
