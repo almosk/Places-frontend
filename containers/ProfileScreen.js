@@ -43,7 +43,7 @@ const ProfileScreen = () => {
         <MapboxGL.MapView style={styles.map} />
       </View>
       <BottomSheet
-        snapPoints = {[450, 630, 200]}
+        snapPoints = {[450, 600, 200]}
         enabledBottomInitialAnimation = { true }
         renderContent = {this.renderContent}
         renderHeader = {this.renderHeader}

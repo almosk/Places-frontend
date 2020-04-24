@@ -6,44 +6,49 @@ import ExploreUsers from '../containers/ExploreUsers';
 import ExploreNavigator from '../navigators/ExploreNavigator';
 import { Container, Text, Tab, Tabs, TabHeading } from 'native-base';
 import BottomSheet from 'reanimated-bottom-sheet'
+import TopBar from '../components/TopBar'
+import { useNavigation, useRoute } from '@react-navigation/native';
+
 //Map
 import MapboxGL from "@react-native-mapbox-gl/maps";
 MapboxGL.setAccessToken("pk.eyJ1IjoiYWxtb3NrIiwiYSI6ImNrOHhhdWw3MzBodGkzbG8wMzZhYm4waHcifQ.xy56Az5bM0S2EzXR_gdYjw");
 
-class ExploreScreen extends Component {
-
-renderContent = () => {
-  return (
-    <View style={ styles.container }>
-      <ExploreNavigator/>
-    </View>
-  )
-}
-
-renderHeader = () => {
-  return (
-    <View style={styles.header}>
-      <View style={styles.headerHandler}>
+const ExploreScreen = () => {
+  const navigation = useNavigation()
+  renderContent = () => {
+    return (
+      <View style={ styles.container }>
+        <ExploreNavigator/>
       </View>
-    </View>
-  )
-}
-render() {
+    )
+  }
+
+  renderHeader = () => {
+    return (
+      <View style={styles.header}>
+        <View style={styles.headerHandler}>
+        </View>
+      </View>
+    )
+  }
+
   return (
     <Container style={ styles.container }>
-      <View style={styles.topBar}></View>
+      <TopBar
+        navigation={ navigation }
+        // route = { route }
+      />
       <View style={styles.mapContainer}>
         <MapboxGL.MapView style={styles.map} />
       </View>
       <BottomSheet
-        snapPoints = {[450, 630, 200]}
+        snapPoints = {[450, 600, 200]}
         enabledBottomInitialAnimation = { true }
         renderContent = {this.renderContent}
         renderHeader = {this.renderHeader}
         />
     </Container>
-  )
-}}
+)}
 
 const styles = StyleSheet.create({
   container: {
@@ -76,19 +81,6 @@ const styles = StyleSheet.create({
     width: 64,
     backgroundColor: "#cccccc",
     borderRadius: 4
-  },
-  topBar: {
-    position: 'absolute',
-    top: 0,
-    flex: 1,
-    alignSelf: 'stretch',
-    right: 0,
-    left: 0,
-    margin: 16,
-    marginTop: 48,
-    width: 343,
-    height: 32,
-    backgroundColor: "#cccccc",
   }
 })
 
