@@ -2,27 +2,15 @@ import React, { Component } from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
 import CollectionsFlatList from '../components/CollectionsFlatList';
 import PostSnippet from '../components/PostSnippet';
+import PButton from '../components/PButton';
 import { Container, Header, Content, Button, Text, Tab, Tabs, TabHeading } from 'native-base';
+import { typo, color } from '../styles'
+
 // Redux
 import { connect } from 'react-redux';
 
 class UserScreen extends Component {
   state = {}
-
-// collectionsOutput = () => {
-//   let collectionPostIds = []
-//   let CollectionIdsBelongsToPost = Object.values(this.props.collectionPosts).filter(collectionPost => collectionPost.post_id == this.props.route.params.post.id)
-//   CollectionIdsBelongsToPost.forEach(collectionPost => collectionPostIds.push(collectionPost.collection_id))
-//   let CollectionsBelongsToPost = this.props.collections.filter(collection => collectionPostIds.includes(collection.id))
-//   // console.log(this.props.collectionPosts);
-//   return (
-//     <CollectionsFlatList
-//       data={CollectionsBelongsToPost}
-//       navigation={this.props.navigation}
-//     />
-//   )
-// }
-
 
 userPosts = () => {
   // Get Object of all collections of User
@@ -45,7 +33,6 @@ userPosts = () => {
   //   return obj;
   // }, {});
   // userPostsObject.byId = filtered
-
 
   return (
     <View>
@@ -78,10 +65,14 @@ userCollections = () => {
 render() {
   return (
     <Container>
-      <View style = { styles.post }>
-        <Text style = { styles.postTitle }>
-          { this.props.route.params.user.title }
-        </Text>
+      <View style = { styles.title }>
+        <View style = { styles.horizontalContainer }>
+          <Text style = { [typo.t32, color.black80] }>{ this.props.route.params.user.title }</Text>
+          <View style = { styles.image }></View>
+        </View>
+        <PButton
+          text= {'Подписаться'}
+          />
       </View>
 
       <View style={ styles.container }>
@@ -104,14 +95,15 @@ const styles = StyleSheet.create({
   horizontalContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 24
   },
-  post: {
+  title: {
     width: '100%',
     padding: 16,
-    marginBottom: 8,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    // flexDirection: 'row',
+    // justifyContent: 'space-between',
+    // alignItems: 'center',
     backgroundColor: 'white'
   },
   container: {
@@ -125,11 +117,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
     color: "#808080"
-  },
-  postTitle: {
-    fontWeight: "bold",
-    fontSize: 20,
-    color: "#595959"
   },
   button: {
     width: '100%',
@@ -148,7 +135,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
     color: "#808080"
-  }
+  },
+  image: {
+    width: 88,
+    height: 88,
+    borderRadius: 44,
+    backgroundColor: '#F3F3F3',
+    marginRight: 12
+  },
 })
 
 const mapStateToProps = state => {

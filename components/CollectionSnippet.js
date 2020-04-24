@@ -16,7 +16,8 @@ return (
     onPress={() => {
       props.navigation.navigate('Collection', {
         collection_title: props.collection.title,
-        id: props.collection.id
+        id: props.collection.id,
+        type: props.type
       })
     }}
   >

@@ -16,7 +16,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 class ExploreNavigator extends Component {
 render() {
   return (
-      <ExploreStack.Navigator initialRouteName="Profile">
+      <ExploreStack.Navigator initialRouteName="Explore">
         <ExploreStack.Screen name="Explore" component={ExploreScreen}/>
         <ExploreStack.Screen name="Place" component={PostScreen}
           options={({ route }) => ({

@@ -7,6 +7,9 @@ const PostExploreSnippet = (props) => {
 // Props:
 // props.post
 // props.navigation
+String.prototype.limit = function(length) {
+  return this.length > length ? (this.substring(0, length) + '...') : this;
+}
 
 return (
   <TouchableOpacity
@@ -23,7 +26,7 @@ return (
               { props.post.title }
             </Text>
             <Text style = { styles.description }>
-              { props.post.description }
+              { props.post.description.limit(50) }
             </Text>
           </View>
           <View style = { styles.horizontaContainer }>

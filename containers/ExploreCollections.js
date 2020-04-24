@@ -45,6 +45,7 @@ collectionsOutput = () => {
         <CollectionSnippet
           collection_id={ info.item.id }
           navigation={this.props.navigation}
+          type={'explore'}
         />
       )}
     />

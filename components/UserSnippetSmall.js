@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   container: {
     height: 16,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     marginRight: 8
   },
