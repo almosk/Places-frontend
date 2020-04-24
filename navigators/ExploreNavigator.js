@@ -10,14 +10,20 @@ import NewPostScreen from '../containers/NewPostScreen'
 import EditPostScreen from '../containers/EditPostScreen'
 import SavePostScreen from '../containers/SavePostScreen'
 import ProfileInfoScreen from '../containers/ProfileInfoScreen'
+import ExploreBottomSheet from '../containers/ExploreBottomSheet'
 // Navigation
 import { createStackNavigator } from '@react-navigation/stack';
 
 class ExploreNavigator extends Component {
 render() {
   return (
-      <ExploreStack.Navigator initialRouteName="Explore">
-        <ExploreStack.Screen name="Explore" component={ExploreScreen}/>
+    <View style={styles.container}>
+
+      <ExploreStack.Navigator
+        initialRouteName="Explore"
+        headerMode='none'
+      >
+        <ExploreStack.Screen name="Explore" component={ExploreBottomSheet}/>
         <ExploreStack.Screen name="Place" component={PostScreen}
           options={({ route }) => ({
             title: route.params.post_title,
@@ -32,9 +38,18 @@ render() {
         />
         <ExploreStack.Screen name="Save post" component={SavePostScreen} />
       </ExploreStack.Navigator>
+    </View>
     );
   }
 }
 const ExploreStack = createStackNavigator();
+
+const styles = StyleSheet.create({
+  container: {
+    height: '100%',
+    width: '100%',
+    backgroundColor: 'red'
+  }
+})
 
 export default ExploreNavigator

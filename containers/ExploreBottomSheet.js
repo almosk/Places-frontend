@@ -3,44 +3,32 @@ import { StyleSheet, View, TextInput, FlatList } from 'react-native';
 import ExplorePosts from '../containers/ExplorePosts';
 import ExploreCollections from '../containers/ExploreCollections';
 import ExploreUsers from '../containers/ExploreUsers';
-import ExploreNavigator from '../navigators/ExploreNavigator';
 import { Container, Text, Tab, Tabs, TabHeading } from 'native-base';
-import BottomSheet from 'reanimated-bottom-sheet'
-//Map
-import MapboxGL from "@react-native-mapbox-gl/maps";
-MapboxGL.setAccessToken("pk.eyJ1IjoiYWxtb3NrIiwiYSI6ImNrOHhhdWw3MzBodGkzbG8wMzZhYm4waHcifQ.xy56Az5bM0S2EzXR_gdYjw");
 
-class ExploreScreen extends Component {
-
-renderContent = () => {
-  return (
-    <View style={ styles.container }>
-      <ExploreNavigator/>
-    </View>
-  )
-}
-
-renderHeader = () => {
-  return (
-    <View style={styles.header}>
-      <View style={styles.headerHandler}>
-      </View>
-    </View>
-  )
-}
+class ExploreBottomSheet extends Component {
 render() {
   return (
     <Container style={ styles.container }>
-      <View style={styles.topBar}></View>
-      <View style={styles.mapContainer}>
-        <MapboxGL.MapView style={styles.map} />
-      </View>
-      <BottomSheet
-        snapPoints = {[450, 630, 200]}
-        enabledBottomInitialAnimation = { true }
-        renderContent = {this.renderContent}
-        renderHeader = {this.renderHeader}
-        />
+      <Tabs>
+        <Tab heading={ <TabHeading><Text>Posts</Text></TabHeading>}>
+          <ExplorePosts
+            navigation={this.props.navigation}
+            />
+        </Tab>
+        <Tab heading={ <TabHeading><Text>Collections</Text></TabHeading>}>
+          <ExploreCollections
+            navigation={this.props.navigation}
+            />
+        </Tab>
+        <Tab heading={ <TabHeading><Text>Users</Text></TabHeading>}>
+          <ExploreUsers
+            navigation={this.props.navigation}
+            collections={this.props.collections}
+            collectionPosts={this.props.collectionPosts}
+            users={this.props.users}
+          />
+        </Tab>
+      </Tabs>
     </Container>
   )
 }}
@@ -49,9 +37,8 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'flex-start',
     alignItems: 'center',
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
-    overflow: 'hidden'
+    paddingTop: 32,
+    backgroundColor: "#fafafa",
   },
   mapContainer: {
     height: 600,
@@ -63,8 +50,7 @@ const styles = StyleSheet.create({
   },
   header: {
     height: 32,
-    marginBottom: -32,
-    // backgroundColor: "#fafafa",
+    backgroundColor: "#fafafa",
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
     justifyContent: "flex-start",
@@ -92,4 +78,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default ExploreScreen
+export default ExploreBottomSheet

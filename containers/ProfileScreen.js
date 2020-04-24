@@ -50,6 +50,9 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'flex-start',
     alignItems: 'center',
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
+    overflow: 'hidden'
   },
   mapContainer: {
     height: 600,
@@ -61,7 +64,8 @@ const styles = StyleSheet.create({
   },
   header: {
     height: 32,
-    backgroundColor: "#fafafa",
+    marginBottom: -32,
+    // backgroundColor: "#fafafa",
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
     justifyContent: "flex-start",

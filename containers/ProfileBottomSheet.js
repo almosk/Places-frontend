@@ -31,6 +31,8 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'flex-start',
     alignItems: 'center',
+    paddingTop: 32,
+    backgroundColor: "#fafafa",
   },
   mapContainer: {
     height: 600,

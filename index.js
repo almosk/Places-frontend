@@ -9,6 +9,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // Continers and Components
 import ProfileScreen from './containers/ProfileScreen';
+import ExploreScreen from './containers/ExploreScreen';
 import NewsScreen from './containers/NewsScreen';
 import LoginForm from './containers/LoginForm';
 import ProfileNavigator from './navigators/ProfileNavigator';
@@ -29,7 +30,7 @@ const RNRedux = () => (
   <Provider store = { createStore(rootReducer, applyMiddleware(thunk)) }>
     <NavigationContainer>
       <Tab.Navigator initialRouteName="Profile">
-        <Tab.Screen name="Explore" component={ExploreNavigator} />
+        <Tab.Screen name="Explore" component={ExploreScreen} />
         <Tab.Screen name="Profile" component={ProfileScreen} />
       </Tab.Navigator>
     </NavigationContainer>
