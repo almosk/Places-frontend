@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TextInput, FlatList } from 'react-native';
 import { Container, Header, Content, Button, Text, Tab, Tabs, TabHeading } from 'native-base';
-import ProfileScreen from '../containers/ProfileScreen'
+import ProfileBottomSheet from '../containers/ProfileBottomSheet'
 import PostScreen from '../containers/PostScreen'
 import CollectionScreen from '../containers/CollectionScreen'
 import NewCollectionScreen from '../containers/NewCollectionScreen'
@@ -16,12 +16,13 @@ import { createStackNavigator } from '@react-navigation/stack';
 class ProfileNavigator extends Component {
 render() {
   return (
+    <View style={styles.container}>
       <ProfileStack.Navigator
         initialRouteName="Profile"
         // mode='modal'
-        // headerMode='none'
+        headerMode='none'
       >
-        <ProfileStack.Screen name="Profile" component={ProfileScreen}
+        <ProfileStack.Screen name="Profile" component={ProfileBottomSheet}
           options={{
             headerRight: () => (
               <Button
@@ -66,10 +67,19 @@ render() {
         <ProfileStack.Screen name="Save post" component={SavePostScreen} />
         <ProfileStack.Screen name="Profile Info" component={ProfileInfoScreen} />
       </ProfileStack.Navigator>
+    </View>
     );
   }
 }
 const ProfileStack = createStackNavigator();
+
+const styles = StyleSheet.create({
+  container: {
+    height: 500,
+    width: '100%',
+    backgroundColor: 'red'
+  }
+})
 
 export default ProfileNavigator
 

@@ -2,47 +2,28 @@ import React, { Component } from 'react';
 import { StyleSheet, View, TextInput, FlatList } from 'react-native';
 import ProfilePosts from '../containers/ProfilePosts';
 import ProfileCollections from '../containers/ProfileCollections';
-import ProfileNavigator from '../navigators/ProfileNavigator';
 import { Container, Text, Tab, Tabs, TabHeading } from 'native-base';
-import BottomSheet from 'reanimated-bottom-sheet'
-import ProfileBottomSheet from '../containers/ProfileBottomSheet'
 
-//Map
-import MapboxGL from "@react-native-mapbox-gl/maps";
-MapboxGL.setAccessToken("pk.eyJ1IjoiYWxtb3NrIiwiYSI6ImNrOHhhdWw3MzBodGkzbG8wMzZhYm4waHcifQ.xy56Az5bM0S2EzXR_gdYjw");
+class ProfileBottomSheet extends Component {
 
-class ProfileScreen extends Component {
-
-renderContent = () => {
-  return (
-    <View style={ styles.container }>
-      <ProfileNavigator/>
-    </View>
-  )
-}
-
-renderHeader = () => {
-  return (
-    <View style={styles.header}>
-      <View style={styles.headerHandler}>
-      </View>
-    </View>
-  )
-}
 render() {
   return (
-    <Container style={ styles.container }>
-      <View style={styles.topBar}></View>
-      <View style={styles.mapContainer}>
-        <MapboxGL.MapView style={styles.map} />
+    <View style={ styles.container }>
+      <View>
+        <Tabs>
+          <Tab heading={ <TabHeading><Text>Posts</Text></TabHeading>}>
+            <ProfilePosts
+              navigation={this.props.navigation}
+              />
+          </Tab>
+          <Tab heading={ <TabHeading><Text>Collections</Text></TabHeading>}>
+            <ProfileCollections
+              navigation={this.props.navigation}
+              />
+          </Tab>
+        </Tabs>
       </View>
-      <BottomSheet
-        snapPoints = {[450, 630, 200]}
-        enabledBottomInitialAnimation = { true }
-        renderContent = {this.renderContent}
-        renderHeader = {this.renderHeader}
-        />
-    </Container>
+    </View>
   )
 }}
 
@@ -89,7 +70,7 @@ const styles = StyleSheet.create({
   }
 })
 
-export default ProfileScreen
+export default ProfileBottomSheet
 //
 // <View style={styles.mapContainer}>
 //   <MapboxGL.MapView style={styles.map} />

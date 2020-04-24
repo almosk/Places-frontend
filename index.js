@@ -9,9 +9,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // Continers and Components
 import ProfileScreen from './containers/ProfileScreen';
-import ProfileNavigator from './navigators/ProfileNavigator';
 import NewsScreen from './containers/NewsScreen';
 import LoginForm from './containers/LoginForm';
+import ProfileNavigator from './navigators/ProfileNavigator';
 import ExploreNavigator from './navigators/ExploreNavigator';
 // Redux
 import { createStore, applyMiddleware } from 'redux';
@@ -28,9 +28,9 @@ const Tab = createBottomTabNavigator();
 const RNRedux = () => (
   <Provider store = { createStore(rootReducer, applyMiddleware(thunk)) }>
     <NavigationContainer>
-      <Tab.Navigator initialRouteName="Explore">
+      <Tab.Navigator initialRouteName="Profile">
         <Tab.Screen name="Explore" component={ExploreNavigator} />
-        <Tab.Screen name="Profile" component={ProfileNavigator} />
+        <Tab.Screen name="Profile" component={ProfileScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   </Provider>
