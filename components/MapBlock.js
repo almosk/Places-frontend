@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {View, Image} from 'react-native';
 import MapboxGL from '@react-native-mapbox-gl/maps';
+// Redux
+import { connect } from 'react-redux';
 
 MapboxGL.setAccessToken("pk.eyJ1IjoiYWxtb3NrIiwiYSI6ImNrOHhhdWw3MzBodGkzbG8wMzZhYm4waHcifQ.xy56Az5bM0S2EzXR_gdYjw");
 
@@ -29,14 +31,15 @@ class MapBlock extends Component {
 
   renderAnnotation (counter) {
     const id = `pointAnnotation${counter}`;
-    const coordinate = this.state.coordinates[counter];
+    // const coordinate = this.state.coordinates[counter];
+    const coordinate = [this.props.posts[counter].longitude, this.props.posts[counter].latitude]
     const title = `Longitude: ${this.state.coordinates[counter][0]} Latitude: ${this.state.coordinates[counter][1]}`;
 
     return (
       <MapboxGL.PointAnnotation
         key={id}
         id={id}
-        title='Test'
+        title={'Test'}
         coordinate={coordinate}>
 
         <Image
@@ -54,14 +57,34 @@ class MapBlock extends Component {
   renderAnnotations () {
     const items = [];
 
-    for (let i = 0; i < this.state.coordinates.length; i++) {
+    for (let i = 0; i < this.props.posts.length; i++) {
       items.push(this.renderAnnotation(i));
     }
 
     return items;
   }
 
+  getMaxOfArray(numArray) {
+    return Math.max.apply(null, numArray);
+  }
+
+  getMinOfArray(numArray) {
+    return Math.min.apply(null, numArray);
+  }
+
   render () {
+    longitudes = this.props.posts.map(p => parseFloat(p.longitude))
+    latitudes = this.props.posts.map(p => parseFloat(p.latitude))
+    n = this.getMaxOfArray(longitudes)
+    s = this.getMinOfArray(longitudes)
+    e = this.getMaxOfArray(latitudes)
+    w = this.getMinOfArray(latitudes)
+    ne = [n,e]
+    sw = [s,w]
+    bounds = {ne: ne, sw: sw, paddingLeft: 100}
+    console.log(bounds);
+    //
+    // this.camera.fitBounds([n, e], [s, w])
     return (
       <View style={{
           flex: 1,
@@ -69,12 +92,17 @@ class MapBlock extends Component {
           height: 600
         }}>
         <MapboxGL.MapView
-        ref={(c) => this._map = c}
-        style={{flex: 1}}
-        zoomLevel={11}
-        showUserLocation={true}
-        userTrackingMode={1}
-        centerCoordinate={this.state.coordinates[0]}>
+          ref={ref => (this.map = ref)}
+          style={{flex: 1}}
+          zoomLevel={11}
+          showUserLocation={true}
+          userTrackingMode={1}
+          // onDidFinishingLoadingMap={this.resize()}
+        >
+          <MapboxGL.Camera
+            bounds={bounds}
+            animationDuration={100}
+          />
           {this.renderAnnotations()}
         </MapboxGL.MapView>
       </View>
@@ -82,4 +110,18 @@ class MapBlock extends Component {
   }
 }
 
-export default MapBlock
+const mapStateToProps = state => {
+  return {
+    posts: Object.values(state.posts.byId),
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    // addPost: (post) => {
+    //   dispatch(addPost(post))
+    // }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MapBlock)
