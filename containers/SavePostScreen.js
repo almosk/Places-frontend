@@ -1,68 +1,60 @@
 import React, { Component } from 'react';
 import { Text, StyleSheet, View, TextInput, Button, FlatList } from 'react-native';
-import CollectionsFlatList from '../components/CollectionsFlatList';
+import CollectionSnippetSmall from '../components/CollectionSnippetSmall';
 // Redux
 import { connect } from 'react-redux';
-import { addPost, deletePost } from '../actions/post';
-import { addCollectionPost } from '../actions/collectionPost';
+import { addCollection } from '../actions/collection';
 
 
 class SavePostScreen extends Component {
 
-state = {
-  collectionId: ''
+
+componentDidMount(){
+  this.getCollectionsIndex()
+}
+getCollectionsIndex = () => {
+  return fetch('http://localhost:3000/v1/collections/profile_collections.json')
+    .then((response) => response.json())
+    .then((responseJson) => {
+      this.setState({
+        collectionsIsLoading: false,
+        collectionsDataSource: responseJson,
+      }, function(){
+        this.state.collectionsDataSource.forEach(collection => this.props.addCollection(collection))
+      });
+
+    })
+    .catch((error) =>{
+      console.error(error);
+    })
 }
 
-sendCollectionPostToBackend = (collection_id, post_id) => {
-  fetch('http://localhost:3000/collection_posts', {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      collection_id: collection_id,
-      post_id: post_id
-    }),
-  })
-  .then((response) => response.json())
-  .then((responseJson) => {
-    console.log(responseJson);
-    this.props.addCollectionPost(responseJson.collection_post.id, collection_id, post_id)
-  })
-  .catch((error) =>{
-    console.error(error);
-  })
-}
-
-postSubmitHandler = () => {
-  // console.log(this.state.collectionId, this.props.route.params.post.id);
-  // this.props.addCollectionPost(this.state.collectionId, this.props.route.params.post.id)
-  this.sendCollectionPostToBackend(this.state.collectionId, this.props.route.params.post.id)
-
-  this.props.navigation.navigate('Place', {
-    post: this.props.route.params.post
-  })
-}
-
-setCollection = (collectionId) => {
-  this.setState({
-    collectionId: collectionId
-  }, () => {
-    this.postSubmitHandler()
-  })
+collectionsOutput = () => {
+  // profileCollections = this.props.collections.filter(collection => collection.user_id == this.props.users.loggedUser)
+  profileCollections = this.props.collections
+  return (
+    <FlatList style = { styles.listContainer }
+      data = { profileCollections }
+      keyExtractor={(item, index) => index.toString()}
+      renderItem = { info => (
+        <CollectionSnippetSmall
+          collection={ info.item }
+          navigation={this.props.navigation}
+        />
+      )}
+    />
+  )
 }
 
 render() {
-  profileCollections = this.props.collections.filter(collection => collection.user_id == this.props.users.loggedUser)
+  // profileCollections = this.props.collections.filter(collection => collection.user_id == this.props.users.loggedUser)
 
   return (
     <View style={ styles.container }>
       <Text style={ styles.smallHeading }>Select collection:</Text>
-      <CollectionsFlatList
-        data = { profileCollections }
-        setCollection = { this.setCollection }
-      />
+        <View style = { styles.listContainer }>
+          { this.collectionsOutput() }
+        </View>
     </View>
   )}
 }
@@ -83,19 +75,22 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#808080"
   },
+  listContainer: {
+    width: '100%',
+    paddingTop: 8
+  },
 })
 
 const mapStateToProps = state => {
   return {
     collections: Object.values(state.collections.byId),
-    users: state.users
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    addCollectionPost: (id, collection_id, post_id) => {
-      dispatch(addCollectionPost(id, collection_id, post_id))
+    addCollection: (collection) => {
+      dispatch(addCollection(collection))
     }
   }
 }

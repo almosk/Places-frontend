@@ -5,9 +5,10 @@ import ProfileCollections from '../containers/ProfileCollections';
 import ProfileNavigator from '../navigators/ProfileNavigator';
 import ProfileBottomSheet from '../containers/ProfileBottomSheet'
 import TopBar from '../components/TopBar'
-import { Container, Text, Tab, Tabs, TabHeading } from 'native-base';
 import BottomSheet from 'reanimated-bottom-sheet'
+import { Container, Text, Tab, Tabs, TabHeading } from 'native-base';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import MapBlock from '../components/MapBlock'
 //Map
 import MapboxGL from "@react-native-mapbox-gl/maps";
 
@@ -33,15 +34,17 @@ const ProfileScreen = () => {
       </View>
     )
   }
+  // <View style={styles.mapContainer}>
+  //   <MapboxGL.MapView style={styles.map} />
+  // </View>
   return (
     <Container style={ styles.container }>
       <TopBar
         navigation={ navigation }
         // route = { route }
       />
-      <View style={styles.mapContainer}>
-        <MapboxGL.MapView style={styles.map} />
-      </View>
+      <MapBlock/>
+
       <BottomSheet
         snapPoints = {[450, 600, 200]}
         enabledBottomInitialAnimation = { true }

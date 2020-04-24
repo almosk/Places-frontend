@@ -98,7 +98,7 @@ render() {
             })
           }}
           >
-          <Text style = { styles.buttonText }>Save post...</Text>
+          <Text style = { styles.buttonText }>Save post</Text>
         </Button>
         <View style = { styles.horizontalContainer }>
           <Button

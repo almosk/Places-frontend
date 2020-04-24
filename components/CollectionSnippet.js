@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 
 const CollectionSnippet = (props) => {
 // Props:
-// props.collection_id
+// props.collection
 // props.navigation
 
 
