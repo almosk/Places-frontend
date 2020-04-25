@@ -35,13 +35,14 @@ const ProfileScreen = () => {
     )
   }
 
-  // <MapBlock/>
   return (
     <Container style={ styles.container }>
       <TopBar
         navigation={ navigation }
         // route = { route }
       />
+
+      <MapBlock/>
 
       <BottomSheet
         snapPoints = {[450, 600, 200]}
@@ -60,7 +61,8 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
     overflow: 'hidden',
-    backgroundColor: "#cccccc"
+    backgroundColor: "#cccccc",
+    height: '100%',
   },
   mapContainer: {
     height: 600,

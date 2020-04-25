@@ -32,61 +32,53 @@ getCollectionsIndex = () => {
     })
 }
 
-
-
-collectionsOutput = () => {
-  // profileCollections = this.props.collections.filter(collection => collection.user_id == this.props.users.loggedUser)
-  profileCollections = this.props.profileCollections
-  return (
-    <FlatList style = { styles.listContainer }
-      data = { profileCollections }
-      keyExtractor={(item, index) => index.toString()}
-      renderItem = { info => (
-        <CollectionSnippet
-          collection={ info.item }
-          navigation={this.props.navigation}
-        />
-      )}
-    />
-  )
-}
 render() {
   return (
     <View style={styles.container}>
-        <View style={ styles.buttonContainer }>
-          <Button
-            light
-            block
-            rounded
-            onPress={() => {
-              this.props.navigation.navigate('New Collection')
-            }}
-          >
-          <Text>New Collection</Text>
-          </Button>
-        </View>
-        <View style = { styles.listContainer }>
-          { this.collectionsOutput() }
-        </View>
+      <FlatList style = { styles.listContainer }
+        data = { this.props.profileCollections }
+        ListHeaderComponent={
+          <View style={ styles.buttonContainer }>
+            <Button
+              light
+              block
+              rounded
+              onPress={() => {
+                this.props.navigation.navigate('New Collection')
+              }}
+            >
+            <Text>New Collection</Text>
+            </Button>
+          </View>
+        }
+        keyExtractor={(item, index) => index.toString()}
+        renderItem = { info => (
+          <CollectionSnippet
+            collection={ info.item }
+            navigation={this.props.navigation}
+          />
+        )}
+      />
     </View>
   );}
 }
 const styles = StyleSheet.create({
   listContainer: {
     width: '100%',
-    paddingTop: 8,
     height: '100%',
+    paddingTop: 16,
+
   },
   container: {
     width: '100%',
     height: '100%',
-    paddingTop: 16,
     justifyContent: 'flex-start',
     alignItems: 'center',
   },
   buttonContainer: {
     width: '100%',
-    padding: 16
+    padding: 16,
+    paddingTop: 0
   },
   scrollView: {
     width: '100%',

@@ -81,13 +81,12 @@ class MapBlock extends Component {
     w = this.getMinOfArray(latitudes)
     ne = [n,e]
     sw = [s,w]
-    bounds = {ne: ne, sw: sw, paddingLeft: 100}
+    bounds = {ne: ne, sw: sw, paddingLeft: 200}
     console.log(bounds);
     //
     // this.camera.fitBounds([n, e], [s, w])
     return (
       <View style={{
-          flex: 1,
           width: '100%',
           height: 600
         }}>

@@ -47,39 +47,36 @@ getPostsIndex = () => {
     })
 }
 
-postsOutput = (data) => {
-  return (
-    <FlatList style = { styles.listContainer }
-      data={data}
-      renderItem={({ item }) =>
-        <PostSnippet
-          id={item.id}
-          url={item.url}
-          post={item}
-          navigation={this.props.navigation}
-        />}
-      keyExtractor={item => item.id.toString()}
-    />
-  );
-}
 
 render() {
   console.log(this.props.login);
   return (
     <View style={styles.container}>
-        <View style={ styles.buttonContainer }>
-          <Button
-            light
-            block
-            rounded
-            onPress={() => {
-              this.props.navigation.navigate('New Post')
-            }}
-          >
-            <Text>New Post</Text>
-          </Button>
-        </View>
-        { this.postsOutput(this.props.profilePosts) }
+      <FlatList style = { styles.listContainer }
+        data={this.props.profilePosts}
+        ListHeaderComponent={
+          <View style={ styles.buttonContainer }>
+            <Button
+              light
+              block
+              rounded
+              onPress={() => {
+                this.props.navigation.navigate('New Post')
+              }}
+            >
+              <Text>New Post</Text>
+            </Button>
+          </View>
+        }
+        renderItem={({ item }) =>
+          <PostSnippet
+            id={item.id}
+            url={item.url}
+            post={item}
+            navigation={this.props.navigation}
+          />}
+        keyExtractor={item => item.id.toString()}
+      />
     </View>
   );
   }
@@ -89,7 +86,7 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: '100%',
-    paddingTop: 16,
+    // paddingTop: 16,
     justifyContent: 'flex-start',
     alignItems: 'center',
   },
@@ -103,16 +100,17 @@ const styles = StyleSheet.create({
     width: '30%'
   },
   newPostButton:{
-    marginTop: '130px'
+    // marginTop: '130px'
   },
   listContainer: {
-    marginTop: 16,
+    paddingTop: 16,
     width: '100%',
     height: '100%',
   },
   buttonContainer: {
     width: '100%',
-    padding: 16
+    padding: 16,
+    paddingTop: 0
   }
 });
 
