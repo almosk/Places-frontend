@@ -58,7 +58,7 @@ postsOutput = (data) => {
           post={item}
           navigation={this.props.navigation}
         />}
-      keyExtractor={item => item.id}
+      keyExtractor={item => item.id.toString()}
     />
   );
 }
@@ -66,8 +66,7 @@ postsOutput = (data) => {
 render() {
   console.log(this.props.login);
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView}>
+    <View style={styles.container}>
         <View style={ styles.buttonContainer }>
           <Button
             light
@@ -81,8 +80,7 @@ render() {
           </Button>
         </View>
         { this.postsOutput(this.props.profilePosts) }
-      </ScrollView>
-    </SafeAreaView>
+    </View>
   );
   }
 }
@@ -90,6 +88,7 @@ render() {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
+    height: '100%',
     paddingTop: 16,
     justifyContent: 'flex-start',
     alignItems: 'center',
@@ -108,7 +107,8 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     marginTop: 16,
-    width: '100%'
+    width: '100%',
+    height: '100%',
   },
   buttonContainer: {
     width: '100%',

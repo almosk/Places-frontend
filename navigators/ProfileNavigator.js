@@ -63,7 +63,7 @@ const ProfileStack = createStackNavigator();
 
 const styles = StyleSheet.create({
   container: {
-    height: 500,
+    height: '100%',
     width: '100%',
     backgroundColor: 'red'
   }

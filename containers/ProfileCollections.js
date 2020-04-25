@@ -52,8 +52,7 @@ collectionsOutput = () => {
 }
 render() {
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView}>
+    <View style={styles.container}>
         <View style={ styles.buttonContainer }>
           <Button
             light
@@ -69,17 +68,18 @@ render() {
         <View style = { styles.listContainer }>
           { this.collectionsOutput() }
         </View>
-      </ScrollView>
-    </SafeAreaView>
+    </View>
   );}
 }
 const styles = StyleSheet.create({
   listContainer: {
     width: '100%',
-    paddingTop: 8
+    paddingTop: 8,
+    height: '100%',
   },
   container: {
     width: '100%',
+    height: '100%',
     paddingTop: 16,
     justifyContent: 'flex-start',
     alignItems: 'center',

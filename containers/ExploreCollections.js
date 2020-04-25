@@ -53,23 +53,20 @@ collectionsOutput = () => {
 }
 render() {
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView}>
-        <View style = { styles.listContainer }>
-          { this.collectionsOutput() }
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <View style={styles.container}>
+      { this.collectionsOutput() }
+    </View>
   );}
 }
 const styles = StyleSheet.create({
   listContainer: {
     width: '100%',
-    paddingTop: 8
+    height: '100%',
+    paddingTop: 16
   },
   container: {
     width: '100%',
-    paddingTop: 16,
+    // paddingTop: 16,
     justifyContent: 'flex-start',
     alignItems: 'center',
   },
