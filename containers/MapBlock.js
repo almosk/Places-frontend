@@ -32,7 +32,7 @@ class MapBlock extends Component {
   renderAnnotation (counter) {
     const id = `pointAnnotation${counter}`;
     // const coordinate = this.state.coordinates[counter];
-    const coordinate = [this.props.posts[counter].longitude, this.props.posts[counter].latitude]
+    const coordinate = [this.props.profilePosts[counter].longitude, this.props.profilePosts[counter].latitude]
     const title = `Longitude: ${this.state.coordinates[counter][0]} Latitude: ${this.state.coordinates[counter][1]}`;
 
     return (
@@ -57,7 +57,7 @@ class MapBlock extends Component {
   renderAnnotations () {
     const items = [];
 
-    for (let i = 0; i < this.props.posts.length; i++) {
+    for (let i = 0; i < this.props.profilePosts.length; i++) {
       items.push(this.renderAnnotation(i));
     }
 
@@ -73,8 +73,8 @@ class MapBlock extends Component {
   }
 
   render () {
-    longitudes = this.props.posts.map(p => parseFloat(p.longitude))
-    latitudes = this.props.posts.map(p => parseFloat(p.latitude))
+    longitudes = this.props.profilePosts.map(p => parseFloat(p.longitude))
+    latitudes = this.props.profilePosts.map(p => parseFloat(p.latitude))
     n = this.getMaxOfArray(longitudes)
     s = this.getMinOfArray(longitudes)
     e = this.getMaxOfArray(latitudes)
@@ -112,7 +112,7 @@ class MapBlock extends Component {
 
 const mapStateToProps = state => {
   return {
-    posts: Object.values(state.posts.byId),
+    profilePosts: Object.values(state.profilePosts.byId),
   }
 }
 

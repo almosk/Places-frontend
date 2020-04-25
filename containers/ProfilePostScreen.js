@@ -6,10 +6,9 @@ import { Container, Header, Content, Button, Text, Tab, Tabs, TabHeading } from 
 import { typo, color } from '../styles'
 // Redux
 import { connect } from 'react-redux';
-import { deletePost, updatePost } from '../actions/post';
-// import { deleteProfilePost, updateProfilePost } from '../actions/profilePost';
+import { deleteProfilePost, updateProfilePost } from '../actions/profilePost';
 
-class PostScreen extends Component {
+class ProfilePostScreen extends Component {
 
 // Props:
 // this.props.route.params.id
@@ -30,7 +29,7 @@ getPostShow = () => {
         // console.log(post);
         // передавать весь пост сразу
         setTimeout(() => {
-          this.props.updatePost(post)
+          this.props.updateProfilePost(post)
         }, 250);
       });
 
@@ -103,6 +102,24 @@ render() {
           >
           <Text style = { styles.buttonText }>Save post</Text>
         </Button>
+        <View style = { styles.horizontalContainer }>
+          <Button
+            rounded light
+            onPress={() => {
+              this.props.navigation.navigate('Edit Post', {
+                post: post
+              })
+            }}
+            >
+            <Text style = { styles.smallButtonText }>Edit</Text>
+          </Button>
+          <Button
+            rounded light
+            onPress = { this.deletePost }
+            >
+            <Text style = { styles.smallButtonText }>Del</Text>
+          </Button>
+        </View>
       </View>
     </View>
   )
@@ -164,22 +181,10 @@ const styles = StyleSheet.create({
   }
 })
 
-// selectDataSource = (state, ownProps) => {
-//   if (Object.keys(state.posts.byId).includes(ownProps.route.params.id)) {
-//     return state.posts.byId[ownProps.route.params.id]
-//   } else {
-//     return state.profilePosts.byId[ownProps.route.params.id]
-//   }
-// }
-
 const mapStateToProps = (state, ownProps) => {
   return {
-    post: state.posts.byId[ownProps.route.params.id]
+    post: state.profilePosts.byId[ownProps.route.params.id]
   }
-  // console.log(selectDataSource(state, ownProps));
-  // return {
-  //   post: selectDataSource(state, ownProps)
-  // }
 }
 
 const mapDispatchToProps = dispatch => {
@@ -187,13 +192,13 @@ const mapDispatchToProps = dispatch => {
     deletePost: (id) => {
       dispatch(deletePost(id))
     },
-    updatePost: (post) => {
-      dispatch(updatePost(post))
+    updateProfilePost: (post) => {
+      dispatch(updateProfilePost(post))
     }
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(ProfilePostScreen)
 
 
 // <View style = { styles.container }>

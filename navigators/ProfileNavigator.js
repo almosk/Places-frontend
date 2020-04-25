@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import { StyleSheet, View, TextInput, FlatList } from 'react-native';
 import { Container, Header, Content, Button, Text, Tab, Tabs, TabHeading } from 'native-base';
 import ProfileBottomSheet from '../containers/ProfileBottomSheet'
-import PostScreen from '../containers/PostScreen'
-import CollectionScreen from '../containers/CollectionScreen'
+import ProfilePostScreen from '../containers/ProfilePostScreen'
+import ProfileCollectionScreen from '../containers/ProfileCollectionScreen'
 import NewCollectionScreen from '../containers/NewCollectionScreen'
 import NewPostScreen from '../containers/NewPostScreen'
 import EditPostScreen from '../containers/EditPostScreen'
 import SavePostScreen from '../containers/SavePostScreen'
 import ProfileInfoScreen from '../containers/ProfileInfoScreen'
-import MapBlock from '../components/MapBlock'
 // Navigation
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -39,13 +38,13 @@ render() {
             ),
           }}
         />
-        <ProfileStack.Screen name="Place" component={PostScreen}
+        <ProfileStack.Screen name="Place" component={ProfilePostScreen}
           options={({ route }) => ({
             title: route.params.post_title,
             headerMode: 'none'
           })}
         />
-        <ProfileStack.Screen name="Collection" component={CollectionScreen}
+      <ProfileStack.Screen name="Collection" component={ProfileCollectionScreen}
           options={({ route }) => ({
             title: route.params.collection_title
           })}

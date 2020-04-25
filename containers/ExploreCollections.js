@@ -43,7 +43,7 @@ collectionsOutput = () => {
       keyExtractor={(item, index) => index.toString()}
       renderItem = { info => (
         <CollectionSnippet
-          collection_id={ info.item.id }
+          collection={ info.item }
           navigation={this.props.navigation}
           type={'explore'}
         />

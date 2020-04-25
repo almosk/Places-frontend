@@ -4,7 +4,7 @@ import { Container, Header, Content, Button, Text, Tab, Tabs, TabHeading } from 
 import CollectionSnippet from '../components/CollectionSnippet';
 // Redux
 import { connect } from 'react-redux';
-import { addCollection } from '../actions/collection';
+import { addProfileCollection } from '../actions/profileCollection';
 
 class ProfileCollections extends Component {
 state = {
@@ -23,7 +23,7 @@ getCollectionsIndex = () => {
         collectionsIsLoading: false,
         collectionsDataSource: responseJson,
       }, function(){
-        this.state.collectionsDataSource.forEach(collection => this.props.addCollection(collection))
+        this.state.collectionsDataSource.forEach(collection => this.props.addProfileCollection(collection))
       });
 
     })
@@ -36,14 +36,14 @@ getCollectionsIndex = () => {
 
 collectionsOutput = () => {
   // profileCollections = this.props.collections.filter(collection => collection.user_id == this.props.users.loggedUser)
-  profileCollections = this.props.collections
+  profileCollections = this.props.profileCollections
   return (
     <FlatList style = { styles.listContainer }
       data = { profileCollections }
       keyExtractor={(item, index) => index.toString()}
       renderItem = { info => (
         <CollectionSnippet
-          collection_id={ info.item.id }
+          collection={ info.item }
           navigation={this.props.navigation}
         />
       )}
@@ -95,14 +95,14 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    collections: Object.values(state.collections.byId),
+    profileCollections: Object.values(state.profileCollections.byId),
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    addCollection: (collection) => {
-      dispatch(addCollection(collection))
+    addProfileCollection: (collection) => {
+      dispatch(addProfileCollection(collection))
     }
   }
 }

@@ -8,7 +8,7 @@ import TopBar from '../components/TopBar'
 import BottomSheet from 'reanimated-bottom-sheet'
 import { Container, Text, Tab, Tabs, TabHeading } from 'native-base';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import MapBlock from '../components/MapBlock'
+import MapBlock from '../containers/MapBlock'
 //Map
 import MapboxGL from "@react-native-mapbox-gl/maps";
 
@@ -34,16 +34,14 @@ const ProfileScreen = () => {
       </View>
     )
   }
-  // <View style={styles.mapContainer}>
-  //   <MapboxGL.MapView style={styles.map} />
-  // </View>
+
+  // <MapBlock/>
   return (
     <Container style={ styles.container }>
       <TopBar
         navigation={ navigation }
         // route = { route }
       />
-      <MapBlock/>
 
       <BottomSheet
         snapPoints = {[450, 600, 200]}
@@ -61,7 +59,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
-    overflow: 'hidden'
+    overflow: 'hidden',
+    backgroundColor: "#cccccc"
   },
   mapContainer: {
     height: 600,

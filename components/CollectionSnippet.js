@@ -1,8 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import UserSnippetSmall from '../components/UserSnippetSmall';
-// Redux
-import { connect } from 'react-redux';
 
 
 const CollectionSnippet = (props) => {
@@ -91,18 +89,6 @@ const styles = StyleSheet.create({
   },
 })
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    collection: state.collections.byId[ownProps.collection_id],
-    collectionUser: state.users.byId[state.collections.byId[ownProps.collection_id].user_id]
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(CollectionSnippet)
+export default CollectionSnippet
 
 // export default CollectionSnippet;

@@ -4,7 +4,7 @@ import PostSnippet from '../components/PostSnippet';
 import { Container, Header, Content, Button, Text, Tab, Tabs, TabHeading } from 'native-base';
 // Redux
 import { connect } from 'react-redux';
-import { addPost, deletePost } from '../actions/post';
+import { addProfilePost, deleteProfilePost } from '../actions/profilePost';
 
 
 class ProfilePosts extends Component {
@@ -36,7 +36,7 @@ getPostsIndex = () => {
       }, function(){
         // console.log('back', this.state.postsDataSource);
         setTimeout(() => {
-          this.state.postsDataSource.forEach(post => this.props.addPost(post))
+          this.state.postsDataSource.forEach(post => this.props.addProfilePost(post))
         }, 250);
         // this.state.postsDataSource.forEach(post => console.log(post))
       });
@@ -80,7 +80,7 @@ render() {
             <Text>New Post</Text>
           </Button>
         </View>
-        { this.postsOutput(this.props.posts) }
+        { this.postsOutput(this.props.profilePosts) }
       </ScrollView>
     </SafeAreaView>
   );
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    posts: Object.values(state.posts.byId),
+    profilePosts: Object.values(state.profilePosts.byId),
     // login: state.login
     // users: state.users,
     // collectionPosts: Object.values(state.collectionPost.byId),
@@ -128,8 +128,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addPost: (post) => {
-      dispatch(addPost(post))
+    addProfilePost: (post) => {
+      dispatch(addProfilePost(post))
     }
   }
 }
