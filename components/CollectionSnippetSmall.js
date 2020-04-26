@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 const CollectionSnippetSmall = (props) => {
   // Props:
   // props.collection
+  // props.setCollection
 
 return (
   <TouchableOpacity
@@ -27,8 +28,8 @@ const styles = StyleSheet.create({
     height: 56,
     paddingTop: 4,
     paddingBottom: 4,
-    paddingLeft: 16,
-    paddingRight: 16,
+    // paddingLeft: 16,
+    // paddingRight: 16,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center'
