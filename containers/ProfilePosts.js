@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { StyleSheet, View, TextInput, FlatList, SafeAreaView, ScrollView } from 'react-native';
 import PostSnippet from '../components/PostSnippet';
 import { Container, Header, Content, Button, Text, Tab, Tabs, TabHeading } from 'native-base';
+import PButton from '../components/PButton';
+import { typo, color, COLOR } from '../styles'
 // Redux
 import { connect } from 'react-redux';
 import { addProfilePost, deleteProfilePost } from '../actions/profilePost';
@@ -49,23 +51,21 @@ getPostsIndex = () => {
 
 
 render() {
-  console.log(this.props.login);
+
   return (
     <View style={styles.container}>
       <FlatList style = { styles.listContainer }
         data={this.props.profilePosts}
         ListHeaderComponent={
           <View style={ styles.buttonContainer }>
-            <Button
-              light
-              block
-              rounded
+            <PButton
+              text={'Добавить место'}
+              color= {COLOR.black10}
+              textColor={COLOR.black80}
               onPress={() => {
                 this.props.navigation.navigate('New Post')
               }}
-            >
-              <Text>New Post</Text>
-            </Button>
+            />
           </View>
         }
         renderItem={({ item }) =>

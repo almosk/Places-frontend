@@ -5,7 +5,7 @@ import PostSnippet from '../components/PostSnippet';
 import PostExploreSnippet from '../components/PostExploreSnippet';
 import UserSnippetSmall from '../components/UserSnippetSmall';
 import PButton from '../components/PButton';
-import { typo, color } from '../styles'
+import { typo, color, COLOR } from '../styles'
 
 // Redux
 import { connect } from 'react-redux';
@@ -95,6 +95,8 @@ render() {
           <Text style = { [styles.description, typo.t16, color.black80] }>Collection Description{collection.description}</Text>
           <PButton
             text= {'Подписаться'}
+            color= {COLOR.blue}
+            textColor={COLOR.white}
           />
         </View>
           <View style = { styles.listContainer }>

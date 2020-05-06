@@ -10,17 +10,17 @@ render() {
   return (
     <Container style={ styles.container }>
       <Tabs>
-        <Tab heading={ <TabHeading><Text>Posts</Text></TabHeading>}>
+        <Tab heading={ <TabHeading><Text>Места</Text></TabHeading>}>
           <ExplorePosts
             navigation={this.props.navigation}
             />
         </Tab>
-        <Tab heading={ <TabHeading><Text>Collections</Text></TabHeading>}>
+        <Tab heading={ <TabHeading><Text>Подборки</Text></TabHeading>}>
           <ExploreCollections
             navigation={this.props.navigation}
             />
         </Tab>
-        <Tab heading={ <TabHeading><Text>Users</Text></TabHeading>}>
+        <Tab heading={ <TabHeading><Text>Люди</Text></TabHeading>}>
           <ExploreUsers
             navigation={this.props.navigation}
             collections={this.props.collections}

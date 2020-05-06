@@ -7,7 +7,7 @@ import ProfileBottomSheet from '../containers/ProfileBottomSheet'
 import TopBar from '../components/TopBar'
 import BottomSheet from 'reanimated-bottom-sheet'
 import { Container, Text, Tab, Tabs, TabHeading } from 'native-base';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation, useNavigationState } from '@react-navigation/native';
 import MapBlock from '../containers/MapBlock'
 //Map
 import MapboxGL from "@react-native-mapbox-gl/maps";
@@ -16,6 +16,7 @@ MapboxGL.setAccessToken("pk.eyJ1IjoiYWxtb3NrIiwiYSI6ImNrOHhhdWw3MzBodGkzbG8wMzZh
 
 const ProfileScreen = () => {
   const navigation = useNavigation()
+  // const state = useNavigationState(state => state);
 
   renderContent = () => {
     return (

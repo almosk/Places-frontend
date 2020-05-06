@@ -7,27 +7,34 @@ const PButton = (props) => {
 // Props:
 // props.onPress
 // props.text
+// props.bg
+
+console.log(props.bg);
 
 return (
   <TouchableOpacity
-    style = { styles.button }
+    style = { styles(props).button }
     onPress={() => {
       props.onPress()
     }}
   >
-    <Text style = { [typo.t16, color.white] }>{ props.text }</Text>
+    <Text style = { [typo.t16, styles(props).text] }>{ props.text }</Text>
   </TouchableOpacity>
 );
 }
 
-const styles = StyleSheet.create({
+const styles = (props) => StyleSheet.create({
   button: {
-    backgroundColor: COLOR.blue,
+    backgroundColor: props.color,
+    // backgroundColor: COLOR.blue,
     width: '100%',
     height: 48,
     borderRadius: 24,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  text: {
+    color: props.textColor
   }
 })
 

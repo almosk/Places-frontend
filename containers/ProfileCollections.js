@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { StyleSheet, View, TextInput, FlatList, SafeAreaView, ScrollView } from 'react-native';
 import { Container, Header, Content, Button, Text, Tab, Tabs, TabHeading } from 'native-base';
 import CollectionSnippet from '../components/CollectionSnippet';
+import PButton from '../components/PButton';
+import { typo, color, COLOR } from '../styles'
 // Redux
 import { connect } from 'react-redux';
 import { addProfileCollection } from '../actions/profileCollection';
@@ -39,16 +41,12 @@ render() {
         data = { this.props.profileCollections }
         ListHeaderComponent={
           <View style={ styles.buttonContainer }>
-            <Button
-              light
-              block
-              rounded
-              onPress={() => {
-                this.props.navigation.navigate('New Collection')
-              }}
-            >
-            <Text>New Collection</Text>
-            </Button>
+            <PButton
+              text={'Создать подборку'}
+              color= {COLOR.black10}
+              textColor={COLOR.black80}
+              onPress={() => {}}
+            />
           </View>
         }
         keyExtractor={(item, index) => index.toString()}

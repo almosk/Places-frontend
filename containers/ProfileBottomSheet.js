@@ -11,12 +11,12 @@ render() {
     <View style={ styles.container }>
       <View>
         <Tabs>
-          <Tab heading={ <TabHeading><Text>Posts</Text></TabHeading>}>
+          <Tab heading={ <TabHeading><Text>Места</Text></TabHeading>}>
             <ProfilePosts
               navigation={this.props.navigation}
               />
           </Tab>
-          <Tab heading={ <TabHeading><Text>Collections</Text></TabHeading>}>
+          <Tab heading={ <TabHeading><Text>Подборки</Text></TabHeading>}>
             <ProfileCollections
               navigation={this.props.navigation}
               />

@@ -13,7 +13,7 @@ return (
     <View style={styles.topBar}>
       <TouchableOpacity
         style={styles.backButton}
-        onPress={() => props.navigation.goBack()}
+        onPress={() => props.navigation.goBack(null)}
       ></TouchableOpacity>
     <View style={styles.search}>
         <View style={styles.icon24}></View>
