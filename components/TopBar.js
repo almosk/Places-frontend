@@ -1,11 +1,18 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Button, ImageBackground } from 'react-native';
 import { typo, color, COLOR } from '../styles'
-
+import ArrowLeft from '../assets/icons/arrow-left.svg';
 
 // Props:
 // props.onPress
 // props.text
+
+// <ImageBackground
+//   source={require('../assets/icons/arrow-left.svg')}
+//   style={styles.image}>
+// </ImageBackground>
+
+// <ArrowLeft width={120} height={40} />
 
 const TopBar = (props) => {
 return (
@@ -13,8 +20,9 @@ return (
     <View style={styles.topBar}>
       <TouchableOpacity
         style={styles.backButton}
-        onPress={() => props.navigation.goBack(null)}
-      ></TouchableOpacity>
+        onPress={() => props.navigation.goBack(null)}>
+
+      </TouchableOpacity>
     <View style={styles.search}>
         <View style={styles.icon24}></View>
         <Text style = {[styles.postTitle, typo.t14, color.black30]}>Поиск</Text>
@@ -61,7 +69,12 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: "#cccccc",
     marginRight: 8
-  }
+  },
+    image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center"
+  },
 })
 
 export default TopBar

@@ -1,15 +1,16 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
 import { Container, Header, Content, Button, Text, Tab, Tabs, TabHeading } from 'native-base';
 
 //Props:
-// user_title
+// user
+
 const UserSnippetSmall = (props) => {
 return (
   <TouchableOpacity style = { styles.container }>
-    <View style = { styles.image }></View>
+    <ImageBackground source={{uri: props.user.avatar}} style={styles.image} imageStyle={{ borderRadius: 25 }}></ImageBackground>
     <Text style = { styles.userTitle }>
-      { props.user_title }
+      { props.user.title }
     </Text>
   </TouchableOpacity>
 )}

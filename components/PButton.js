@@ -9,7 +9,7 @@ const PButton = (props) => {
 // props.text
 // props.bg
 
-console.log(props.bg);
+// console.log(props.bg);
 
 return (
   <TouchableOpacity

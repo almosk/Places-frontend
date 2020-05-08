@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, FlatList } from 'react-native';
+import { View, StyleSheet, FlatList, ImageBackground } from 'react-native';
 import CollectionsFlatList from '../components/CollectionsFlatList';
 import PostSnippet from '../components/PostSnippet';
 import PButton from '../components/PButton';
@@ -68,7 +68,7 @@ render() {
       <View style = { styles.title }>
         <View style = { styles.horizontalContainer }>
           <Text style = { [typo.t32, color.black80] }>{ this.props.route.params.user.title }</Text>
-          <View style = { styles.image }></View>
+          <ImageBackground source={{uri: this.props.route.params.user.avatar}} style={styles.image} imageStyle={{ borderRadius: 44 }}></ImageBackground>
         </View>
         <PButton
           text= {'Подписаться'}

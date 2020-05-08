@@ -30,7 +30,7 @@ return (
             </Text>
           </View>
           <View style = { styles.horizontaContainer }>
-            <UserSnippetSmall user_title={props.post.user_title} />
+            <UserSnippetSmall user={props.post.user}/>
             <Text style = { styles.collectionTitle }>{ props.post.user_collection }</Text>
           </View>
         </View>

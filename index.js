@@ -10,8 +10,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // Continers and Components
 import ProfileScreen from './containers/ProfileScreen';
 import ExploreScreen from './containers/ExploreScreen';
-import NewsScreen from './containers/NewsScreen';
 import LoginForm from './containers/LoginForm';
+import NewsNavigator from './navigators/NewsNavigator';
 import ProfileNavigator from './navigators/ProfileNavigator';
 import ExploreNavigator from './navigators/ExploreNavigator';
 // Redux
@@ -30,8 +30,18 @@ const RNRedux = () => (
   <Provider store = { createStore(rootReducer, applyMiddleware(thunk)) }>
     <NavigationContainer>
       <Tab.Navigator initialRouteName="Profile">
-        <Tab.Screen name="Explore" component={ExploreScreen} />
-        <Tab.Screen name="Profile" component={ProfileScreen} />
+        <Tab.Screen
+          name="News"
+          options={{ title: 'Новости' }}
+          component={NewsNavigator} />
+        <Tab.Screen
+          name="Explore"
+          options={{ title: 'Обзор' }}
+          component={ExploreScreen} />
+        <Tab.Screen
+          name="Profile"
+          options={{ title: 'Профиль' }}
+          component={ProfileScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   </Provider>

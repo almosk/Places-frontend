@@ -28,7 +28,7 @@ return (
         </View>
         <View style = { styles.bottomContainer }>
           <Text style = { styles.collectionTitle }>{ props.collection.title }</Text>
-          <UserSnippetSmall user_title={props.collection.user_title} />
+            <UserSnippetSmall user={props.collection.user}/>
         </View>
       </View>
     </View>

@@ -83,6 +83,7 @@ render() {
             </View>
             <Text style = { [styles.postDescription, typo.t16, color.black50] }>{post.description}</Text>
             <UserSnippetPost
+              user = {post.user}
               user_title = {post.user_title}
               user_collection = {post.user_collection}
               collections = {post.collections}

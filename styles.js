@@ -24,7 +24,7 @@ const typo = StyleSheet.create({
   t14: {
     fontWeight: "bold",
     fontSize: 14,
-    lineHeight: 20,
+    lineHeight: 16,
   },
   t12: {
     fontWeight: "bold",

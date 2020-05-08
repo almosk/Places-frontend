@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
 import { Container, Header, Content, Button, Text, Tab, Tabs, TabHeading } from 'native-base';
 import { typo, color } from '../styles'
 
@@ -15,7 +15,7 @@ if (props.collections) {
 return (
   <TouchableOpacity style = { styles.container }>
     <View style = { styles.horizontalContainer }>
-      <View style = { styles.image }></View>
+      <ImageBackground source={{uri: props.user.avatar}} style={styles.image} imageStyle={{ borderRadius: 25 }}></ImageBackground>
       <View>
         <Text style = {[typo.t14, color.black80]}>{ props.user_title }</Text>
         <Text style = {[typo.t14, color.black30]}>in { props.user_collection }</Text>

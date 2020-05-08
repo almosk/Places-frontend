@@ -73,7 +73,7 @@ postsOutput = (data) => {
 
 render() {
   let collection = this.props.collection
-  console.log(collection);
+  // console.log(collection);
   // if (collection.posts == null) {
   //   this.getCollectionShow()
   // }
@@ -88,7 +88,9 @@ render() {
           </View>
           <View style = { styles.bottomContainer }>
             <Text style = {[styles.title, typo.t24, color.black80]}>{ collection.title }</Text>
-            <UserSnippetSmall user_title={collection.user_title} />
+            <UserSnippetSmall
+              user = {collection.user}
+              user_title={collection.user_title} />
           </View>
         </View>
         <View style = { styles.container }>

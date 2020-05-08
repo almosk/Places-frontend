@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
 import { Container, Header, Content, Button, Text, Tab, Tabs, TabHeading } from 'native-base';
 
 //Props:
@@ -30,15 +30,15 @@ return (
     }}
   >
     <View style = { styles.horizontaContainer }>
-      <View style = { styles.image }></View>
+      <ImageBackground source={{uri: props.user.avatar}} style={styles.image} imageStyle={{ borderRadius: 25 }}></ImageBackground>
       <View>
         <Text style = { styles.postTitle }>
           { props.user.title }
         </Text>
         <View style = { styles.horizontaContainer }>
-          <Text style = { styles.collectionTitle }>Collections: { props.user.collections_quantity }</Text>
+          <Text style = { styles.collectionTitle }>Подборки { props.user.collections_quantity }</Text>
           <Text style = { styles.collectionTitle }> • </Text>
-          <Text style = { styles.collectionTitle }>Posts: { props.user.posts_quantity }</Text>
+          <Text style = { styles.collectionTitle }>Места { props.user.posts_quantity }</Text>
         </View>
       </View>
     </View>
@@ -46,6 +46,7 @@ return (
   </TouchableOpacity>
 );
 }
+// const image = { uri: "https://reactjs.org/logo-og.png" };
 
 const styles = StyleSheet.create({
   postSnippet: {
