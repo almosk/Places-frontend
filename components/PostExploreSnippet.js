@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Button, ImageBackground } from 'react-native';
 import UserSnippetSmall from '../components/UserSnippetSmall';
 
 const PostExploreSnippet = (props) => {
@@ -34,7 +34,7 @@ return (
             <Text style = { styles.collectionTitle }>{ props.post.user_collection }</Text>
           </View>
         </View>
-        <View style = { styles.image }></View>
+        <ImageBackground source={{uri: props.post.cover}} style={styles.image} imageStyle={{ borderRadius: 4 }}></ImageBackground>
     </View>
   </TouchableOpacity>
 )}

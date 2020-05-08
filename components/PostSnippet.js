@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Button, ImageBackground } from 'react-native';
 import { typo, color } from '../styles'
 
 
@@ -19,7 +19,7 @@ return (
   >
     <View style = { styles.postSnippet }>
       <View style = { styles.horizontaContainer }>
-        <View style = { styles.image }></View>
+        <ImageBackground source={{uri: props.post.cover}} style={styles.image} imageStyle={{ borderRadius: 4 }}></ImageBackground>
         <View>
           <Text style = { styles.postTitle }>
             { props.post.title }

@@ -31,7 +31,7 @@ return (
       <View style = { styles.moreIcon }></View>
     </View>
     <View style = { styles.postSnippet }>
-      <View style = { styles.image }></View>
+      <ImageBackground source={{uri: props.post.cover}} style={styles.image} imageStyle={{ borderRadius: 4 }}></ImageBackground>
       <View>
         <Text style = { [typo.t20, color.black80, styles.postTitle] }>{ props.post.title }</Text>
         <Text style = { [typo.t16, color.black50] }>{ props.post.description.limit(50) }</Text>
