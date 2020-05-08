@@ -14,6 +14,12 @@ import LoginForm from './containers/LoginForm';
 import NewsNavigator from './navigators/NewsNavigator';
 import ProfileNavigator from './navigators/ProfileNavigator';
 import ExploreNavigator from './navigators/ExploreNavigator';
+//Icons
+import IconNews from './assets/icons/news.svg';
+import IconExplore from './assets/icons/explore.svg';
+import IconProfile from './assets/icons/profile.svg';
+//Style
+import { COLOR } from './styles'
 // Redux
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
@@ -29,18 +35,27 @@ const Tab = createBottomTabNavigator();
 const RNRedux = () => (
   <Provider store = { createStore(rootReducer, applyMiddleware(thunk)) }>
     <NavigationContainer>
-      <Tab.Navigator initialRouteName="Profile">
+      <Tab.Navigator
+        initialRouteName="Explore"
+        backBehavior="none">
         <Tab.Screen
           name="News"
-          options={{ title: 'Новости' }}
+          options={{
+            title: 'Новости',
+            activeTintColor: COLOR.blue,
+            tabBarIcon: (() => (<IconNews width={24} height={24}/>))}}
           component={NewsNavigator} />
         <Tab.Screen
           name="Explore"
-          options={{ title: 'Обзор' }}
+          options={{
+            title: 'Обзор',
+            tabBarIcon: (() => (<IconExplore width={24} height={24}/>))}}
           component={ExploreScreen} />
         <Tab.Screen
           name="Profile"
-          options={{ title: 'Профиль' }}
+          options={{
+            title: 'Профиль',
+            tabBarIcon: (() => (<IconProfile width={24} height={24}/>))}}
           component={ProfileScreen} />
       </Tab.Navigator>
     </NavigationContainer>

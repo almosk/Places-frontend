@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: 260,
+    height: 220,
     backgroundColor: '#F3F3F3',
   },
   postDescription: {

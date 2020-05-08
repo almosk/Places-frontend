@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Button, ImageBackground } from 'react-native';
 import UserSnippetSmall from '../components/UserSnippetSmall';
+import { typo, color, COLOR } from '../styles'
+
 
 const PostExploreSnippet = (props) => {
 
@@ -30,7 +32,9 @@ return (
             </Text>
           </View>
           <View style = { styles.horizontaContainer }>
-            <UserSnippetSmall user={props.post.user}/>
+            <UserSnippetSmall
+              user={props.post.user}
+              textColor={COLOR.black80}/>
             <Text style = { styles.collectionTitle }>{ props.post.user_collection }</Text>
           </View>
         </View>

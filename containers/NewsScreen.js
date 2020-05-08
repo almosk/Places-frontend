@@ -6,7 +6,7 @@ import PButton from '../components/PButton';
 import { typo, color, COLOR } from '../styles'
 // Redux
 import { connect } from 'react-redux';
-import { addProfilePost, deleteProfilePost } from '../actions/profilePost';
+import { addPost, deletePost } from '../actions/post';
 
 
 class NewsScreen extends Component {
@@ -21,7 +21,7 @@ class NewsScreen extends Component {
   }
 
   getPostsIndex = () => {
-    return fetch('http://localhost:3000/v1/posts/profile_posts.json', {
+    return fetch('http://localhost:3000/v1/posts/explore_posts.json', {
       headers: {
         // 'access-token': this.props.login['headers']['map']['access-token']
       },
@@ -33,7 +33,7 @@ class NewsScreen extends Component {
         }, function(){
           // console.log('back', this.state.postsDataSource);
           setTimeout(() => {
-            this.state.postsDataSource.forEach(post => this.props.addProfilePost(post))
+            this.state.postsDataSource.forEach(post => this.props.addPost(post))
           }, 250);
           // this.state.postsDataSource.forEach(post => console.log(post))
         });
@@ -64,7 +64,7 @@ class NewsScreen extends Component {
               </View>
             </View>
           }
-          data={this.props.profilePosts}
+          data={this.props.posts}
           renderItem={({ item }) =>
             <NewsSnippet
               id={item.id}
@@ -136,7 +136,7 @@ class NewsScreen extends Component {
 
   const mapStateToProps = state => {
     return {
-      profilePosts: Object.values(state.profilePosts.byId),
+      posts: Object.values(state.posts.byId),
       // login: state.login
       // users: state.users,
       // collectionPosts: Object.values(state.collectionPost.byId),
@@ -146,8 +146,8 @@ class NewsScreen extends Component {
 
   const mapDispatchToProps = dispatch => {
     return {
-      addProfilePost: (post) => {
-        dispatch(addProfilePost(post))
+      addPost: (post) => {
+        dispatch(addPost(post))
       }
     }
   }
