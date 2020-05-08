@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, FlatList,  SafeAreaView, ScrollView  } from 'react-native';
+import { StyleSheet, View, FlatList,  SafeAreaView, ScrollView, ImageBackground  } from 'react-native';
 import { Container, Header, Content, Button, Text, Tab, Tabs, TabHeading } from 'native-base';
 import PostSnippet from '../components/PostSnippet';
 import PostExploreSnippet from '../components/PostExploreSnippet';
@@ -79,19 +79,22 @@ render() {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
-        <View style = { styles.image }>
-          <View style = { styles.topContainer }>
-            <View style = { styles.topContainerBg }>
-              <Text style = { [typo.t14, color.black80] }>{ collection.posts_quantity } posts</Text>
+        <ImageBackground source={{uri: collection.cover}} style={styles.image}>
+          <View style = { styles.imageContainer }>
+            <View style = { styles.topContainer }>
+              <View style = { styles.topContainerBg }>
+                <Text style = { [typo.t14, color.black80] }>{ collection.posts_quantity } posts</Text>
+              </View>
+            </View>
+            <View style = { styles.bottomContainer }>
+              <Text style = {[styles.title, typo.t24, color.white]}>{ collection.title }</Text>
+              <UserSnippetSmall
+                user = {collection.user}
+                textColor={COLOR.white}
+                user_title={collection.user_title} />
             </View>
           </View>
-          <View style = { styles.bottomContainer }>
-            <Text style = {[styles.title, typo.t24, color.black80]}>{ collection.title }</Text>
-            <UserSnippetSmall
-              user = {collection.user}
-              user_title={collection.user_title} />
-          </View>
-        </View>
+        </ImageBackground>
         <View style = { styles.container }>
           <Text style = { [styles.description, typo.t16, color.black80] }>Collection Description{collection.description}</Text>
           <PButton
@@ -113,6 +116,7 @@ render() {
 const styles = StyleSheet.create({
   container: {
     padding: 16,
+    paddingTop: 0,
     backgroundColor: 'white',
     // marginBottom: 8
   },
@@ -128,6 +132,12 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 260,
     backgroundColor: '#F3F3F3',
+    marginBottom: 16
+  },
+  imageContainer:{
+    backgroundColor: 'rgba(0,0,0,.3)',
+    width: '100%',
+    height: '100%',
     padding: 16,
     flexDirection: 'column',
     justifyContent: 'space-between',

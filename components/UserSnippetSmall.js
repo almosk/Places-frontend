@@ -9,7 +9,7 @@ const UserSnippetSmall = (props) => {
 return (
   <TouchableOpacity style = { styles.container }>
     <ImageBackground source={{uri: props.user.avatar}} style={styles.image} imageStyle={{ borderRadius: 25 }}></ImageBackground>
-    <Text style = { styles.userTitle }>
+    <Text style = { [styles.userTitle, propStyles(props).textColor] }>
       { props.user.title }
     </Text>
   </TouchableOpacity>
@@ -36,6 +36,12 @@ const styles = StyleSheet.create({
     marginRight: 8,
     // borderWidth: 1,
     borderColor: '#cccccc'
+  }
+})
+
+const propStyles = (props) => StyleSheet.create({
+  textColor: {
+    color: props.textColor
   }
 })
 

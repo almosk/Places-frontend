@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Button, ImageBackground } from 'react-native';
 import UserSnippetSmall from '../components/UserSnippetSmall';
-
+import { typo, color, COLOR } from '../styles'
 
 const CollectionSnippet = (props) => {
 // Props:
@@ -20,17 +20,21 @@ return (
     }}
   >
     <View style = { styles.listItem }>
-      <View style = { styles.listItemBg }>
-        <View style = { styles.topContainer }>
-          <View style = { styles.topContainerBg }>
-            <Text style = { styles.postsQuantity }>{ props.collection.posts_quantity } posts</Text>
+      <ImageBackground source={{uri: props.collection.cover}} style={styles.image} imageStyle={{ borderRadius: 8 }}>
+        <View style = { styles.container }>
+          <View style = { styles.topContainer }>
+            <View style = { styles.topContainerBg }>
+              <Text style = { styles.postsQuantity }>{ props.collection.posts_quantity } posts</Text>
+            </View>
+          </View>
+          <View style = { styles.bottomContainer }>
+            <Text style = { [styles.collectionTitle, typo.t20, color.white] }>{ props.collection.title }</Text>
+              <UserSnippetSmall
+                user={props.collection.user}
+                textColor={COLOR.white}/>
           </View>
         </View>
-        <View style = { styles.bottomContainer }>
-          <Text style = { styles.collectionTitle }>{ props.collection.title }</Text>
-            <UserSnippetSmall user={props.collection.user}/>
-        </View>
-      </View>
+      </ImageBackground>
     </View>
   </TouchableOpacity>
 );
@@ -39,24 +43,30 @@ return (
 const styles = StyleSheet.create({
   listItem: {
     width: '100%',
-    height: 160,
+    height: 176,
     paddingTop: 4,
     paddingBottom: 4,
     paddingLeft: 16,
     paddingRight: 16,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center'
+    // flexDirection: 'row',
+    // justifyContent: 'space-between',
+    // alignItems: 'center'
   },
-  listItemBg: {
+  image: {
     backgroundColor: '#F3F3F3',
     width: '100%',
     height: '100%',
+    borderRadius: 8,
+    overflow: 'hidden'
+  },
+  container:{
+    width: '100%',
+    height: '100%',
+    padding: 16,
+    backgroundColor: 'rgba(0,0,0,.3)',
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    padding: 16,
-    borderRadius: 8
   },
   topContainer: {
     width: '100%',
@@ -77,9 +87,6 @@ const styles = StyleSheet.create({
     width: '30%'
   },
   collectionTitle: {
-    fontWeight: "bold",
-    fontSize: 20,
-    color: "#595959",
     marginBottom: 4,
   },
   postsQuantity: {
