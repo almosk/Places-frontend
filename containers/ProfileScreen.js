@@ -11,10 +11,12 @@ import { useNavigation, useNavigationState } from '@react-navigation/native';
 import MapBlock from '../containers/MapBlock'
 //Map
 import MapboxGL from "@react-native-mapbox-gl/maps";
+// Redux
+import { connect } from 'react-redux';
 
 MapboxGL.setAccessToken("pk.eyJ1IjoiYWxtb3NrIiwiYSI6ImNrOHhhdWw3MzBodGkzbG8wMzZhYm4waHcifQ.xy56Az5bM0S2EzXR_gdYjw");
 
-const ProfileScreen = () => {
+const ProfileScreen = (props) => {
   const navigation = useNavigation()
   // const state = useNavigationState(state => state);
 
@@ -43,7 +45,9 @@ const ProfileScreen = () => {
         // route = { route }
       />
 
-      <MapBlock/>
+      <MapBlock
+        posts = { props.profilePosts }
+      />
 
       <BottomSheet
         snapPoints = {[450, 600, 200]}
@@ -94,4 +98,18 @@ const styles = StyleSheet.create({
   }
 })
 
-export default ProfileScreen
+const mapStateToProps = state => {
+  return {
+    profilePosts: Object.values(state.profilePosts.byId),
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    // addPost: (post) => {
+    //   dispatch(addPost(post))
+    // }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileScreen)

@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {View, Image} from 'react-native';
 import MapboxGL from '@react-native-mapbox-gl/maps';
-// Redux
-import { connect } from 'react-redux';
+
+// Props:
+// this.props.posts
 
 MapboxGL.setAccessToken("pk.eyJ1IjoiYWxtb3NrIiwiYSI6ImNrOHhhdWw3MzBodGkzbG8wMzZhYm4waHcifQ.xy56Az5bM0S2EzXR_gdYjw");
 
@@ -32,7 +33,7 @@ class MapBlock extends Component {
   renderAnnotation (counter) {
     const id = `pointAnnotation${counter}`;
     // const coordinate = this.state.coordinates[counter];
-    const coordinate = [this.props.profilePosts[counter].longitude, this.props.profilePosts[counter].latitude]
+    const coordinate = [this.props.posts[counter].longitude, this.props.posts[counter].latitude]
     const title = `Longitude: ${this.state.coordinates[counter][0]} Latitude: ${this.state.coordinates[counter][1]}`;
 
     return (
@@ -57,7 +58,7 @@ class MapBlock extends Component {
   renderAnnotations () {
     const items = [];
 
-    for (let i = 0; i < this.props.profilePosts.length; i++) {
+    for (let i = 0; i < this.props.posts.length; i++) {
       items.push(this.renderAnnotation(i));
     }
 
@@ -73,8 +74,8 @@ class MapBlock extends Component {
   }
 
   render () {
-    longitudes = this.props.profilePosts.map(p => parseFloat(p.longitude))
-    latitudes = this.props.profilePosts.map(p => parseFloat(p.latitude))
+    longitudes = this.props.posts.map(p => parseFloat(p.longitude))
+    latitudes = this.props.posts.map(p => parseFloat(p.latitude))
     n = this.getMaxOfArray(longitudes)
     s = this.getMinOfArray(longitudes)
     e = this.getMaxOfArray(latitudes)
@@ -109,18 +110,4 @@ class MapBlock extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    profilePosts: Object.values(state.profilePosts.byId),
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    // addPost: (post) => {
-    //   dispatch(addPost(post))
-    // }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(MapBlock)
+export default MapBlock

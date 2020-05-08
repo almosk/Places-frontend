@@ -9,13 +9,14 @@ import BottomSheet from 'reanimated-bottom-sheet'
 import TopBar from '../components/TopBar'
 import { useNavigation, useRoute } from '@react-navigation/native';
 import MapBlock from '../containers/MapBlock'
-
+// Redux
+import { connect } from 'react-redux';
 
 //Map
 import MapboxGL from "@react-native-mapbox-gl/maps";
 MapboxGL.setAccessToken("pk.eyJ1IjoiYWxtb3NrIiwiYSI6ImNrOHhhdWw3MzBodGkzbG8wMzZhYm4waHcifQ.xy56Az5bM0S2EzXR_gdYjw");
 
-const ExploreScreen = () => {
+const ExploreScreen = (props) => {
   const navigation = useNavigation()
   renderContent = () => {
     return (
@@ -41,7 +42,9 @@ const ExploreScreen = () => {
         // route = { route }
       />
 
-      <MapBlock/>
+      <MapBlock
+        posts = { props.posts }
+      />
 
       <BottomSheet
         snapPoints = {[450, 600, 200]}
@@ -86,4 +89,18 @@ const styles = StyleSheet.create({
   }
 })
 
-export default ExploreScreen
+const mapStateToProps = state => {
+  return {
+    posts: Object.values(state.posts.byId),
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    // addPost: (post) => {
+    //   dispatch(addPost(post))
+    // }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ExploreScreen)
