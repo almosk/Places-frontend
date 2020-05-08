@@ -39,38 +39,6 @@ getCollectionShow = () => {
     })
 }
 
-postsOutput = (data) => {
-  // let collectionPostIds = []
-  // let PostIdsBelongsToCollection = Object.values(this.props.collectionPosts).filter(collectionPost => collectionPost.collection_id == this.props.route.params.collection_id)
-  // PostIdsBelongsToCollection.forEach(collectionPost => collectionPostIds.push(collectionPost.post_id))
-  // let PostsBelongsToCollection = this.props.posts.filter(post => collectionPostIds.includes(post.id))
-  if (this.props.route.params.type == 'explore') {
-    return (
-      <FlatList style = { styles.listContainer }
-        data={data}
-        renderItem={({ item }) =>
-        <PostExploreSnippet
-          post={item}
-          navigation={this.props.navigation}
-        />}
-        keyExtractor={item => item.id}
-      />
-    )
-  } else {
-    return (
-      <FlatList style = { styles.listContainer }
-        data={data}
-        renderItem={({ item }) =>
-        <PostSnippet
-          post={item}
-          navigation={this.props.navigation}
-        />}
-        keyExtractor={item => item.id}
-      />
-    )
-  }
-}
-
 render() {
   let collection = this.props.collection
   // console.log(collection);
@@ -78,38 +46,43 @@ render() {
   //   this.getCollectionShow()
   // }
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView}>
-        <ImageBackground source={{uri: collection.cover}} style={styles.image}>
-          <View style = { styles.imageContainer }>
-            <View style = { styles.topContainer }>
-              <View style = { styles.topContainerBg }>
-                <Text style = { [typo.t14, color.black80] }>{ collection.posts_quantity } posts</Text>
+    <FlatList style = { styles.listContainer }
+      data={collection.posts}
+      ListHeaderComponent={
+        <View>
+            <ImageBackground source={{uri: collection.cover}} style={styles.image}>
+              <View style = { styles.imageContainer }>
+                <View style = { styles.topContainer }>
+                  <View style = { styles.topContainerBg }>
+                    <Text style = { [typo.t14, color.black80] }>{ collection.posts_quantity } posts</Text>
+                  </View>
+                </View>
+                <View style = { styles.bottomContainer }>
+                  <Text style = {[styles.title, typo.t24, color.white]}>{ collection.title }</Text>
+                  <UserSnippetSmall
+                    user = {collection.user}
+                    textColor={COLOR.white}
+                    user_title={collection.user_title} />
+                </View>
               </View>
-            </View>
-            <View style = { styles.bottomContainer }>
-              <Text style = {[styles.title, typo.t24, color.white]}>{ collection.title }</Text>
-              <UserSnippetSmall
-                user = {collection.user}
+            </ImageBackground>
+            <View style = { styles.container }>
+              <Text style = { [styles.description, typo.t16, color.black80] }>Collection Description{collection.description}</Text>
+              <PButton
+                text= {'Подписаться'}
+                color= {COLOR.blue}
                 textColor={COLOR.white}
-                user_title={collection.user_title} />
+              />
             </View>
-          </View>
-        </ImageBackground>
-        <View style = { styles.container }>
-          <Text style = { [styles.description, typo.t16, color.black80] }>Collection Description{collection.description}</Text>
-          <PButton
-            text= {'Подписаться'}
-            color= {COLOR.blue}
-            textColor={COLOR.white}
-          />
         </View>
-          <View style = { styles.listContainer }>
-            { this.postsOutput(collection.posts) }
-          </View>
-      </ScrollView>
-    </SafeAreaView>
-
+      }
+      renderItem={({ item }) =>
+      <PostSnippet
+        post={item}
+        navigation={this.props.navigation}
+      />}
+      keyExtractor={item => item.id.toString()}
+    />
     )
   }
 }
@@ -125,14 +98,15 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   listContainer: {
-    marginTop: 16,
-    width: '100%'
+    // marginTop: 16,
+    width: '100%',
+    backgroundColor: '#ffffff',
   },
   image: {
     width: '100%',
     height: 260,
     backgroundColor: '#F3F3F3',
-    marginBottom: 16
+    // marginBottom: 16
   },
   imageContainer:{
     backgroundColor: 'rgba(0,0,0,.3)',
