@@ -43,6 +43,7 @@ const ProfileScreen = () => {
         // route = { route }
       />
 
+      <MapBlock/>
 
       <BottomSheet
         snapPoints = {[450, 600, 200]}

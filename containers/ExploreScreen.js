@@ -8,6 +8,8 @@ import { Container, Text, Tab, Tabs, TabHeading } from 'native-base';
 import BottomSheet from 'reanimated-bottom-sheet'
 import TopBar from '../components/TopBar'
 import { useNavigation, useRoute } from '@react-navigation/native';
+import MapBlock from '../containers/MapBlock'
+
 
 //Map
 import MapboxGL from "@react-native-mapbox-gl/maps";
@@ -38,9 +40,9 @@ const ExploreScreen = () => {
         navigation={ navigation }
         // route = { route }
       />
-      <View style={styles.mapContainer}>
-        <MapboxGL.MapView style={styles.map} />
-      </View>
+
+      <MapBlock/>
+
       <BottomSheet
         snapPoints = {[450, 600, 200]}
         enabledBottomInitialAnimation = { true }

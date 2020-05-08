@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
+import { View, StyleSheet, SafeAreaView, ScrollView, ImageBackground } from 'react-native';
 import CollectionsFlatList from '../components/CollectionsFlatList';
 import UserSnippetPost from '../components/UserSnippetPost';
 import { Container, Header, Content, Button, Text, Tab, Tabs, TabHeading } from 'native-base';
@@ -76,7 +76,7 @@ render() {
     <View>
       <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>
-          <View style = { styles.image }></View>
+          <ImageBackground source={{uri: post.cover}} style={styles.image}></ImageBackground>
           <View style = { styles.container }>
             <View style = { styles.post }>
               <Text style = {[styles.postTitle, typo.t24, color.black80]}>{ post.title }</Text>
