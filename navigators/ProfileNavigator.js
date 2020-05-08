@@ -50,7 +50,7 @@ render() {
           })}
         />
         <ProfileStack.Screen name="New Collection" component={NewCollectionScreen} />
-        <ProfileStack.Screen name="New Post" component={NewPostScreen} />
+        
         <ProfileStack.Screen name="Edit Post" component={EditPostScreen} />
         <ProfileStack.Screen name="Save post" component={SavePostScreen} />
         <ProfileStack.Screen name="Profile Info" component={ProfileInfoScreen} />
