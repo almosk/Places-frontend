@@ -6,7 +6,6 @@ import PostExploreSnippet from '../components/PostExploreSnippet';
 import UserSnippetSmall from '../components/UserSnippetSmall';
 import PButton from '../components/PButton';
 import { typo, color, COLOR } from '../styles'
-
 // Redux
 import { connect } from 'react-redux';
 import { deleteCollection, updateCollection } from '../actions/collection';
