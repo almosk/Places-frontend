@@ -28,7 +28,7 @@ return (
             </View>
           </View>
           <View style = { styles.bottomContainer }>
-            <Text style = { [styles.collectionTitle, typo.t20, color.white] }>{ props.collection.title }</Text>
+            <Text style = { [styles.collectionTitle, typo.t24, color.white] } numberOfLines={1} ellipsizeMode='tail'>{ props.collection.title }</Text>
               <UserSnippetSmall
                 user={props.collection.user}
                 textColor={COLOR.white}/>
@@ -43,7 +43,7 @@ return (
 const styles = StyleSheet.create({
   listItem: {
     width: '100%',
-    height: 176,
+    height: 200,
     paddingTop: 4,
     paddingBottom: 4,
     paddingLeft: 16,
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     width: '30%'
   },
   collectionTitle: {
-    marginBottom: 4,
+    marginBottom: 8,
   },
   postsQuantity: {
     fontWeight: "bold",

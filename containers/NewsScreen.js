@@ -53,14 +53,14 @@ class NewsScreen extends Component {
           ListHeaderComponent={
             <View style={ styles.socialContainer }>
               <View style={ styles.following }>
-                <Text style = { [typo.t12, color.black30] }>Подписки</Text>
+                <Text style = { [typo.t14, color.black30] }>Подписки</Text>
                 <View style={ styles.counterContainer }>
-                  <Text style = { [typo.t20, color.black80] }>122</Text>
+                  <Text style = { [typo.t24, color.black80] }>122</Text>
                 </View>
               </View>
               <View style={ styles.followers }>
-                <Text style = { [typo.t12, color.black30] }>Подписчики</Text>
-                <Text style = { [typo.t20, color.black80] }>67</Text>
+                <Text style = { [typo.t14, color.black30] }>Подписчики</Text>
+                <Text style = { [typo.t24, color.black80] }>67</Text>
               </View>
             </View>
           }
@@ -112,21 +112,23 @@ class NewsScreen extends Component {
     },
     socialContainer: {
       padding: 16,
+      paddingTop: 32,
+      paddingBottom: 0,
       backgroundColor: '#ffffff',
       flexDirection: 'row',
       justifyContent: 'space-between',
     },
     following: {
-      width: 167,
-      height: 68,
+      width: 186,
+      height: 72,
       borderRadius: 8,
       backgroundColor: '#F3F3F3',
       padding: 12,
       justifyContent: 'space-between',
     },
     followers: {
-      width: 167,
-      height: 68,
+      width: 186,
+      height: 72,
       borderRadius: 8,
       backgroundColor: '#F3F3F3',
       padding: 12,

@@ -15,16 +15,25 @@ const typo = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 20,
     lineHeight: 22,
+    letterSpacing: 0.01
+  },
+  t18: {
+    fontWeight: "bold",
+    fontSize: 18,
+    lineHeight: 20,
+    letterSpacing: 0.01
   },
   t16: {
     fontWeight: "bold",
     fontSize: 16,
-    lineHeight: 20,
+    lineHeight: 19,
+    letterSpacing: 0.01
   },
   t14: {
     fontWeight: "bold",
     fontSize: 14,
     lineHeight: 16,
+    letterSpacing: 0.01
   },
   t12: {
     fontWeight: "bold",

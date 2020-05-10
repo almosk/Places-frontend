@@ -15,6 +15,7 @@ String.prototype.limit = function(length) {
 
 return (
   <TouchableOpacity
+    style = {styles.container}
     onPress={() => {
       props.navigation.navigate('Place', {
         id: props.post.id,
@@ -25,7 +26,7 @@ return (
       <View style = { styles.horizontalContailner }>
         <ImageBackground source={{uri: props.post.user.avatar}} style={styles.userPic} imageStyle={{ borderRadius: 25 }}></ImageBackground>
         <View>
-          <Text style = { [typo.t14, color.black80] }>{ props.post.user_title }</Text>
+          <Text style = { [styles.userTitle, typo.t14, color.black80] }>{ props.post.user_title }</Text>
           <Text style = { [typo.t14, color.black30] }>в { props.post.user_collection }</Text>
         </View>
       </View>
@@ -35,33 +36,44 @@ return (
       <ImageBackground source={{uri: props.post.cover}} style={styles.image} imageStyle={{ borderRadius: 4 }}></ImageBackground>
       <View>
         <Text style = { [typo.t20, color.black80, styles.postTitle] }>{ props.post.title }</Text>
-        <Text style = { [typo.t16, color.black50] }>{ props.post.description.limit(50) }</Text>
+        <Text style = { [typo.t16, color.black50]} numberOfLines={3} ellipsizeMode='tail'>{ props.post.description }</Text>
       </View>
     </View>
   </TouchableOpacity>
 )}
 
 const styles = StyleSheet.create({
+  container: {
+    // padding: 16,
+    paddingRight: 16,
+    paddingLeft: 16,
+    paddingTop: 24,
+    paddingBottom: 24,
+    borderBottomColor: '#F2F2F2',
+    borderBottomWidth: 1,
+  },
   userSnippet: {
     width: '100%',
     // height: 72,
-    padding: 16,
+    // padding: 16,
     backgroundColor: 'white',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginBottom: 16
+  },
+  userTitle: {
+    marginBottom: 2
   },
   postSnippet: {
     // height: 144,
     width: '100%',
-    paddingRight: 16,
-    paddingLeft: 16,
-    paddingBottom: 24,
+    // paddingRight: 16,
+    // paddingLeft: 16,
+    // paddingBottom: 16,
     backgroundColor: 'white',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    borderBottomColor: '#F2F2F2',
-    borderBottomWidth: 1,
     // marginBottom: 8
   },
   horizontalContailner: {
@@ -76,11 +88,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#F3F3F3',
   },
   postTitle: {
-    marginBottom: 2
+    marginBottom: 6
   },
   image: {
     width: '100%',
-    height: 156,
+    height: 172,
     borderRadius: 8,
     backgroundColor: '#F3F3F3',
     marginBottom: 12,

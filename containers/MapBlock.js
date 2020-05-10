@@ -34,7 +34,7 @@ class MapBlock extends Component {
     const id = `pointAnnotation${counter}`;
     // const coordinate = this.state.coordinates[counter];
     const coordinate = [this.props.posts[counter].longitude, this.props.posts[counter].latitude]
-    const title = `Longitude: ${this.state.coordinates[counter][0]} Latitude: ${this.state.coordinates[counter][1]}`;
+    const title = `Longitude: ${this.props.posts[counter][0]} Latitude: ${this.props.posts[counter][1]}`;
 
     return (
       <MapboxGL.PointAnnotation

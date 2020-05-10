@@ -22,7 +22,7 @@ return (
       <View style={styles.horizontalContainer}>
         <View style={styles.search}>
           <IconSearch style={styles.icon24} width={24} height={24} />
-          <Text style = {[styles.postTitle, typo.t14, color.black30]}>Поиск</Text>
+          <Text style = {[styles.postTitle, typo.t16, color.black30]}>Поиск</Text>
         </View>
       </View>
       <Text style = {[styles.city, typo.t16, color.black80]}>MSK</Text>
@@ -45,10 +45,10 @@ const styles = StyleSheet.create({
     // height: 48,
   },
   topBar: {
-    height: 48,
-    borderRadius: 4,
+    height: 56,
+    borderRadius: 8,
     backgroundColor: "#ffffff",
-    padding: 12,
+    padding: 16,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center'
