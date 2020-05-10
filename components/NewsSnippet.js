@@ -33,7 +33,7 @@ return (
       <IconMore width={24} height={24}/>
     </View>
     <View style = { styles.postSnippet }>
-      <ImageBackground source={{uri: props.post.cover}} style={styles.image} imageStyle={{ borderRadius: 4 }}></ImageBackground>
+      <ImageBackground source={{uri: props.post.cover}} style={styles.image} imageStyle={{ borderRadius: 8 }}></ImageBackground>
       <View>
         <Text style = { [typo.t20, color.black80, styles.postTitle] }>{ props.post.title }</Text>
         <Text style = { [typo.t16, color.black50]} numberOfLines={3} ellipsizeMode='tail'>{ props.post.description }</Text>
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: 172,
+    height: 192,
     borderRadius: 8,
     backgroundColor: '#F3F3F3',
     marginBottom: 12,

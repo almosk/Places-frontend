@@ -53,7 +53,7 @@ const ProfileScreen = (props) => {
       />
 
       <BottomSheet
-        snapPoints = {[450, 600, 200]}
+        snapPoints = {[450, 672, 248]}
         enabledBottomInitialAnimation = { true }
         renderContent = {this.renderContent}
         renderHeader = {this.renderHeader}

@@ -37,7 +37,7 @@ return (
             <Text style = { [styles.collectionTitle, typo.t14, color.black30] } numberOfLines={1} ellipsizeMode='tail'>{ props.post.user_collection.limit(10) }</Text>
           </View>
         </View>
-        <ImageBackground source={{uri: props.post.cover}} style={styles.image} imageStyle={{ borderRadius: 4 }}></ImageBackground>
+        <ImageBackground source={{uri: props.post.cover}} style={styles.image} imageStyle={{ borderRadius: 8 }}></ImageBackground>
     </View>
   </TouchableOpacity>
 )}
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   image: {
     width: 124,
     height: 124,
-    borderRadius: 4,
+    borderRadius: 8,
     backgroundColor: '#F3F3F3',
     marginRight: 12
   }

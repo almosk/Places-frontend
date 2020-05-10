@@ -20,7 +20,7 @@ return (
     }}
   >
     <View style = { styles.listItem }>
-      <ImageBackground source={{uri: props.collection.cover}} style={styles.image} imageStyle={{ borderRadius: 8 }}>
+      <ImageBackground source={{uri: props.collection.cover}} style={styles.image} imageStyle={{ borderRadius: 12 }}>
         <View style = { styles.container }>
           <View style = { styles.topContainer }>
             <View style = { styles.topContainerBg }>
@@ -43,9 +43,9 @@ return (
 const styles = StyleSheet.create({
   listItem: {
     width: '100%',
-    height: 200,
-    paddingTop: 4,
-    paddingBottom: 4,
+    height: 208,
+    // paddingTop: 4,
+    paddingBottom: 8,
     paddingLeft: 16,
     paddingRight: 16,
     // flexDirection: 'row',
@@ -53,17 +53,17 @@ const styles = StyleSheet.create({
     // alignItems: 'center'
   },
   image: {
-    backgroundColor: '#F3F3F3',
+    // backgroundColor: '#F3F3F3',
     width: '100%',
     height: '100%',
-    borderRadius: 8,
-    overflow: 'hidden'
+    overflow: 'hidden',
+    borderRadius: 12
   },
   container:{
     width: '100%',
     height: '100%',
     padding: 16,
-    backgroundColor: 'rgba(0,0,0,.3)',
+    backgroundColor: 'rgba(0,0,0,.4)',
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
