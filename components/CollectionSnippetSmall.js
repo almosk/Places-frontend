@@ -8,11 +8,14 @@ const CollectionSnippetSmall = (props) => {
 
 return (
   <TouchableOpacity
-    onPress={() => props.setCollection(props.collection.id)}
+    onPress={
+      function(){
+        props.sendCollectionPostToBackend(props.collection.id, props.post.id)
+      }}
   >
     <View style = { styles.listItem }>
       <View
-        style={(props.collection.id == props.selectedCollectionId) ? styles.selectedListItemBg : styles.listItemBg}
+        style={styles.listItemBg}
       >
         <Text style = { styles.collectionTitle }>
           { props.collection.title }

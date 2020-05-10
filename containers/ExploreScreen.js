@@ -18,13 +18,6 @@ MapboxGL.setAccessToken("pk.eyJ1IjoiYWxtb3NrIiwiYSI6ImNrOHhhdWw3MzBodGkzbG8wMzZh
 
 const ExploreScreen = (props) => {
   const navigation = useNavigation()
-  renderContent = () => {
-    return (
-      <View style={ styles.container }>
-        <ExploreNavigator/>
-      </View>
-    )
-  }
 
   renderHeader = () => {
     return (
@@ -32,8 +25,14 @@ const ExploreScreen = (props) => {
         <View style={styles.headerHandler}>
         </View>
       </View>
-    )
-  }
+    )}
+
+  renderContent = () => {
+    return (
+      <View style={ styles.container }>
+        <ExploreNavigator/>
+      </View>
+    )}
 
   return (
     <Container style={ styles.container }>
@@ -47,6 +46,7 @@ const ExploreScreen = (props) => {
       />
 
       <BottomSheet
+        style={styles.bottomSheet}
         snapPoints = {[450, 600, 200]}
         enabledBottomInitialAnimation = { true }
         renderContent = {this.renderContent}
@@ -61,7 +61,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
-    overflow: 'hidden'
+    overflow: 'hidden',
+    height: '100%',
+  },
+  bottomSheet: {
+    height: '100%'
   },
   mapContainer: {
     height: 600,

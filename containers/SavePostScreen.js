@@ -8,9 +8,16 @@ import { typo, color } from '../styles'
 import { connect } from 'react-redux';
 import { addProfileCollection } from '../actions/profileCollection';
 
-
 class SavePostScreen extends Component {
-
+  constructor(props) {
+    state = {
+      collectionId: '234'
+    }
+    super(props);
+    this.sendCollectionPostToBackend = this.sendCollectionPostToBackend.bind(this);
+  }
+// Props
+// this.pros.post
 
 componentDidMount(){
   this.getCollectionsIndex()
@@ -32,6 +39,28 @@ getCollectionsIndex = () => {
     })
 }
 
+sendCollectionPostToBackend = (collection_id, post_id) => {
+  fetch('http://localhost:3000/collection_posts', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      collection_id: collection_id,
+      post_id: post_id
+    }),
+  })
+  .then((response) => response.json())
+  .then((responseJson) => {
+    // console.log(responseJson);
+    this.props.navigation.goBack(null)
+  })
+  .catch((error) =>{
+    console.error(error);
+  })
+}
+
 collectionsOutput = () => {
   // profileCollections = this.props.collections.filter(collection => collection.user_id == this.props.users.loggedUser)
   profileCollections = this.props.collections
@@ -41,8 +70,10 @@ collectionsOutput = () => {
       keyExtractor={(item, index) => index.toString()}
       renderItem = { info => (
         <CollectionSnippetSmall
-          collection={ info.item }
-          navigation={this.props.navigation}
+          post = { this.props.route.params.post }
+          collection = { info.item }
+          navigation = {this.props.navigation}
+          sendCollectionPostToBackend = { this.sendCollectionPostToBackend }
         />
       )}
     />

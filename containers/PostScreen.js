@@ -74,7 +74,7 @@ render() {
   // console.log(this.props.navigation.router);
 
   return (
-    <View>
+    <View style={styles.mainContainer}>
       <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>
           <ImageBackground source={{uri: post.cover}} style={styles.image}></ImageBackground>
@@ -110,6 +110,9 @@ render() {
 }}
 
 const styles = StyleSheet.create({
+  mainContainer: {
+    height: '100%',
+  },
   container: {
     padding: 16,
     paddingBottom: 96,
