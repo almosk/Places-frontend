@@ -1,61 +1,71 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, FlatList, ImageBackground } from 'react-native';
-import CollectionsFlatList from '../components/CollectionsFlatList';
-import PostSnippet from '../components/PostSnippet';
+import PostExploreSnippet from '../components/PostExploreSnippet';
+import CollectionSnippet from '../components/CollectionSnippet';
 import PButton from '../components/PButton';
 import { Container, Header, Content, Button, Text, Tab, Tabs, TabHeading } from 'native-base';
-import { typo, color } from '../styles'
-
+import { typo, color, COLOR } from '../styles'
 // Redux
 import { connect } from 'react-redux';
+import { updateUser } from '../actions/user';
+
+
+// Props
+// this.props.route.params.user
 
 class UserScreen extends Component {
   state = {}
 
-userPosts = () => {
-  // Get Object of all collections of User
-  userCollectionsObject = this.props.collections.filter(collection => collection.user_id == this.props.route.params.user.id)
-  // Get Array of Ids of these collections
-  userCollectionsIds = userCollectionsObject.map(collection => collection.id)
-  // Get Object of CollectionPosts with these Ids
-  userCollectionPosts = this.props.collectionPosts.filter(collectionPost => userCollectionsIds.includes(collectionPost.collection_id))
-  // Get Array of PostIds of CollectionPosts (Ids of posts of collections of logged User)
-  userCollectionPostsPostIds = userCollectionPosts.map(collectionPost => collectionPost.post_id)
-  // Get Object of Posts these Ids are in array
-  userPostsObject = this.props.posts.filter(post => userCollectionPostsPostIds.includes(post.id))
+componentDidMount(){
+  this.getUser()
+}
+getUser = () => {
+  return fetch('http://localhost:3000/v1/users/' + this.props.route.params.user.id + '.json')
+    .then((response) => response.json())
+    .then((responseJson) => {
+      this.setState({
+        usersIsLoading: false,
+        userDataSource: responseJson,
+      }, function(){
+        // this.state.usersDataSource.forEach(user => this.props.updateUser(user))
+        console.log(this.state.userDataSource);
+        this.props.updateUser(this.state.userDataSource)
+      });
+    })
+    .catch((error) =>{
+      console.error(error);
+    })
+}
 
-  // userPostsObject = {}
-  // const filtered = Object.keys(this.props.posts.byId)
-  // .map(key => parseInt(key))
-  // .filter(key => userCollectionPostsPostIds.includes(key))
-  // .reduce((obj, key) => {
-  //   obj[key] = this.props.posts.byId[key];
-  //   return obj;
-  // }, {});
-  // userPostsObject.byId = filtered
-
+userPosts = (data) => {
   return (
-    <View>
-      <FlatList style = { styles.listContainer }
-        data={userPostsObject}
-        renderItem={({ item }) =>
-          <PostSnippet
-            post_id={item.id}
-            navigation={this.props.navigation}
-          />}
-        keyExtractor={item => item.id}
-      />
-    </View>
+    <FlatList style = { styles.listContainer }
+      data={data}
+      renderItem={({ item }) =>
+        <PostExploreSnippet
+          id={item.id}
+          url={item.url}
+          post={item}
+          navigation={this.props.navigation}
+        />}
+      keyExtractor={item => item.id.toString()}
+    />
   )
 }
 
-userCollections = () => {
-  let userCollectionsObject = this.props.collections.filter(collection => collection.user_id == this.props.route.params.user.id)
+userCollections = (data) => {
   return (
     <View>
-      <CollectionsFlatList
-        data={userCollectionsObject}
-        navigation={this.props.navigation}
+      <FlatList style = { styles.listContainer }
+        data = { data }
+        keyExtractor={(item, index) => index.toString()}
+        renderItem = { info => (
+          <CollectionSnippet
+            collection={ info.item }
+            navigation={this.props.navigation}
+            type={'explore'}
+          />
+        )}
       />
     </View>
   )
@@ -72,6 +82,9 @@ render() {
         </View>
         <PButton
           text= {'Подписаться'}
+          textColor = { COLOR.white }
+          color = { COLOR.blue }
+          onPress = {()=>''}
           />
       </View>
 
@@ -79,10 +92,10 @@ render() {
         <View>
           <Tabs>
             <Tab heading={ <TabHeading><Text>Posts</Text></TabHeading>}>
-              { this.userPosts() }
+              { this.userPosts(this.props.user.posts) }
             </Tab>
             <Tab heading={ <TabHeading><Text>Collections</Text></TabHeading>}>
-              { this.userCollections() }
+              { this.userCollections(this.props.user.collections) }
             </Tab>
           </Tabs>
         </View>
@@ -100,6 +113,7 @@ const styles = StyleSheet.create({
   },
   title: {
     width: '100%',
+    marginTop: 16,
     padding: 16,
     // flexDirection: 'row',
     // justifyContent: 'space-between',
@@ -143,19 +157,24 @@ const styles = StyleSheet.create({
     backgroundColor: '#F3F3F3',
     marginRight: 12
   },
+  listContainer: {
+    paddingTop: 16,
+    width: '100%',
+    height: '100%',
+  },
 })
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
-    posts: Object.values(state.posts.byId),
-    collections: Object.values(state.collections.byId),
-    collectionPosts: Object.values(state.collectionPost.byId),
-    users: state.users
+    user: state.users.byId[ownProps.route.params.user.id]
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
+    updateUser: (user) => {
+      dispatch(updateUser(user))
+    }
   }
 }
 

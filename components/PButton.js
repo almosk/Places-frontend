@@ -7,7 +7,8 @@ const PButton = (props) => {
 // Props:
 // props.onPress
 // props.text
-// props.bg
+// props.color
+// props.textColor
 
 // console.log(props.bg);
 

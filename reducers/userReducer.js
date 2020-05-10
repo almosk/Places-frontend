@@ -1,7 +1,7 @@
 import { deleteIn } from 'lodash-redux-immutability';
 import { merge } from 'lodash'
 import { combineReducers } from 'redux';
-import { ADD_USER, DELETE_USER, LOG_IN_USER } from '../actions/types';
+import { ADD_USER, UPDATE_USER, DELETE_USER, LOG_IN_USER } from '../actions/types';
 
 const initialState = {
     byId: {
@@ -16,6 +16,10 @@ const userReducer = (state = initialState, action) => {
   switch(action.type) {
     case ADD_USER:
       state['byId'][action.payload.user.id]={}
+      merge(state['byId'][action.payload.user.id], action.payload.user)
+      return merge({}, state)
+
+    case UPDATE_USER:
       merge(state['byId'][action.payload.user.id], action.payload.user)
       return merge({}, state)
 
