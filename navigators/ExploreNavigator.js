@@ -36,7 +36,6 @@ render() {
         <ExploreStack.Screen name="User" component={UserScreen}
           options={({ route }) => ({ title: route.params.collectionName })}
         />
-        <ExploreStack.Screen name="Save post" component={SavePostScreen} />
       </ExploreStack.Navigator>
     </View>
     );

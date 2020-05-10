@@ -6,9 +6,12 @@ import { name as appName } from './app.json';
 // Navigation
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { CardStyleInterpolators } from '@react-navigation/stack';
+import { TransitionPresets } from '@react-navigation/stack';
 // Continers and Components
 import MainBottomTabNavigator from './navigators/MainBottomTabNavigator';
 import NewPostScreen from './containers/NewPostScreen'
+import SavePostScreen from './containers/SavePostScreen'
 // Redux
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
@@ -25,7 +28,16 @@ const RNRedux = () => (
         initialRouteName="MainBottomTabNavigator"
       >
         <Stack.Screen name="MainBottomTabNavigator" component={MainBottomTabNavigator} />
-        <Stack.Screen name="New Post" component={NewPostScreen} />
+        <Stack.Screen
+          name="New Post"
+          component={NewPostScreen}
+          options={{cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS}}
+          />
+        <Stack.Screen
+          name="Save post"
+          component={SavePostScreen}
+          options={{cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS}}
+          />
       </Stack.Navigator>
     </NavigationContainer>
   </Provider>

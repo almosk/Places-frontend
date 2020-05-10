@@ -68,11 +68,6 @@ render() {
             </ImageBackground>
             <View style = { styles.container }>
               <Text style = { [styles.description, typo.t16, color.black80] }>Collection Description{collection.description}</Text>
-              <PButton
-                text= {'Подписаться'}
-                color= {COLOR.blue}
-                textColor={COLOR.white}
-              />
             </View>
         </View>
       }

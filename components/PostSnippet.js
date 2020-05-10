@@ -11,23 +11,22 @@ const PostSnippet = (props) => {
 
 return (
   <TouchableOpacity
+    style = { styles.postSnippet }
     onPress={() => {
       props.navigation.navigate('Place', {
         id: props.post.id,
       })
     }}
   >
-    <View style = { styles.postSnippet }>
-      <View style = { styles.horizontaContainer }>
-        <ImageBackground source={{uri: props.post.cover}} style={styles.image} imageStyle={{ borderRadius: 4 }}></ImageBackground>
-        <View>
-          <Text style = { styles.postTitle }>
-            { props.post.title }
-          </Text>
-          <Text style = { styles.collectionTitle }>
-            { props.post.user_title }
-          </Text>
-        </View>
+    <View style = { styles.horizontaContainer }>
+      <ImageBackground source={{uri: props.post.cover}} style={styles.image} imageStyle={{ borderRadius: 4 }}></ImageBackground>
+      <View>
+        <Text style = { styles.postTitle }>
+          { props.post.title }
+        </Text>
+        <Text style = { styles.collectionTitle }>
+          { props.post.user_title }
+        </Text>
       </View>
     </View>
   </TouchableOpacity>

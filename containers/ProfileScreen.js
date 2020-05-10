@@ -19,6 +19,9 @@ MapboxGL.setAccessToken("pk.eyJ1IjoiYWxtb3NrIiwiYSI6ImNrOHhhdWw3MzBodGkzbG8wMzZh
 const ProfileScreen = (props) => {
   const navigation = useNavigation()
   // const state = useNavigationState(state => state);
+  getStackRoute = (data) => {
+    console.log(data);
+  }
 
   renderContent = () => {
     return (

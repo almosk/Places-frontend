@@ -20,8 +20,8 @@ render() {
     <View style={styles.container}>
       <ProfileStack.Navigator
         initialRouteName="Profile"
-        // mode='modal'
         headerMode='none'
+        onNavigationStateChange={() => console.log(234)}
       >
         <ProfileStack.Screen name="Profile" component={ProfileBottomSheet}
           options={{
@@ -50,9 +50,8 @@ render() {
           })}
         />
         <ProfileStack.Screen name="New Collection" component={NewCollectionScreen} />
-        
+
         <ProfileStack.Screen name="Edit Post" component={EditPostScreen} />
-        <ProfileStack.Screen name="Save post" component={SavePostScreen} />
         <ProfileStack.Screen name="Profile Info" component={ProfileInfoScreen} />
       </ProfileStack.Navigator>
     </View>

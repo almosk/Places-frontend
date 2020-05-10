@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { Text, StyleSheet, View, TextInput, Button, FlatList } from 'react-native';
 import CollectionSnippetSmall from '../components/CollectionSnippetSmall';
+import PostSnippet from '../components/PostSnippet';
+// Style
+import { typo, color } from '../styles'
 // Redux
 import { connect } from 'react-redux';
-import { addCollection } from '../actions/collection';
+import { addProfileCollection } from '../actions/profileCollection';
 
 
 class SavePostScreen extends Component {
@@ -20,7 +23,7 @@ getCollectionsIndex = () => {
         collectionsIsLoading: false,
         collectionsDataSource: responseJson,
       }, function(){
-        this.state.collectionsDataSource.forEach(collection => this.props.addCollection(collection))
+        this.state.collectionsDataSource.forEach(collection => this.props.addProfileCollection(collection))
       });
 
     })
@@ -33,7 +36,7 @@ collectionsOutput = () => {
   // profileCollections = this.props.collections.filter(collection => collection.user_id == this.props.users.loggedUser)
   profileCollections = this.props.collections
   return (
-    <FlatList style = { styles.listContainer }
+    <FlatList
       data = { profileCollections }
       keyExtractor={(item, index) => index.toString()}
       renderItem = { info => (
@@ -51,46 +54,43 @@ render() {
 
   return (
     <View style={ styles.container }>
-      <Text style={ styles.smallHeading }>Select collection:</Text>
-        <View style = { styles.listContainer }>
-          { this.collectionsOutput() }
-        </View>
+      <PostSnippet
+        post={this.props.route.params.post}
+        />
+      <View style = { styles.listContainer }>
+        <Text style={[styles.smallHeading, typo.t16, color.black50]}>Выберите подборку</Text>
+        { this.collectionsOutput() }
+      </View>
     </View>
   )}
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 16,
-    paddingBottom: 16,
+    height: '100%',
     backgroundColor: 'white',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
   },
   smallHeading: {
-    paddingRight: 16,
-    paddingLeft: 16,
-    paddingBottom: 8,
-    fontWeight: "bold",
-    fontSize: 16,
-    color: "#808080"
+    marginBottom: 16
   },
   listContainer: {
     width: '100%',
-    paddingTop: 8
+    padding: 16
   },
 })
 
 const mapStateToProps = state => {
   return {
-    collections: Object.values(state.collections.byId),
+    collections: Object.values(state.profileCollections.byId),
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    addCollection: (collection) => {
-      dispatch(addCollection(collection))
+    addProfileCollection: (collection) => {
+      dispatch(addProfileCollection(collection))
     }
   }
 }

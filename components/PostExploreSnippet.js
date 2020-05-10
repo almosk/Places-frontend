@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   },
   postTitle: {
     fontWeight: "bold",
-    fontSize: 18,
+    fontSize: 20,
     color: "#595959",
     marginBottom: 2,
   },

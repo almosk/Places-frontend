@@ -17,6 +17,9 @@ return (
         <Text style = { styles.collectionTitle }>
           { props.collection.title }
         </Text>
+        <View style = { styles.topContainerBg }>
+          <Text style = { styles.postsQuantity }>{ props.collection.posts_quantity } posts</Text>
+        </View>
       </View>
     </View>
   </TouchableOpacity>
@@ -61,7 +64,17 @@ const styles = StyleSheet.create({
       fontSize: 16,
       color: "#595959",
       marginBottom: 2,
-    },
+  },
+  topContainerBg: {
+    backgroundColor: '#ffffff',
+    padding: 8,
+    borderRadius: 20
+  },
+  postsQuantity: {
+    fontWeight: "bold",
+    fontSize: 14,
+    color: "#595959",
+  }
 });
 
 export default CollectionSnippetSmall
