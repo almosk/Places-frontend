@@ -27,9 +27,7 @@ getUsersIndex = () => {
         usersDataSource: responseJson,
       }, function(){
         // console.log('back', this.state.postsDataSource);
-        setTimeout(() => {
-          this.state.usersDataSource.forEach(user => this.props.addUser(user))
-        }, 250);
+        this.state.usersDataSource.forEach(user => this.props.addUser(user))
         // this.state.postsDataSource.forEach(post => console.log(post))
       });
 

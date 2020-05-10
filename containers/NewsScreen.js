@@ -32,9 +32,7 @@ class NewsScreen extends Component {
           postsDataSource: responseJson,
         }, function(){
           // console.log('back', this.state.postsDataSource);
-          setTimeout(() => {
-            this.state.postsDataSource.forEach(post => this.props.addPost(post))
-          }, 250);
+          this.state.postsDataSource.forEach(post => this.props.addPost(post))
           // this.state.postsDataSource.forEach(post => console.log(post))
         });
 

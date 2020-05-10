@@ -47,7 +47,7 @@ const ExploreScreen = (props) => {
 
       <BottomSheet
         style={styles.bottomSheet}
-        snapPoints = {[450, 600, 200]}
+        snapPoints = {[450, 672, 248]}
         enabledBottomInitialAnimation = { true }
         renderContent = {this.renderContent}
         renderHeader = {this.renderHeader}

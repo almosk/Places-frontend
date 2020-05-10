@@ -37,9 +37,7 @@ getPostsIndex = () => {
         postsDataSource: responseJson,
       }, function(){
         // console.log('back', this.state.postsDataSource);
-        setTimeout(() => {
-          this.state.postsDataSource.forEach(post => this.props.addProfilePost(post))
-        }, 250);
+        this.state.postsDataSource.forEach(post => this.props.addProfilePost(post))
         // this.state.postsDataSource.forEach(post => console.log(post))
       });
 

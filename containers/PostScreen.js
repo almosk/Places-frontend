@@ -29,9 +29,7 @@ getPostShow = () => {
         let post = this.state.postDataSource
         // console.log(post);
         // передавать весь пост сразу
-        setTimeout(() => {
-          this.props.updatePost(post)
-        }, 250);
+        this.props.updatePost(post)
       });
 
     })

@@ -28,7 +28,7 @@ getUser = () => {
         userDataSource: responseJson,
       }, function(){
         // this.state.usersDataSource.forEach(user => this.props.updateUser(user))
-        console.log(this.state.userDataSource);
+        // console.log(this.state.userDataSource);
         this.props.updateUser(this.state.userDataSource)
       });
     })
