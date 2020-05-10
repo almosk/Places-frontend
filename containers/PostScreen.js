@@ -102,7 +102,7 @@ render() {
             })
           }}
           >
-          <Text style = { styles.buttonText }>Save post</Text>
+          <Text style = { styles.buttonText }>Сохранить</Text>
         </Button>
       </View>
     </View>

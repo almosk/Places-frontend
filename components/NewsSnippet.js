@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Button, ImageBackground } from 'react-native';
 import UserSnippet from '../components/UserSnippet';
 import { typo, color, COLOR } from '../styles'
+import IconMore from '../assets/icons/more.svg';
 
 const NewsSnippet = (props) => {
 
@@ -28,7 +29,7 @@ return (
           <Text style = { [typo.t14, color.black30] }>в { props.post.user_collection }</Text>
         </View>
       </View>
-      <View style = { styles.moreIcon }></View>
+      <IconMore width={24} height={24}/>
     </View>
     <View style = { styles.postSnippet }>
       <ImageBackground source={{uri: props.post.cover}} style={styles.image} imageStyle={{ borderRadius: 4 }}></ImageBackground>

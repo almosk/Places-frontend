@@ -9,30 +9,26 @@ import { connect } from 'react-redux';
 import { addProfileCollection } from '../actions/profileCollection';
 
 class SavePostScreen extends Component {
-  constructor(props) {
-    state = {
-      collectionId: '234'
-    }
-    super(props);
-    this.sendCollectionPostToBackend = this.sendCollectionPostToBackend.bind(this);
-  }
+state = {
+  collectionId: '',
+  collectionsDataSource: []
+}
 // Props
-// this.pros.post
+// this.props.post
 
 componentDidMount(){
-  this.getCollectionsIndex()
+  this.getPostCollections()
 }
-getCollectionsIndex = () => {
-  return fetch('http://localhost:3000/v1/collections/profile_collections.json')
+getPostCollections = () => {
+  return fetch('http://localhost:3000/v1/posts/' + this.props.route.params.post.id + '/save_collections.json')
     .then((response) => response.json())
     .then((responseJson) => {
       this.setState({
         collectionsIsLoading: false,
         collectionsDataSource: responseJson,
       }, function(){
-        this.state.collectionsDataSource.forEach(collection => this.props.addProfileCollection(collection))
+        // this.state.collectionsDataSource.forEach(collection => this.props.addProfileCollection(collection))
       });
-
     })
     .catch((error) =>{
       console.error(error);
@@ -64,6 +60,7 @@ sendCollectionPostToBackend = (collection_id, post_id) => {
 collectionsOutput = () => {
   // profileCollections = this.props.collections.filter(collection => collection.user_id == this.props.users.loggedUser)
   profileCollections = this.props.collections
+  profileCollections = this.state.collectionsDataSource
   return (
     <FlatList
       data = { profileCollections }

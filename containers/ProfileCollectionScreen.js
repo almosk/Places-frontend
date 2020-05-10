@@ -59,10 +59,6 @@ render() {
                 </View>
                 <View style = { styles.bottomContainer }>
                   <Text style = {[styles.title, typo.t24, color.white]}>{ collection.title }</Text>
-                  <UserSnippetSmall
-                    user = {collection.user}
-                    textColor={COLOR.white}
-                    user_title={collection.user_title} />
                 </View>
               </View>
             </ImageBackground>

@@ -3,7 +3,10 @@ import { View, StyleSheet, SafeAreaView, ScrollView, ImageBackground } from 'rea
 import CollectionsFlatList from '../components/CollectionsFlatList';
 import UserSnippetPost from '../components/UserSnippetPost';
 import { Container, Header, Content, Button, Text, Tab, Tabs, TabHeading } from 'native-base';
+// Styles
 import { typo, color } from '../styles'
+// Icons
+import IconMore from '../assets/icons/more.svg';
 // Redux
 import { connect } from 'react-redux';
 import { deleteProfilePost, updateProfilePost } from '../actions/profilePost';
@@ -101,25 +104,10 @@ render() {
             })
           }}
           >
-          <Text style = { styles.buttonText }>Save post</Text>
+          <Text style = { styles.buttonText }>Сохранить</Text>
         </Button>
         <View style = { styles.horizontalContainer }>
-          <Button
-            rounded light
-            onPress={() => {
-              this.props.navigation.navigate('Edit Post', {
-                post: post
-              })
-            }}
-            >
-            <Text style = { styles.smallButtonText }>Edit</Text>
-          </Button>
-          <Button
-            rounded light
-            onPress = { this.deletePost }
-            >
-            <Text style = { styles.smallButtonText }>Del</Text>
-          </Button>
+          <IconMore width={24} height={24}/>
         </View>
       </View>
     </View>
@@ -148,6 +136,7 @@ const styles = StyleSheet.create({
   horizontalContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   image: {
     width: '100%',
@@ -206,3 +195,20 @@ export default connect(mapStateToProps, mapDispatchToProps)(ProfilePostScreen)
 //   <Text style = { styles.smallHeading }>In collections:</Text>
 //   { this.collectionsOutput(this.props.post.collections)}
 // </View>
+
+// <Button
+//   rounded light
+//   onPress={() => {
+//     this.props.navigation.navigate('Edit Post', {
+//       post: post
+//     })
+//   }}
+//   >
+//   <Text style = { styles.smallButtonText }>Edit</Text>
+// </Button>
+// <Button
+//   rounded light
+//   onPress = { this.deletePost }
+//   >
+//   <Text style = { styles.smallButtonText }>Del</Text>
+// </Button>

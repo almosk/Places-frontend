@@ -75,7 +75,7 @@ render() {
         </View>
       }
       renderItem={({ item }) =>
-      <PostSnippet
+      <PostExploreSnippet
         post={item}
         navigation={this.props.navigation}
       />}

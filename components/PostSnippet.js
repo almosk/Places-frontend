@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Button, ImageBackground } from 'react-native';
 import { typo, color } from '../styles'
-
+import IconMore from '../assets/icons/more.svg';
 
 const PostSnippet = (props) => {
 
@@ -18,16 +18,19 @@ return (
       })
     }}
   >
-    <View style = { styles.horizontaContainer }>
-      <ImageBackground source={{uri: props.post.cover}} style={styles.image} imageStyle={{ borderRadius: 4 }}></ImageBackground>
-      <View>
-        <Text style = { styles.postTitle }>
-          { props.post.title }
-        </Text>
-        <Text style = { styles.collectionTitle }>
-          { props.post.user_title }
-        </Text>
+    <View style = { styles.horizontaContainerSpace }>
+      <View style = { styles.horizontaContainerStart }>
+        <ImageBackground source={{uri: props.post.cover}} style={styles.image} imageStyle={{ borderRadius: 4 }}></ImageBackground>
+        <View>
+          <Text style = { styles.postTitle }>
+            { props.post.title }
+          </Text>
+          <Text style = { styles.collectionTitle }>
+            { props.post.user_title }
+          </Text>
+        </View>
       </View>
+      <IconMore width={24} height={24}/>
     </View>
   </TouchableOpacity>
 )}
@@ -44,8 +47,14 @@ const styles = StyleSheet.create({
     borderBottomColor: '#F2F2F2',
     borderBottomWidth: 1,
   },
-  horizontaContainer: {
+  horizontaContainerStart: {
     flexDirection: 'row',
+    alignItems: 'center',
+  },
+  horizontaContainerSpace: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
   postButton: {
