@@ -45,6 +45,7 @@ const ProfileScreen = (props) => {
     <Container style={ styles.container }>
       <TopBar
         navigation={ navigation }
+        type={ 'profile' }
         // route = { route }
       />
 

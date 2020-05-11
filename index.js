@@ -12,6 +12,7 @@ import { TransitionPresets } from '@react-navigation/stack';
 import MainBottomTabNavigator from './navigators/MainBottomTabNavigator';
 import NewPostScreen from './containers/NewPostScreen'
 import SavePostScreen from './containers/SavePostScreen'
+import SettingsScreen from './containers/SettingsScreen'
 // Redux
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
@@ -36,6 +37,11 @@ const RNRedux = () => (
         <Stack.Screen
           name="Save post"
           component={SavePostScreen}
+          options={{cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS}}
+          />
+        <Stack.Screen
+          name="Settings"
+          component={SettingsScreen}
           options={{cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS}}
           />
       </Stack.Navigator>

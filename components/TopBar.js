@@ -3,10 +3,12 @@ import { View, Text, StyleSheet, TouchableOpacity, Button, ImageBackground } fro
 import { typo, color, COLOR } from '../styles'
 import IconArrowLeft from '../assets/icons/arrow-left.svg';
 import IconSearch from '../assets/icons/search.svg';
+import IconSettings from '../assets/icons/settings.svg';
 
 // Props:
 // props.onPress
 // props.text
+// props.type
 
 // <TouchableOpacity
 //   style={styles.backButton}
@@ -25,7 +27,20 @@ return (
           <Text style = {[styles.postTitle, typo.t16, color.black30]}>Поиск</Text>
         </View>
       </View>
-      <Text style = {[styles.city, typo.t16, color.black80]}>MSK</Text>
+      <View style={styles.horizontalContainer}>
+        <Text style = {[styles.city, typo.t16, color.black80]}>MSK</Text>
+        {props.type == 'profile' &&
+          <IconSettings
+            width={24}
+            height={24}
+            onPress={() => {
+              props.navigation.navigate('Settings', {
+                // id: props.post.id,
+              })
+            }}
+          />
+        }
+      </View>
     </View>
   </View>
 )}
@@ -81,7 +96,7 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   city: {
-    // marginRight: 16
+    marginRight: 16
   }
 })
 

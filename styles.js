@@ -63,6 +63,13 @@ const color = StyleSheet.create({
   }
 })
 
+const align = StyleSheet.create({
+  center: {
+    width: '100%',
+    textAlign: 'center'
+  },
+})
+
 const COLOR = {
   black80: "#595959",
   black50: "#808080",
@@ -73,4 +80,4 @@ const COLOR = {
 }
 
 
-export { typo, color, COLOR }
+export { typo, color, COLOR, align }

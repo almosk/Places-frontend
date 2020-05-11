@@ -9,7 +9,6 @@ import NewCollectionScreen from '../containers/NewCollectionScreen'
 import NewPostScreen from '../containers/NewPostScreen'
 import EditPostScreen from '../containers/EditPostScreen'
 import SavePostScreen from '../containers/SavePostScreen'
-import ProfileInfoScreen from '../containers/ProfileInfoScreen'
 import ExploreBottomSheet from '../containers/ExploreBottomSheet'
 // Navigation
 import { createStackNavigator } from '@react-navigation/stack';
