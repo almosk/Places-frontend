@@ -23,30 +23,35 @@ render() {
             />}
           tabBarUnderlineStyle={{ height: 40, padding: 8, marginBottom: 4, borderRadius: 20, backgroundColor: 'rgba(0,0,0,.05)', zIndex: 0 }}
       >
-        <Tab heading={
-            <TabHeading style={{ width: 108, backgroundColor: 'rgba(0,0,0,0)'}}>
-                <Text style={{ fontWeight: '600'}}>Места</Text>
-            </TabHeading>
-          }
-            >
+        <Tab
+          heading={'Места'}
+          activeTabStyle={{backgroundColor: 'rgba(0,0,0,0)'}}
+          tabStyle={{backgroundColor: 'rgba(0,0,0,0)'}}
+          activeTextStyle={[typo.t16, color.black80]}
+          textStyle={[typo.t16, color.black30]}
+        >
           <ExplorePosts
             navigation={this.props.navigation}
-            />
+          />
         </Tab>
-        <Tab heading={
-            <TabHeading style={{ width: 140, backgroundColor: 'rgba(0,0,0,0)'}}>
-              <Text style={{ fontWeight: '600'}}>Подборки</Text>
-            </TabHeading>
-          }>
+        <Tab
+          heading={'Подборки'}
+          activeTabStyle={{backgroundColor: 'rgba(0,0,0,0)'}}
+          tabStyle={{backgroundColor: 'rgba(0,0,0,0)'}}
+          activeTextStyle={[typo.t16, color.black80]}
+          textStyle={[typo.t16, color.black30]}
+        >
           <ExploreCollections
             navigation={this.props.navigation}
-            />
+          />
         </Tab>
-        <Tab heading={
-            <TabHeading style={{ width: 108, backgroundColor: 'rgba(0,0,0,0)'}}>
-              <Text style={{ fontWeight: '600'}}>Люди</Text>
-            </TabHeading>
-          }>
+        <Tab
+          heading={'Люди'}
+          activeTabStyle={{backgroundColor: 'rgba(0,0,0,0)'}}
+          tabStyle={{backgroundColor: 'rgba(0,0,0,0)'}}
+          activeTextStyle={[typo.t16, color.black80]}
+          textStyle={[typo.t16, color.black30]}
+        >
           <ExploreUsers
             navigation={this.props.navigation}
             collections={this.props.collections}
