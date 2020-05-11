@@ -11,34 +11,30 @@ render() {
   return (
     <Container style={ styles.container }>
       <Tabs
-
-        tabBarUnderlineStyle={{ flex: 0, height: 32, margin: 8, borderRadius: 16, backgroundColor: 'rgba(0,0,0,.05)', zIndex: 0, width: 120 }}
-        activeTextStyle={{color: '#fff', zIndex: 2}}
-        tabContainerStyle={{ width: 300, borderBottomWidth: 0, backgroundColor: 'white', marginLeft: 32, marginRight: 32}}>
-        <Tab heading={
-            <TabHeading
+          renderTabBar={() =>
+            <ScrollableTab
               style={{
-                width: 105,
+                width: 360,
+                marginHorizontal: 32,
+                borderWidth: 0,
                 backgroundColor: 'rgba(0,0,0,0)',
-                // backgroundColor: 'rgba(0,0,0,.03)',
-                height: 32, margin: 8, borderRadius: 16,
               }}
-            >
+              tabsContainerStyle={{ width: 360 }}
+            />}
+          tabBarUnderlineStyle={{ height: 40, padding: 8, marginBottom: 4, borderRadius: 20, backgroundColor: 'rgba(0,0,0,.05)', zIndex: 0 }}
+      >
+        <Tab heading={
+            <TabHeading style={{ width: 108, backgroundColor: 'rgba(0,0,0,0)'}}>
                 <Text style={{ fontWeight: '600'}}>Места</Text>
-            </TabHeading>}>
+            </TabHeading>
+          }
+            >
           <ExplorePosts
             navigation={this.props.navigation}
             />
         </Tab>
         <Tab heading={
-            <TabHeading
-              style={{
-                width: 105,
-                backgroundColor: 'rgba(0,0,0,0)',
-                // backgroundColor: 'rgba(0,0,0,.03)',
-                height: 32, margin: 8, borderRadius: 16,
-              }}
-            >
+            <TabHeading style={{ width: 140, backgroundColor: 'rgba(0,0,0,0)'}}>
               <Text style={{ fontWeight: '600'}}>Подборки</Text>
             </TabHeading>
           }>
@@ -47,14 +43,7 @@ render() {
             />
         </Tab>
         <Tab heading={
-            <TabHeading
-              style={{
-                width: 105,
-                backgroundColor: 'rgba(0,0,0,0)',
-                // backgroundColor: 'rgba(0,0,0,.03)',
-                height: 32, margin: 8, borderRadius: 16,
-              }}
-              >
+            <TabHeading style={{ width: 108, backgroundColor: 'rgba(0,0,0,0)'}}>
               <Text style={{ fontWeight: '600'}}>Люди</Text>
             </TabHeading>
           }>
