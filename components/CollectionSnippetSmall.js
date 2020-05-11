@@ -31,7 +31,7 @@ return (
 const styles = StyleSheet.create({
   listItem: {
     width: '100%',
-    height: 56,
+    height: 64,
     paddingTop: 4,
     paddingBottom: 4,
     // paddingLeft: 16,
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   },
   collectionTitle: {
       fontWeight: "bold",
-      fontSize: 16,
+      fontSize: 18,
       color: "#595959",
       marginBottom: 2,
   },

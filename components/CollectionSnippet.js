@@ -24,7 +24,7 @@ return (
         <View style = { styles.container }>
           <View style = { styles.topContainer }>
             <View style = { styles.topContainerBg }>
-              <Text style = { styles.postsQuantity }>{ props.collection.posts_quantity } posts</Text>
+              <Text style = { styles.postsQuantity }>{ props.collection.posts_quantity } мест</Text>
             </View>
           </View>
           <View style = { styles.bottomContainer }>

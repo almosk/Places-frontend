@@ -3,24 +3,61 @@ import { StyleSheet, View, TextInput, FlatList } from 'react-native';
 import ExplorePosts from '../containers/ExplorePosts';
 import ExploreCollections from '../containers/ExploreCollections';
 import ExploreUsers from '../containers/ExploreUsers';
-import { Container, Text, Tab, Tabs, TabHeading } from 'native-base';
+import { Container, Text, Tab, Tabs, TabHeading, ScrollableTab } from 'native-base';
+import { typo, color, COLOR } from '../styles'
 
 class ExploreBottomSheet extends Component {
 render() {
   return (
     <Container style={ styles.container }>
-      <Tabs>
-        <Tab heading={ <TabHeading><Text>Места</Text></TabHeading>}>
+      <Tabs
+
+        tabBarUnderlineStyle={{ flex: 0, height: 32, margin: 8, borderRadius: 16, backgroundColor: 'rgba(0,0,0,.05)', zIndex: 0, width: 120 }}
+        activeTextStyle={{color: '#fff', zIndex: 2}}
+        tabContainerStyle={{ width: 300, borderBottomWidth: 0, backgroundColor: 'white', marginLeft: 32, marginRight: 32}}>
+        <Tab heading={
+            <TabHeading
+              style={{
+                width: 105,
+                backgroundColor: 'rgba(0,0,0,0)',
+                // backgroundColor: 'rgba(0,0,0,.03)',
+                height: 32, margin: 8, borderRadius: 16,
+              }}
+            >
+                <Text style={{ fontWeight: '600'}}>Места</Text>
+            </TabHeading>}>
           <ExplorePosts
             navigation={this.props.navigation}
             />
         </Tab>
-        <Tab heading={ <TabHeading><Text>Подборки</Text></TabHeading>}>
+        <Tab heading={
+            <TabHeading
+              style={{
+                width: 105,
+                backgroundColor: 'rgba(0,0,0,0)',
+                // backgroundColor: 'rgba(0,0,0,.03)',
+                height: 32, margin: 8, borderRadius: 16,
+              }}
+            >
+              <Text style={{ fontWeight: '600'}}>Подборки</Text>
+            </TabHeading>
+          }>
           <ExploreCollections
             navigation={this.props.navigation}
             />
         </Tab>
-        <Tab heading={ <TabHeading><Text>Люди</Text></TabHeading>}>
+        <Tab heading={
+            <TabHeading
+              style={{
+                width: 105,
+                backgroundColor: 'rgba(0,0,0,0)',
+                // backgroundColor: 'rgba(0,0,0,.03)',
+                height: 32, margin: 8, borderRadius: 16,
+              }}
+              >
+              <Text style={{ fontWeight: '600'}}>Люди</Text>
+            </TabHeading>
+          }>
           <ExploreUsers
             navigation={this.props.navigation}
             collections={this.props.collections}
@@ -38,7 +75,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     paddingTop: 32,
-    backgroundColor: "#fafafa",
+    backgroundColor: "white",
   },
   mapContainer: {
     height: 600,

@@ -44,7 +44,7 @@ class MapBlock extends Component {
         coordinate={coordinate}>
 
         <Image
-        source={require('../assets/images/marker.png')}
+        source={require('../assets/images/pin.png')}
         style={{
           flex: 1,
           resizeMode: 'contain',
