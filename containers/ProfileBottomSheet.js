@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { StyleSheet, View, TextInput, FlatList } from 'react-native';
 import ProfilePosts from '../containers/ProfilePosts';
 import ProfileCollections from '../containers/ProfileCollections';
-import { Container, Text, Tab, Tabs, TabHeading } from 'native-base';
+import { Container, Text, Tab, Tabs, TabHeading, ScrollableTab } from 'native-base';
+import { typo, color, COLOR } from '../styles'
 
 class ProfileBottomSheet extends Component {
 
@@ -10,13 +11,37 @@ render() {
   return (
     <View style={ styles.container }>
       <View>
-        <Tabs>
-          <Tab heading={ <TabHeading><Text>Места</Text></TabHeading>}>
+        <Tabs
+          renderTabBar={() =>
+            <ScrollableTab
+              style={{
+                width: 240,
+                marginHorizontal: 80,
+                borderWidth: 0,
+                backgroundColor: 'rgba(0,0,0,0)',
+              }}
+              tabsContainerStyle={{ width: 240 }}
+            />}
+          tabBarUnderlineStyle={{ height: 40, padding: 8, marginBottom: 4, borderRadius: 20, backgroundColor: 'rgba(0,0,0,.05)', zIndex: 0 }}
+        >
+          <Tab
+            heading={'Места'}
+            activeTabStyle={{backgroundColor: 'rgba(0,0,0,0)'}}
+            tabStyle={{backgroundColor: 'rgba(0,0,0,0)'}}
+            activeTextStyle={[typo.t16, color.black80]}
+            textStyle={[typo.t16, color.black30]}
+          >
             <ProfilePosts
               navigation={this.props.navigation}
               />
           </Tab>
-          <Tab heading={ <TabHeading><Text>Подборки</Text></TabHeading>}>
+          <Tab
+            heading={'Подборки'}
+            activeTabStyle={{backgroundColor: 'rgba(0,0,0,0)'}}
+            tabStyle={{backgroundColor: 'rgba(0,0,0,0)'}}
+            activeTextStyle={[typo.t16, color.black80]}
+            textStyle={[typo.t16, color.black30]}
+          >
             <ProfileCollections
               navigation={this.props.navigation}
               />
@@ -32,7 +57,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     paddingTop: 32,
-    backgroundColor: "#fafafa",
+    backgroundColor: "white",
   },
   mapContainer: {
     height: 600,
