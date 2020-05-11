@@ -77,7 +77,10 @@ render() {
     <Container>
       <View style = { styles.title }>
         <View style = { styles.horizontalContainer }>
-          <Text style = { [typo.t32, color.black80] }>{ this.props.route.params.user.title }</Text>
+          <View style = { styles.textContainer }>
+            <Text style = { [styles.userTitle, typo.t32, color.black80] }>{ this.props.route.params.user.title }</Text>
+            <Text style = { [typo.t16, color.black80]} numberOfLines={2} ellipsizeMode='tail'>{ this.props.user.description }</Text>
+          </View>
           <ImageBackground source={{uri: this.props.route.params.user.avatar}} style={styles.image} imageStyle={{ borderRadius: 44 }}></ImageBackground>
         </View>
         <PButton
@@ -133,7 +136,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 24
+    marginBottom: 24,
+    width: '100%'
+  },
+  textContainer: {
+    width: 260
   },
   title: {
     width: '100%',
@@ -147,6 +154,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'flex-start',
     alignItems: 'center',
+    height: '100%',
   },
   smallHeading: {
     paddingRight: 16,
@@ -186,6 +194,9 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
+  userTitle: {
+    marginBottom: 8
+  }
 })
 
 const mapStateToProps = (state, ownProps) => {
