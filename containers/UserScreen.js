@@ -1,70 +1,71 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
-import CollectionsFlatList from '../components/CollectionsFlatList';
-import PostsFlatList from '../components/PostsFlatList';
-import { Container, Header, Content, Button, Text, Tab, Tabs, TabHeading } from 'native-base';
+import { View, StyleSheet, FlatList, ImageBackground } from 'react-native';
+import PostExploreSnippet from '../components/PostExploreSnippet';
+import CollectionSnippet from '../components/CollectionSnippet';
+import PButton from '../components/PButton';
+import { Container, Header, Content, Button, Text, Tab, Tabs, TabHeading, ScrollableTab } from 'native-base';
+import { typo, color, COLOR } from '../styles'
 // Redux
 import { connect } from 'react-redux';
+import { updateUser } from '../actions/user';
+
+
+// Props
+// this.props.route.params.user
 
 class UserScreen extends Component {
   state = {}
 
-// collectionsOutput = () => {
-//   let collectionPostIds = []
-//   let CollectionIdsBelongsToPost = Object.values(this.props.collectionPosts).filter(collectionPost => collectionPost.post_id == this.props.route.params.post.id)
-//   CollectionIdsBelongsToPost.forEach(collectionPost => collectionPostIds.push(collectionPost.collection_id))
-//   let CollectionsBelongsToPost = this.props.collections.filter(collection => collectionPostIds.includes(collection.id))
-//   // console.log(this.props.collectionPosts);
-//   return (
-//     <CollectionsFlatList
-//       data={CollectionsBelongsToPost}
-//       navigation={this.props.navigation}
-//     />
-//   )
-// }
+componentDidMount(){
+  this.getUser()
+}
+getUser = () => {
+  return fetch('http://localhost:3000/v1/users/' + this.props.route.params.user.id + '.json')
+    .then((response) => response.json())
+    .then((responseJson) => {
+      this.setState({
+        usersIsLoading: false,
+        userDataSource: responseJson,
+      }, function(){
+        // this.state.usersDataSource.forEach(user => this.props.updateUser(user))
+        // console.log(this.state.userDataSource);
+        this.props.updateUser(this.state.userDataSource)
+      });
+    })
+    .catch((error) =>{
+      console.error(error);
+    })
+}
 
-
-userPosts = () => {
-  // Get Object of all collections of User
-  userCollectionsObject = this.props.collections.filter(collection => collection.user_id == this.props.route.params.user.id)
-  // Get Array of Ids of these collections
-  userCollectionsIds = userCollectionsObject.map(collection => collection.id)
-  // Get Object of CollectionPosts with these Ids
-  userCollectionPosts = this.props.collectionPosts.filter(collectionPost => userCollectionsIds.includes(collectionPost.collection_id))
-  // Get Array of PostIds of CollectionPosts (Ids of posts of collections of logged User)
-  userCollectionPostsPostIds = userCollectionPosts.map(collectionPost => collectionPost.post_id)
-  // Get Object of Posts these Ids are in array
-  userPostsObject = this.props.posts.filter(post => userCollectionPostsPostIds.includes(post.id))
-
-  // userPostsObject = {}
-  // const filtered = Object.keys(this.props.posts.byId)
-  // .map(key => parseInt(key))
-  // .filter(key => userCollectionPostsPostIds.includes(key))
-  // .reduce((obj, key) => {
-  //   obj[key] = this.props.posts.byId[key];
-  //   return obj;
-  // }, {});
-  // userPostsObject.byId = filtered
-
-
+userPosts = (data) => {
   return (
-    <View>
-      <PostsFlatList
-        data={userPostsObject}
-        navigation={this.props.navigation}
-        users={this.props.users}
-      />
-    </View>
+    <FlatList style = { styles.listContainer }
+      data={data}
+      renderItem={({ item }) =>
+        <PostExploreSnippet
+          id={item.id}
+          url={item.url}
+          post={item}
+          navigation={this.props.navigation}
+        />}
+      keyExtractor={item => item.id.toString()}
+    />
   )
 }
 
-userCollections = () => {
-  let userCollectionsObject = this.props.collections.filter(collection => collection.user_id == this.props.route.params.user.id)
+userCollections = (data) => {
   return (
     <View>
-      <CollectionsFlatList
-        data={userCollectionsObject}
-        navigation={this.props.navigation}
+      <FlatList style = { styles.listContainer }
+        data = { data }
+        keyExtractor={(item, index) => index.toString()}
+        renderItem = { info => (
+          <CollectionSnippet
+            collection={ info.item }
+            navigation={this.props.navigation}
+            type={'explore'}
+          />
+        )}
       />
     </View>
   )
@@ -74,20 +75,54 @@ userCollections = () => {
 render() {
   return (
     <Container>
-      <View style = { styles.post }>
-        <Text style = { styles.postTitle }>
-          { this.props.route.params.user.title }
-        </Text>
+      <View style = { styles.title }>
+        <View style = { styles.horizontalContainer }>
+          <View style = { styles.textContainer }>
+            <Text style = { [styles.userTitle, typo.t32, color.black80] }>{ this.props.route.params.user.title }</Text>
+            <Text style = { [typo.t16, color.black80]} numberOfLines={2} ellipsizeMode='tail'>{ this.props.user.description }</Text>
+          </View>
+          <ImageBackground source={{uri: this.props.route.params.user.avatar}} style={styles.image} imageStyle={{ borderRadius: 44 }}></ImageBackground>
+        </View>
+        <PButton
+          text= {'Подписаться'}
+          textColor = { COLOR.white }
+          color = { COLOR.blue }
+          onPress = {()=>''}
+          />
       </View>
 
       <View style={ styles.container }>
         <View>
-          <Tabs>
-            <Tab heading={ <TabHeading><Text>Posts</Text></TabHeading>}>
-              { this.userPosts() }
+          <Tabs
+            renderTabBar={() =>
+              <ScrollableTab
+                style={{
+                  width: 240,
+                  marginHorizontal: 80,
+                  borderWidth: 0,
+                  backgroundColor: 'rgba(0,0,0,0)',
+                }}
+                tabsContainerStyle={{ width: 240 }}
+              />}
+            tabBarUnderlineStyle={{ height: 40, padding: 8, marginBottom: 4, borderRadius: 20, backgroundColor: 'rgba(0,0,0,.05)', zIndex: 0 }}
+          >
+            <Tab
+              heading={'Места'}
+              activeTabStyle={{backgroundColor: 'rgba(0,0,0,0)'}}
+              tabStyle={{backgroundColor: 'rgba(0,0,0,0)'}}
+              activeTextStyle={[typo.t16, color.black80]}
+              textStyle={[typo.t16, color.black30]}
+              >
+              { this.userPosts(this.props.user.posts) }
             </Tab>
-            <Tab heading={ <TabHeading><Text>Collections</Text></TabHeading>}>
-              { this.userCollections() }
+            <Tab
+              heading={'Подборки'}
+              activeTabStyle={{backgroundColor: 'rgba(0,0,0,0)'}}
+              tabStyle={{backgroundColor: 'rgba(0,0,0,0)'}}
+              activeTextStyle={[typo.t16, color.black80]}
+              textStyle={[typo.t16, color.black30]}
+              >
+              { this.userCollections(this.props.user.collections) }
             </Tab>
           </Tabs>
         </View>
@@ -100,19 +135,26 @@ const styles = StyleSheet.create({
   horizontalContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-  },
-  post: {
-    width: '100%',
-    padding: 16,
-    marginBottom: 8,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    marginBottom: 24,
+    width: '100%'
+  },
+  textContainer: {
+    width: 260
+  },
+  title: {
+    width: '100%',
+    marginTop: 16,
+    padding: 16,
+    // flexDirection: 'row',
+    // justifyContent: 'space-between',
+    // alignItems: 'center',
     backgroundColor: 'white'
   },
   container: {
     justifyContent: 'flex-start',
     alignItems: 'center',
+    height: '100%',
   },
   smallHeading: {
     paddingRight: 16,
@@ -121,11 +163,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
     color: "#808080"
-  },
-  postTitle: {
-    fontWeight: "bold",
-    fontSize: 20,
-    color: "#595959"
   },
   button: {
     width: '100%',
@@ -144,20 +181,35 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
     color: "#808080"
+  },
+  image: {
+    width: 88,
+    height: 88,
+    borderRadius: 44,
+    backgroundColor: '#F3F3F3',
+    marginRight: 12
+  },
+  listContainer: {
+    paddingTop: 16,
+    width: '100%',
+    height: '100%',
+  },
+  userTitle: {
+    marginBottom: 8
   }
 })
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
-    posts: Object.values(state.posts.byId),
-    collections: Object.values(state.collections.byId),
-    collectionPosts: Object.values(state.collectionPost.byId),
-    users: state.users
+    user: state.users.byId[ownProps.route.params.user.id]
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
+    updateUser: (user) => {
+      dispatch(updateUser(user))
+    }
   }
 }
 

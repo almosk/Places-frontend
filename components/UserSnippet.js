@@ -1,7 +1,10 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
 import { Container, Header, Content, Button, Text, Tab, Tabs, TabHeading } from 'native-base';
+import { typo, color, COLOR } from '../styles'
 
+//Props:
+// user
 const UserSnippet = (props) => {
 
 logInButton = () => {
@@ -28,23 +31,32 @@ return (
     }}
   >
     <View style = { styles.horizontaContainer }>
-      <View style = { styles.image }></View>
+      <ImageBackground source={{uri: props.user.avatar}} style={styles.image} imageStyle={{ borderRadius: 32 }}></ImageBackground>
       <View>
-        <Text style = { styles.postTitle }>
+        <Text style = { [styles.postTitle, typo.t20, color.black80] } numberOfLines={1} ellipsizeMode='tail'>
           { props.user.title }
         </Text>
+        <View style = { styles.horizontaContainer }>
+          <Text style = { [styles.collectionTitle, typo.t14, color.black50] }>Подборки { props.user.collections_quantity }</Text>
+          <Text style = { [styles.collectionTitle, typo.t14, color.black50] }> • </Text>
+          <Text style = { [styles.collectionTitle, typo.t14, color.black50] }>Места { props.user.posts_quantity }</Text>
+        </View>
       </View>
     </View>
-    {logInButton()}
+
   </TouchableOpacity>
 );
 }
+// const image = { uri: "https://reactjs.org/logo-og.png" };
 
 const styles = StyleSheet.create({
   postSnippet: {
     width: '100%',
-    height: 72,
-    padding: 10,
+    // height: 72,
+    paddingTop: 12,
+    paddingBottom: 12,
+    paddingLeft: 16,
+    paddingRight: 16,
     backgroundColor: 'white',
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -60,10 +72,10 @@ const styles = StyleSheet.create({
     width: '30%'
   },
   postTitle: {
-    fontWeight: "bold",
-    fontSize: 16,
-    color: "#595959",
-    marginBottom: 2,
+    // fontWeight: "bold",
+    // fontSize: 16,
+    // color: "#595959",
+    marginBottom: 4,
   },
   collectionTitle: {
     fontWeight: "bold",
@@ -73,9 +85,7 @@ const styles = StyleSheet.create({
   image: {
     width: 48,
     height: 48,
-    borderRadius: 24,
-    backgroundColor: '#F3F3F3',
-    marginRight: 12
+    marginRight: 16
   },
   smallButtonText: {
     fontWeight: "bold",

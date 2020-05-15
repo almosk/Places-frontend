@@ -9,19 +9,25 @@ import NewCollectionScreen from '../containers/NewCollectionScreen'
 import NewPostScreen from '../containers/NewPostScreen'
 import EditPostScreen from '../containers/EditPostScreen'
 import SavePostScreen from '../containers/SavePostScreen'
-import ProfileInfoScreen from '../containers/ProfileInfoScreen'
+import ExploreBottomSheet from '../containers/ExploreBottomSheet'
 // Navigation
 import { createStackNavigator } from '@react-navigation/stack';
 
 class ExploreNavigator extends Component {
 render() {
+  console.disableYellowBox = true; 
   return (
-      <ExploreStack.Navigator initialRouteName="Profile">
-        <ExploreStack.Screen name="Explore" component={ExploreScreen}/>
+    <View style={styles.container}>
+
+      <ExploreStack.Navigator
+        initialRouteName="Explore"
+        headerMode='none'
+      >
+        <ExploreStack.Screen name="Explore" component={ExploreBottomSheet}/>
         <ExploreStack.Screen name="Place" component={PostScreen}
           options={({ route }) => ({
-            title: route.params.post.title,
-            post: route.params.post
+            title: route.params.post_title,
+            post_id: route.params.post_id
           })}
         />
         <ExploreStack.Screen name="Collection" component={CollectionScreen}
@@ -30,11 +36,19 @@ render() {
         <ExploreStack.Screen name="User" component={UserScreen}
           options={({ route }) => ({ title: route.params.collectionName })}
         />
-        <ExploreStack.Screen name="Save post" component={SavePostScreen} />
       </ExploreStack.Navigator>
+    </View>
     );
   }
 }
 const ExploreStack = createStackNavigator();
+
+const styles = StyleSheet.create({
+  container: {
+    height: '100%',
+    width: '100%',
+    backgroundColor: 'red'
+  }
+})
 
 export default ExploreNavigator

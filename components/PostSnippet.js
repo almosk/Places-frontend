@@ -1,82 +1,80 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Button, ImageBackground } from 'react-native';
+import IconMore from '../assets/icons/more.svg';
+import { typo, color, COLOR } from '../styles'
 
 const PostSnippet = (props) => {
 
-user_id = () => {
-  if (props.users.byId[props.post.user_id] !== null && props.users.byId[props.post.user_id] !== '' && typeof props.users.byId[props.post.user_id] !== "undefined") {
-    return(
-      <Text style = { styles.collectionTitle }>
-        { props.users.byId[props.post.user_id].title }
-      </Text>
-    )
-  }
-}
+// Props:
+// props.post
+// props.navigation
 
 return (
   <TouchableOpacity
+    style = { styles.postSnippet }
     onPress={() => {
       props.navigation.navigate('Place', {
-        postName: props.post.title,
-        post: props.post,
-        deletePost: props.deletePost
+        id: props.post.id,
       })
     }}
   >
-    <View style = { styles.postSnippet }>
-      <View style = { styles.horizontaContainer }>
-        <View style = { styles.image }></View>
+    <View style = { styles.horizontaContainerSpace }>
+      <View style = { styles.horizontaContainerStart }>
+        <ImageBackground source={{uri: props.post.cover}} style={styles.image} imageStyle={{ borderRadius: 4 }}></ImageBackground>
         <View>
-          <Text style = { styles.postTitle }>
+          <Text style = { [styles.postTitle, typo.t18, color.black80]} numberOfLines={1} ellipsizeMode='tail'>
             { props.post.title }
           </Text>
-          <Text style = { styles.collectionTitle }>
-            { this.user_id() }
+          <Text style = { [styles.collectionTitle, typo.t14, color.black50] }>
+            { props.post.user_title }
           </Text>
         </View>
       </View>
+      <IconMore width={24} height={24}/>
     </View>
   </TouchableOpacity>
-);
-}
+)}
 
 const styles = StyleSheet.create({
   postSnippet: {
     width: '100%',
-    height: 72,
-    padding: 10,
+    // height: 72,
+    padding: 16,
+    paddingTop: 12,
+    paddingBottom: 12,
     backgroundColor: 'white',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    borderBottomColor: '#F2F2F2',
-    borderBottomWidth: 1,
+    // borderBottomColor: '#F2F2F2',
+    // borderBottomWidth: 1,
   },
-  horizontaContainer: {
+  horizontaContainerStart: {
     flexDirection: 'row',
+    alignItems: 'center',
+  },
+  horizontaContainerSpace: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
   postButton: {
     width: '30%'
   },
   postTitle: {
-    fontWeight: "bold",
-    fontSize: 16,
-    color: "#595959",
-    marginBottom: 2,
+    width: 270,
+    marginBottom: 6,
   },
   collectionTitle: {
-    fontWeight: "bold",
-    fontSize: 14,
-    color: "#808080"
   },
   image: {
-    width: 48,
-    height: 48,
+    width: 56,
+    height: 56,
     borderRadius: 4,
     backgroundColor: '#F3F3F3',
     marginRight: 12
   }
 });
 
-export default PostSnippet;
+export default PostSnippet

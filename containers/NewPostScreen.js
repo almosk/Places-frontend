@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Text, StyleSheet, View, TextInput, Button, FlatList } from 'react-native';
-import CollectionsFlatList from '../components/CollectionsFlatList';
+import CollectionSnippetSmall from '../components/CollectionSnippetSmall';
+import { typo, color } from '../styles'
 // Redux
 import { connect } from 'react-redux';
 import { addPost, deletePost } from '../actions/post';
 import { addCollectionPost } from '../actions/collectionPost';
+import { addProfileCollection } from '../actions/profileCollection';
 
 
 class NewPostScreen extends Component {
@@ -12,6 +14,26 @@ class NewPostScreen extends Component {
 state = {
   inputText: '',
   collectionId: ''
+}
+
+componentDidMount(){
+  this.getCollectionsIndex()
+}
+getCollectionsIndex = () => {
+  return fetch('http://localhost:3000/v1/collections/profile_collections.json')
+    .then((response) => response.json())
+    .then((responseJson) => {
+      this.setState({
+        collectionsIsLoading: false,
+        collectionsDataSource: responseJson,
+      }, function(){
+        this.state.collectionsDataSource.forEach(collection => this.props.addProfileCollection(collection))
+      });
+
+    })
+    .catch((error) =>{
+      console.error(error);
+    })
 }
 
 postSubmitHandler = () => {
@@ -56,14 +78,13 @@ sendCollectionPostToBackend = (collection_id, post_id) => {
   })
   .then((response) => response.json())
   .then((responseJson) => {
-    console.log(responseJson);
+    // console.log(responseJson);
     this.props.addCollectionPost(responseJson.collection_post.id, collection_id, post_id)
   })
   .catch((error) =>{
     console.error(error);
   })
 }
-
 sendPostToBackend = (title) => {
   fetch('http://localhost:3000/posts', {
     method: 'POST',
@@ -74,7 +95,7 @@ sendPostToBackend = (title) => {
     body: JSON.stringify({
       title: title,
       place_id: 3,
-      user_id: this.props.users.loggedUser
+      user_id: 0
     }),
   })
   .then((response) => response.json())
@@ -93,30 +114,30 @@ sendPostToBackend = (title) => {
 }
 
 render() {
-  let loggedUser = Object.values(this.props.users.byId).filter(user => user.id == this.props.users.loggedUser)[0]
-  profileCollections = this.props.collections.filter(collection => collection.user_id == this.props.users.loggedUser)
   return (
     <View>
       <View style={ styles.container }>
+        <Text style={[typo.t14, color.black80]}>Новое место</Text>
         <View style = { styles.inputContainer }>
           <TextInput
-            placeholder = "Post title..."
-            style = { styles.postInput }
+            placeholder = "Введите название..."
+            style = { [typo.t24, color.black80] }
             value = { this.state.inputText }
             onChangeText = { this.inputTextChangeHandler }
           ></TextInput>
         </View>
-      </View>
-      <View style={ styles.container }>
-        <Text style={ styles.smallHeading }>Post creator:</Text>
-        <Text style={ styles.text }>{ loggedUser.title }</Text>
-      </View>
-      <View style={ styles.container }>
-        <Text style={ styles.smallHeading }>Save to</Text>
-        <CollectionsFlatList
-          data = { profileCollections }
-          setCollection = { this.setCollection }
-        />
+
+        <Text style={[typo.t14, color.black50]}>Выберите подборку</Text>
+          <FlatList style = { styles.listContainer }
+            data = { this.props.profileCollections }
+            keyExtractor={(item, index) => index.toString()}
+            renderItem = { info => (
+              <CollectionSnippetSmall
+                collection={ info.item }
+                setCollection={ this.setCollection }
+              />
+            )}
+          />
       </View>
     </View>
   )}
@@ -124,20 +145,21 @@ render() {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 16,
-    paddingBottom: 16,
+    padding: 16,
+    paddingTop: 32,
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     backgroundColor: 'white',
-    marginBottom: 16
+    // marginBottom: 16
   },
   inputContainer: {
     height: 56,
-    padding: 16,
+    // padding: 16,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: '100%'
+    width: '100%',
+    marginBottom: 32
   },
   postInput: {
     width: '70%'
@@ -146,7 +168,8 @@ const styles = StyleSheet.create({
     width: '30%'
   },
   listContainer: {
-    width: '100%'
+    width: '100%',
+    marginTop: 16,
   },
   smallHeading: {
     paddingRight: 16,
@@ -167,10 +190,11 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    posts: Object.values(state.posts.byId),
-    collections: Object.values(state.collections.byId),
-    collectionPosts: state.collectionPost.byId,
-    users: state.users
+    // posts: Object.values(state.posts.byId),
+    // collections: Object.values(state.collections.byId),
+    // collectionPosts: state.collectionPost.byId,
+    // users: state.users
+    profileCollections: Object.values(state.profileCollections.byId),
   }
 }
 
@@ -184,6 +208,9 @@ const mapDispatchToProps = dispatch => {
     },
     addCollectionPost: (id, collection_id, post_id) => {
       dispatch(addCollectionPost(id, collection_id, post_id))
+    },
+    addProfileCollection: (collection) => {
+      dispatch(addProfileCollection(collection))
     }
   }
 }

@@ -1,47 +1,57 @@
 import 'react-native-gesture-handler';
 // React
 import { AppRegistry, View, Text, Button } from 'react-native';
+// import {YellowBox} from 'react-native';
 import React from 'react';
 import { name as appName } from './app.json';
 // Navigation
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { CardStyleInterpolators } from '@react-navigation/stack';
+import { TransitionPresets } from '@react-navigation/stack';
 // Continers and Components
-import ProfileScreen from './containers/ProfileScreen';
-import ProfileNavigator from './navigators/ProfileNavigator';
-import NewsScreen from './containers/NewsScreen';
-import ExploreNavigator from './navigators/ExploreNavigator';
+import MainBottomTabNavigator from './navigators/MainBottomTabNavigator';
+import NewPostScreen from './containers/NewPostScreen'
+import SavePostScreen from './containers/SavePostScreen'
+import SettingsScreen from './containers/SettingsScreen'
 // Redux
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import { logger } from 'redux-logger';
 import { Provider } from 'react-redux';
-import configureStore from './store';
+import rootReducer from './store';
 
-
-const store = configureStore()
-const Tab = createBottomTabNavigator();
-// const Stack = createStackNavigator();
+// YellowBox.ignoreWarnings([]);
 
 const RNRedux = () => (
-  <Provider store = { store }>
+  <Provider store = { createStore(rootReducer, applyMiddleware(thunk)) }>
     <NavigationContainer>
-      <Tab.Navigator initialRouteName="Profile">
-        <Tab.Screen name="Explore" component={ExploreNavigator} />
-        <Tab.Screen name="Profile" component={ProfileNavigator} />
-      </Tab.Navigator>
+      <Stack.Navigator
+        headerMode='none'
+        mode='modal'
+        initialRouteName="MainBottomTabNavigator"
+      >
+        <Stack.Screen name="MainBottomTabNavigator" component={MainBottomTabNavigator} />
+        <Stack.Screen
+          name="New Post"
+          component={NewPostScreen}
+          options={{cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS}}
+          />
+        <Stack.Screen
+          name="Save post"
+          component={SavePostScreen}
+          options={{cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS}}
+          />
+        <Stack.Screen
+          name="Settings"
+          component={SettingsScreen}
+          options={{cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS}}
+          />
+      </Stack.Navigator>
     </NavigationContainer>
   </Provider>
 )
 
+const Stack = createStackNavigator();
+
 AppRegistry.registerComponent(appName, () => RNRedux);
-
-// <Tab.Screen name="News" component={NewsScreen} />
-
-// <NavigationContainer>
-//   <Stack.Navigator initialRouteName="Places">
-//     <Stack.Screen name="Places" component={App} />
-//     <Stack.Screen name="Place"
-//       component={Place}
-//       options={({ route }) => ({ title: route.params.placeName })}
-//     />
-//   </Stack.Navigator>
-// </NavigationContainer>

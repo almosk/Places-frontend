@@ -1,148 +1,118 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TextInput, FlatList } from 'react-native';
+import { StyleSheet, View, TextInput, FlatList, TouchableOpacity } from 'react-native';
 import ProfilePosts from '../containers/ProfilePosts';
 import ProfileCollections from '../containers/ProfileCollections';
+import ProfileNavigator from '../navigators/ProfileNavigator';
+import ProfileBottomSheet from '../containers/ProfileBottomSheet'
+import TopBar from '../components/TopBar'
+import BottomSheet from 'reanimated-bottom-sheet'
 import { Container, Text, Tab, Tabs, TabHeading } from 'native-base';
+import { useNavigation, useNavigationState } from '@react-navigation/native';
+import MapBlock from '../containers/MapBlock'
+//Map
+import MapboxGL from "@react-native-mapbox-gl/maps";
 // Redux
 import { connect } from 'react-redux';
-import { addPost } from '../actions/post';
-import { addCollection } from '../actions/collection';
-import { addUser } from '../actions/user';
-import { addCollectionPost } from '../actions/collectionPost';
 
-class ProfileScreen extends Component {
+MapboxGL.setAccessToken("pk.eyJ1IjoiYWxtb3NrIiwiYSI6ImNrOHhhdWw3MzBodGkzbG8wMzZhYm4waHcifQ.xy56Az5bM0S2EzXR_gdYjw");
 
-componentDidMount(){
-  this.getPostsFromBackend()
-  this.getCollectionsFromBackend()
-  this.getUsersFromBackend()
-  this.getCollectionPostsFromBackend()
-}
-getPostsFromBackend = () => {
-  return fetch('http://localhost:3000/posts.json')
-    .then((response) => response.json())
-    .then((responseJson) => {
-      this.setState({
-        postsIsLoading: false,
-        postsDataSource: responseJson,
-      }, function(){
-        // console.log('back', this.state.postsDataSource);
-        this.state.postsDataSource.forEach(post => this.props.addPost(post.title, post.id, post.user_id))
-        // this.state.dataSource.forEach(post => console.log(post.title, post.id))
-      });
+const ProfileScreen = (props) => {
+  const navigation = useNavigation()
+  // const state = useNavigationState(state => state);
+  getStackRoute = (data) => {
+    console.log(data);
+  }
 
-    })
-    .catch((error) =>{
-      console.error(error);
-    })
-}
-getCollectionsFromBackend = () => {
-  return fetch('http://localhost:3000/collections.json')
-    .then((response) => response.json())
-    .then((responseJson) => {
-      this.setState({
-        collectionsIsLoading: false,
-        collectionsDataSource: responseJson,
-      }, function(){
-        // console.log(this.state.collectionsDataSource[0].id);
-        this.state.collectionsDataSource.forEach(collection => this.props.addCollection(collection.title, collection.id, collection.user_id))
-      });
-
-    })
-    .catch((error) =>{
-      console.error(error);
-    });
-}
-getUsersFromBackend = () => {
-  return fetch('http://localhost:3000/users.json')
-    .then((response) => response.json())
-    .then((responseJson) => {
-      this.setState({
-        usersIsLoading: false,
-        usersDataSource: responseJson,
-      }, function(){
-        this.state.usersDataSource.forEach(user => this.props.addUser(user.name, user.id))
-        // this.state.dataSource.forEach(post => console.log(post.title, post.id))
-      });
-
-    })
-    .catch((error) =>{
-      console.error(error);
-    })
-}
-getCollectionPostsFromBackend = () => {
-  return fetch('http://localhost:3000/collection_posts.json')
-    .then((response) => response.json())
-    .then((responseJson) => {
-      this.setState({
-        collectionPostsIsLoading: false,
-        collectionPostsDataSource: responseJson,
-      }, function(){
-        this.state.collectionPostsDataSource.forEach(collectionPost => this.props.addCollectionPost(collectionPost.id, collectionPost.collection_id, collectionPost.post_id))
-        // this.state.dataSource.forEach(post => console.log(post.title, post.id))
-      });
-
-    })
-    .catch((error) =>{
-      console.error(error);
-    })
-}
-
-render() {
-  return (
-    <Container>
+  renderContent = () => {
+    return (
       <View style={ styles.container }>
-        <View>
-          <Tabs>
-            <Tab heading={ <TabHeading><Text>Posts</Text></TabHeading>}>
-              <ProfilePosts
-                navigation={this.props.navigation}
-                posts={this.props.posts}
-              />
-            </Tab>
-            <Tab heading={ <TabHeading><Text>Collections</Text></TabHeading>}>
-              <ProfileCollections
-                navigation={this.props.navigation}
-                collections={this.props.collections}
-                collectionPosts={this.props.collectionPosts}
-                users={this.props.users}
-              />
-            </Tab>
-          </Tabs>
+        <ProfileNavigator
+          getStackRoute = { this.getStackRoute }
+        />
+      </View>
+    )
+  }
+  renderHeader = () => {
+    return (
+      <View style={styles.header}>
+        <View style={styles.headerHandler}>
         </View>
       </View>
+    )
+  }
+
+  return (
+    <Container style={ styles.container }>
+      <TopBar
+        navigation={ navigation }
+        type={ 'profile' }
+        // route = { route }
+      />
+
+      <MapBlock
+        posts = { props.profilePosts }
+      />
+
+      <BottomSheet
+        snapPoints = {[450, 672, 248]}
+        enabledBottomInitialAnimation = { true }
+        renderContent = {this.renderContent}
+        renderHeader = {this.renderHeader}
+        />
     </Container>
   )
-}}
+}
+
+// <MapBlock/>
+
 
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'flex-start',
     alignItems: 'center',
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
+    overflow: 'hidden',
+    backgroundColor: "#cccccc",
+    height: '100%',
+  },
+  mapContainer: {
+    height: 600,
+    width: '100%',
+    backgroundColor: "tomato"
+  },
+  map: {
+    flex: 1
+  },
+  header: {
+    height: 32,
+    marginBottom: -32,
+    // backgroundColor: "#fafafa",
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
+    justifyContent: "flex-start",
+    alignItems: "center"
+  },
+  headerHandler: {
+    marginTop: 10,
+    height: 5,
+    width: 64,
+    backgroundColor: "#cccccc",
+    borderRadius: 4
   }
 })
+
 const mapStateToProps = state => {
   return {
-    collections: Object.values(state.collections.byId),
-    posts: Object.values(state.posts.byId),
-    collectionPosts: Object.values(state.collectionPost.byId),
-    users: state.users
+    profilePosts: Object.values(state.profilePosts.byId),
   }
 }
+
 const mapDispatchToProps = dispatch => {
   return {
-    addCollection: (title, id, user_id) => {
-      dispatch(addCollection(title, id, user_id))
-    },
-    addPost: (title, id, user_id) => {
-      dispatch(addPost(title, id, user_id))
-    },
-    addUser: (title, id) => {
-      dispatch(addUser(title, id))
-    },
-    addCollectionPost: (id, collecion_id, post_id) => {
-      dispatch(addCollectionPost(id, collecion_id, post_id))
-    },
+    // addPost: (post) => {
+    //   dispatch(addPost(post))
+    // }
   }
 }
 

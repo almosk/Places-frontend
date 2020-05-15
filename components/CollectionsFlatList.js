@@ -10,8 +10,6 @@ const CollectionsFlatList = (props) => {
         <CollectionSnippetSmall
           selectedCollectionId = { props.selectedCollectionId }
           collection={item}
-          title={ item.title }
-          id={ item.id }
           setCollection={ props.setCollection }
         />}
       keyExtractor={item => item.id}

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TextInput, FlatList, SafeAreaView, ScrollView } from 'react-native';
 import PostSnippet from '../components/PostSnippet';
-import PostsFlatList from '../components/PostsFlatList';
 import { Container, Header, Content, Button, Text, Tab, Tabs, TabHeading } from 'native-base';
+import PButton from '../components/PButton';
+import { typo, color, COLOR } from '../styles'
 // Redux
 import { connect } from 'react-redux';
-import { addPost, deletePost } from '../actions/post';
+import { addProfilePost, deleteProfilePost } from '../actions/profilePost';
 
 
 class ProfilePosts extends Component {
@@ -15,59 +16,66 @@ state = {
   posts: []
 }
 
-static navigationOptions = { header: null };
-
-deletePost = (id) => {
-  this.props.deletePost(id)
-  fetch('http://localhost:3000/posts/' + id, {
-    method: 'DELETE',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    }
-  })
-  .catch((error) =>{
-    console.error(error);
-  })
+componentDidMount(){
+  this.getPostsIndex()
 }
 
+getPostsIndex = () => {
+  // const myHeaders = new Headers({
+  //   'access-token': this.props.login['map']['access-token'],
+  //   'client': this.props.login['map']['client'],
+  //   'uid': this.props.login['map']['uid']
+  // });
+  return fetch('http://localhost:3000/v1/posts/profile_posts.json', {
+    headers: {
+      // 'access-token': this.props.login['headers']['map']['access-token']
+    },
+  }).then((response) => response.json())
+    .then((responseJson) => {
+      this.setState({
+        postsIsLoading: false,
+        postsDataSource: responseJson,
+      }, function(){
+        // console.log('back', this.state.postsDataSource);
+        this.state.postsDataSource.forEach(post => this.props.addProfilePost(post))
+        // this.state.postsDataSource.forEach(post => console.log(post))
+      });
+
+    })
+    .catch((error) =>{
+      console.error(error);
+    })
+}
+
+
 render() {
-  // Get Object of all collections of logged User
-  profileCollections = this.props.collections.filter(collection => collection.user_id == this.props.users.loggedUser)
-  // Get Array of Ids of these collections
-  profileCollectionsIds = profileCollections.map(collection => collection.id)
-  // Get Object of CollectionPosts with these Ids
-  profileCollectionPosts = this.props.collectionPosts.filter(collectionPost => profileCollectionsIds.includes(collectionPost.collection_id))
-  // Get Array of PostIds of CollectionPosts (Ids of posts of collections of logged User)
-  profileCollectionPostsPostIds = profileCollectionPosts.map(collectionPost => collectionPost.post_id)
-  // Get Object of Posts these Ids are in array
-  profilePosts = this.props.posts.filter(post => profileCollectionPostsPostIds.includes(post.id))
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView}>
-        <View style={ styles.buttonContainer }>
-          <Button
-            light
-            block
-            rounded
-            onPress={() => {
-              this.props.navigation.navigate('New Post')
-            }}
-          >
-            <Text>New Post</Text>
-          </Button>
-        </View>
-        <View style = { styles.listContainer }>
-          <PostsFlatList
-            data={profilePosts}
+    <View style={styles.container}>
+      <FlatList style = { styles.listContainer }
+        data={this.props.profilePosts}
+        ListHeaderComponent={
+          <View style={ styles.buttonContainer }>
+            <PButton
+              text={'Добавить место'}
+              color= {COLOR.black10}
+              textColor={COLOR.black80}
+              onPress={() => {
+                this.props.navigation.navigate('New Post')
+              }}
+            />
+          </View>
+        }
+        renderItem={({ item }) =>
+          <PostSnippet
+            id={item.id}
+            url={item.url}
+            post={item}
             navigation={this.props.navigation}
-            deletePost={ this.deletePost }
-            users={this.props.users}
-          />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+          />}
+        keyExtractor={item => item.id.toString()}
+      />
+    </View>
   );
   }
 }
@@ -75,7 +83,8 @@ render() {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    paddingTop: 16,
+    height: '100%',
+    // paddingTop: 16,
     justifyContent: 'flex-start',
     alignItems: 'center',
   },
@@ -89,34 +98,34 @@ const styles = StyleSheet.create({
     width: '30%'
   },
   newPostButton:{
-    marginTop: '130px'
+    // marginTop: '130px'
   },
   listContainer: {
-    marginTop: 16,
-    width: '100%'
+    paddingTop: 16,
+    width: '100%',
+    height: '100%',
   },
   buttonContainer: {
     width: '100%',
-    padding: 16
+    padding: 16,
+    paddingTop: 0
   }
 });
 
 const mapStateToProps = state => {
   return {
-    posts: Object.values(state.posts.byId),
-    users: state.users,
-    collectionPosts: Object.values(state.collectionPost.byId),
-    collections: Object.values(state.collections.byId)
+    profilePosts: Object.values(state.profilePosts.byId),
+    // login: state.login
+    // users: state.users,
+    // collectionPosts: Object.values(state.collectionPost.byId),
+    // collections: Object.values(state.collections.byId)
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    addPost: (title, id) => {
-      dispatch(addPost(title, id))
-    },
-    deletePost: (id) => {
-      dispatch(deletePost(id))
+    addProfilePost: (post) => {
+      dispatch(addProfilePost(post))
     }
   }
 }

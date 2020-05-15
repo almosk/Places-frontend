@@ -1,11 +1,19 @@
-import { ADD_USER, DELETE_USER, LOG_IN_USER } from './types';
+import { ADD_USER, UPDATE_USER, DELETE_USER, LOG_IN_USER } from './types';
 
-export const addUser = (title, id) => {
+export const addUser = user => {
   return {
     type: ADD_USER,
     payload: {
-      title: title,
-      id: id
+      user: user
+    }
+  }
+}
+
+export const updateUser = (user) => {
+  return {
+    type: UPDATE_USER,
+    payload: {
+      user: user
     }
   }
 }
