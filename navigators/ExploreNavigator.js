@@ -15,6 +15,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 class ExploreNavigator extends Component {
 render() {
+  console.disableYellowBox = true; 
   return (
     <View style={styles.container}>
 

@@ -1,6 +1,7 @@
 import 'react-native-gesture-handler';
 // React
 import { AppRegistry, View, Text, Button } from 'react-native';
+// import {YellowBox} from 'react-native';
 import React from 'react';
 import { name as appName } from './app.json';
 // Navigation
@@ -19,6 +20,8 @@ import thunk from 'redux-thunk';
 import { logger } from 'redux-logger';
 import { Provider } from 'react-redux';
 import rootReducer from './store';
+
+// YellowBox.ignoreWarnings([]);
 
 const RNRedux = () => (
   <Provider store = { createStore(rootReducer, applyMiddleware(thunk)) }>

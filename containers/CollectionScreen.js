@@ -52,7 +52,7 @@ render() {
               <View style = { styles.imageContainer }>
                 <View style = { styles.topContainer }>
                   <View style = { styles.topContainerBg }>
-                    <Text style = { [typo.t14, color.black80] }>{ collection.posts_quantity } posts</Text>
+                    <Text style = { [typo.t14, color.black80] }>{ collection.posts_quantity } мест</Text>
                   </View>
                 </View>
                 <View style = { styles.bottomContainer }>
@@ -65,7 +65,7 @@ render() {
               </View>
             </ImageBackground>
             <View style = { styles.container }>
-              <Text style = { [styles.description, typo.t16, color.black80] }>Collection Description{collection.description}</Text>
+              <Text style = { [styles.description, typo.t16, color.black50] }>{collection.description}</Text>
               <PButton
                 text= {'Подписаться'}
                 color= {COLOR.blue}
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   description: {
-    marginBottom: 16
+    marginBottom: 32
   }
 });
 
